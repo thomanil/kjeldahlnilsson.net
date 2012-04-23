@@ -2,9 +2,9 @@
 
 def setup_folders_and_assets
   puts `mkdir -p site`
-  puts `rsync -r src/images site/images`
-  puts `rsync -r src/stylesheets site/stylesheets`
-  puts `rsync -r src/javascript site/javascript`  
+  puts `rsync -r src/images site`
+  puts `rsync -r src/stylesheets site`
+  puts `rsync -r src/javascript site`  
 end
 
 def page(content)
