@@ -23,6 +23,4 @@ setup_folders_and_assets()
 pages = ["index.html", "portfolio.html", "contact.html"]
 pages.each { |name| generate_page(name)}
 
-
-puts "Done."
-
+puts "Done! Site generated, upload /site to push it live."
