@@ -3,30 +3,42 @@
   <head>
     <meta charset="utf-8"> 
     <link rel="stylesheet" type="text/css" href="stylesheets/style.css" />
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.5.3/modernizr.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thomas Kjeldahl Nilsson</title>
+
+    <!--[if lt IE 9]>
+	<script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
+        <![endif]-->
   </head>
 
   <body>
-    <div id="head">
-      <h1>Thomas Kjeldahl Nilsson</h1>
+
+    <div id="container">
+      
+      <div id="head">
+        <h1>Thomas Kjeldahl Nilsson</h1>
+      </div>
+
+      <div id="navbar">
+        <ul>
+          <li><a href="index.html">About</a></li>
+          <li><a href="portfolio.html">Portfolio</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      
+      <div id="content">
+        ***CONTENT***
+      </div>
+
+      <div id="foot">
+        &copy 2012 Thomas Kjeldahl Nilsson
+      </div>
+
     </div>
 
-    <div id="navbar">
-      <ul>
-        <li><a href="index.html">About</a></li>
-        <li><a href="portfolio.html">Portfolio</a></li>
-        <li><a href="contact.html">Contact</a></li>
-      </ul>
-    </div>
     
-    <div id="content">
-      ***CONTENT***
-    </div>
-
-    <div id="foot">
-      &copy 2012 Thomas Kjeldahl Nilsson
-    </div>
-
     <script type="text/javascript">
       var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
       document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
@@ -36,5 +48,6 @@
       var pageTracker = _gat._getTracker("UA-8094387-2");
       pageTracker._trackPageview();
       } catch(err) {}</script>
+    
   </body>
 </html>
