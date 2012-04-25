@@ -57,45 +57,68 @@ table {
 
 
 body {
-    background-color: black;
+    background-color: #D9D9D9;
+    font-family: arial;
 }
 
-#head {
+#head, #navbar, #content, #foot {
     background-color: white;
-}
-
-#navbar {
-    background-color: white;
-}
-
-#content {
-    background-color: white;
-}
-
-#foot {
-    background-color: white;
+    padding: 
 }
 
 #container {
-    margin: 15px 15px 15px 15px;
+    margin: 1em 1em 1em 1em;
+}
+
+h1, h2 {
+    margin: 1em 0em 1em 0em;
+}
+
+hr {
+    margin: 1em 0em 1em 0em;
+}
+
+p {
+    margin: 1em 0em 1em 0em;
+}
+
+.portrait {
+    float: left;
+    -moz-transform: scale(0.8);
+    -webkit-transform: scale(0.8);
+    transform: scale(0.8);
 }
 
 
 /*Responsive and dimension-specific*/
+
+/* Phone */
 @media (max-width: 320px) {
+    
     body {
-        background-color: red;
+        word-wrap: break-word;
     }
-}
- 
-@media (min-width: 321px) and (max-width: 768px) {
-    body {
-        background-color: yellow;
+
+    h1 {
+        color: red;
+    }
+
+    ul li {
+        display:inline;
+        margin: 0em 0.5em 0em 0em;
     }
 }
 
+/* Tablet */
+@media (min-width: 321px) and (max-width: 768px) {
+    h1 {
+        color: yellow;
+    }
+}
+
+/* Desktop */
 @media (min-width: 769px)  {
-    body {
-        background-color: green;
+    h1 {
+        color: green;
     }
 }
