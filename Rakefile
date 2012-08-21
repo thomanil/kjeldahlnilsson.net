@@ -16,10 +16,10 @@ end
 
 def setup_folders_and_assets
   puts `mkdir -p site`
+  puts `echo "ErrorDocument 404 /404.html" > site/.htaccess`
   puts `rsync -r src/images site`
   puts `rsync -r src/stylesheets site`
   puts `rsync -r src/javascript site`
-  puts `echo "ErrorDocument 404 /404.html" > site/.htaccess`
 end
 
 def page(content)
