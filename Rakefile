@@ -37,6 +37,8 @@ def generate_main_pages
   end
 end
 
+# Fix 404 when landing at kjeldahlnilsson.net/blog
+
 def generate_blog
   # TODO first, convert from orgfiles to html files (emacs batch job?)
   # TODO orgmode: find good way to encode title of each post, extract here
