@@ -5,15 +5,13 @@ task :default => [:generate]
 desc "Deploy to my site"
 task :deploy do
   puts `rsync -arl site/* ninjasti@ninjastic.net:~/public_html/thomas`
-  puts "Deployed."
 end
 
 desc "Generate from source"
 task :generate do
-  setup_folders_and_assets()
+  setup_folders_and_assets
   generate_main_pages
-  generate_blog_posts
-  puts "Generated."
+  generate_blog_posts_with_archive
 end
 
 def setup_folders_and_assets
@@ -25,7 +23,7 @@ end
 
 def page(content)
   layout = File.read("src/layout.html")
-  body = layout.gsub("***CONTENT***", content) # Don't need erb yet :)
+  body = layout.gsub("***CONTENT***", content)
 end
 
 def generate_main_pages
@@ -38,30 +36,41 @@ def generate_main_pages
   end
 end
 
-def generate_blog_posts
-  # TODO convert from orgfiles to html first
-  # TODO derive title field & link description from blog post name
+def generate_blog_posts_with_archive
+  # TODO first, convert from orgfiles to html files (emacs batch job?)
+  # TODO orgmode: find good way to encode title of each post, extract here
+  # TODO orgmode: find good way to encode publish date, extract here
+  blog_pages = Dir.glob("./src/blog/*").map{|path|File.basename(path)}
+  # TODO sort blog_pages based on publish dates, newest date = first in array
 
-  blog_pages = ["first.html", "second.html"] # NOTE: first element in array is newest post!
-
-  # Write each blog post into its own html file directly under /site
-  # TODO add links to prev and next posts
-  # TODO each blog post should have disqus footer
+  archive = ""
   blog_pages.each_with_index do |name, i|
+    title = name # TODO use actual title
     body = File.read("src/blog/#{name}")
+
+    # Add navigation to bottom of post body
+    body += "<a href='#{blog_pages[i-1]}'><--Previous</a>" if i > 0
+    body += " <a href='archive.html'>Archive</a> "
+    body += "<a href='#{blog_pages[i+1]}'>Next--></a>" if i < (blog_pages.size - 1)
+
+    # Write actual post to file
     File.open("site/#{name}", "w+") do |f|
       f.write(page(body))
     end
-    if i == 0 # First post = also use as index page
+    
+    if i == 0 # The first/most recent post is also index.html of site
       File.open("site/index.html", "w+") do |f|
         f.write(page(body))
       end
     end
+
+    # Link to it from archive page as well
+    archive += "<li><a href='#{name}'>#{title}</a></li>"
   end
 
-  # Create archive list page
-  body = "<ul><li><a href='first.html'>First</a></li>  <li><a href='second.html'>Second</a></li> </ul>"
+  # Write out the archive page
+  archive = "<ul>#{archive}</ul>"  
   File.open("site/archive.html", "w+") do |f|
-    f.write(page(body))
+    f.write(page(archive))
   end
 end
