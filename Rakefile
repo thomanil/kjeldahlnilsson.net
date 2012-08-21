@@ -39,24 +39,29 @@ def generate_main_pages
 end
 
 def generate_blog_posts
-  blog_pages = ["first.html", "second.html"]
+  # TODO convert from orgfiles to html first
+  # TODO derive title field & link description from blog post name
 
-  # Write newest blog post into index.html with links to all proceeding blog posts below
-  first_post = blog_pages.first
-  body = File.read("src/blog/#{first_post}")
-  File.open("site/index.html", "w+") do |f|
-    f.write(page(body))
-  end
-  
+  blog_pages = ["first.html", "second.html"] # NOTE: first element in array is newest post!
+
   # Write each blog post into its own html file directly under /site
-  blog_pages.each do |name|
+  # TODO add links to prev and next posts
+  # TODO each blog post should have disqus footer
+  blog_pages.each_with_index do |name, i|
     body = File.read("src/blog/#{name}")
     File.open("site/#{name}", "w+") do |f|
       f.write(page(body))
     end
+    if i == 0 # First post = also use as index page
+      File.open("site/index.html", "w+") do |f|
+        f.write(page(body))
+      end
+    end
   end
 
-  # TODO convert from orgfiles to html first
-  # TODO each blog post should have link to last and next post
-  # TODO each blog post should have disqus footer
+  # Create archive list page
+  body = "<ul><li><a href='first.html'>First</a></li>  <li><a href='second.html'>Second</a></li> </ul>"
+  File.open("site/archive.html", "w+") do |f|
+    f.write(page(body))
+  end
 end
