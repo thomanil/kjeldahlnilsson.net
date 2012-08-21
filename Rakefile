@@ -4,14 +4,14 @@ task :default => [:generate]
 
 desc "Deploy to my site"
 task :deploy do
-  puts `rsync -arl site/* ninjasti@ninjastic.net:~/public_html/thomas`
+  puts `rsync -arl site/ ninjasti@ninjastic.net:~/public_html/thomas`
 end
 
 desc "Generate from source"
 task :generate do
   setup_folders_and_assets
   generate_main_pages
-  generate_blog_posts_with_archive
+  generate_blog
 end
 
 def setup_folders_and_assets
@@ -19,24 +19,25 @@ def setup_folders_and_assets
   puts `rsync -r src/images site`
   puts `rsync -r src/stylesheets site`
   puts `rsync -r src/javascript site`
+  puts `echo "ErrorDocument 404 /404.html" > site/.htaccess`
 end
 
 def page(content)
-  layout = File.read("src/layout.html")
+  layout = File.read("src/mainpages/layout.html")
   body = layout.gsub("***CONTENT***", content)
 end
 
 def generate_main_pages
-  main_pages = ["about.html", "portfolio.html", "contact.html"]
+  main_pages = Dir.glob("./src/mainpages/*").map{|path|File.basename(path)}
   main_pages.each do |name|
-    body = File.read("src/#{name}")
+    body = File.read("src/mainpages/#{name}")
     File.open("site/#{name}", "w+") do |f|
       f.write(page(body))
     end
   end
 end
 
-def generate_blog_posts_with_archive
+def generate_blog
   # TODO first, convert from orgfiles to html files (emacs batch job?)
   # TODO orgmode: find good way to encode title of each post, extract here
   # TODO orgmode: find good way to encode publish date, extract here
@@ -73,4 +74,6 @@ def generate_blog_posts_with_archive
   File.open("site/archive.html", "w+") do |f|
     f.write(page(archive))
   end
+
+  # TODO generate rss feed
 end
