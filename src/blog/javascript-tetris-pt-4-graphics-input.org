@@ -1,0 +1,286 @@
+#+TITLE:     Javascript Tetris Pt 4: Graphics & Input
+#+EMAIL:     thomas@kjeldahlnilsson.net
+#+DATE:      24.01.2009
+#+DESCRIPTION:
+#+KEYWORDS:
+#+LANGUAGE:  en
+#+OPTIONS: H:3 num:nil toc:nil @:t ::t |:t ^:t -:t f:t *:t <:t 
+#+OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+INFOJS_OPT: view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
+#+EXPORT_SELECT_TAGS: export
+#+EXPORT_EXCLUDE_TAGS: noexport
+#+LINK_UP:
+#+LINK_HOME:
+#+XSLT:
+
+#+BEGIN_HTML
+  <em>Full source code can be downloaded from project home at <a href="http://kjeldahlnilsson.net/portfolio.php">kjeldahlnilsson.net</a>.</em>
+
+<em>Part<a href="http://kjeldahlnilsson.net/blog/?p=71"> </a><a href="http://kjeldahlnilsson.net/blog/?p=71">1</a>, <a href="http://kjeldahlnilsson.net/blog/?p=72">2</a>, <a href="http://kjeldahlnilsson.net/blog/?p=73">3</a>, 4, <a href="http://kjeldahlnilsson.net/blog/?p=75">5</a>, <a href="http://kjeldahlnilsson.net/blog/?p=77">6</a>, <a href="http://kjeldahlnilsson.net/blog/?p=76">7</a>, <a href="http://kjeldahlnilsson.net/blog/?p=78">8</a></em>
+
+In the last installment we set up a "test bench" web page. Now we are going to start implementing user input, as well as the most basic graphics primitives needed for our game.
+
+<strong>Square one</strong>
+
+Let's start with the simplest thing possible in the graphics department: paint a single tile of color in the browser window.
+
+<em>test.js:</em>
+
+<code>
+<pre lang="javascript">    testDrawSingleSquare: function() {
+        Graphics.clearGameContainer();
+        var square = Graphics.createRectangleDiv("purple", 400, 400, 20, 20);
+    },</pre></code><br/>
+
+We are going to use normal CSS and DOM scripting to accomplish this (there are other approaches to drawing custom graphics in the browser, but they have some drawbacks. We'll discuss this later.)
+
+We add a <em>div</em> element to the body of the testbench html page, naming it "gameContainer". The graphics methods will add, remove and update child div elements in the gameContainer area.
+
+<em>graphics.js:</em>
+<code>
+<pre lang="javascript">var Graphics = {
+
+    getGameContainer: function() {
+        return document.getElementById("gameContainer");
+    },
+
+    clearGameContainer: function() {
+        var node = this.getGameContainer();
+
+        if (node.hasChildNodes()) {
+            while (node.childNodes.length >= 1) {
+                node.removeChild(node.firstChild);
+            }
+        }
+    },
+
+    removeNodeFromGameContainer: function(node) {
+        try {
+            this.getGameContainer().removeChild(node);
+        }
+        catch(err) {
+            // If no such node, fine.
+        }
+    },
+
+    createRectangleDiv: function(bgcolor, x, y, width, height, zIndex) {
+        var rect = document.createElement('div');
+
+        rect.style.position = "absolute";
+        rect.style.top = y + "px";
+        rect.style.left = x + "px";
+        rect.style.zIndex = "0";
+        rect.style.height = height + "px";
+        rect.style.width = width + "px";
+        rect.style.backgroundColor = bgcolor;
+
+        this.getGameContainer().appendChild(rect);
+
+        return rect;
+    }
+};</pre></code><br/>
+Running the test yields this tremendously impressive result:
+
+<img class="alignnone size-full wp-image-137" title="quicktetrissquaretest" src="http://kjeldahlnilsson.net/images/uploads/2009/01/quicktetrissquaretest.jpg" alt="quicktetrissquaretest" width="400" height="457" />
+
+<strong>Moving it</strong>
+
+Moving along to user input, we need to make sure we pick up input events and map some of the keys to specific actions. Our first test simply sets up a visual echo of the key input.
+
+<em>test.js:</em>
+<code>
+<pre lang="javascript">    testDetectKeys: function() {
+        Graphics.clearGameContainer();
+        Graphics.drawString("Press a key", 400, 400);
+
+        // Register key mapping
+        setKeyReaction(function(keyCode) {
+            switch (keyCode) {
+            case DIR_KEY_DOWN:
+                Graphics.drawString("down key pressed", 400, 400);
+                break;
+            case DIR_KEY_UP:
+                Graphics.drawString("up key pressed", 400, 400);
+                break;
+            case DIR_KEY_LEFT:
+                Graphics.drawString("left key pressed", 400, 400);
+                break;
+            case DIR_KEY_RIGHT:
+                Graphics.drawString("right key pressed", 400, 400);
+                break;
+            case SPACE_KEY:
+                Graphics.drawString("space key pressed", 400, 400);
+                break;
+            default:
+                Graphics.drawString('KeyCode ' + keyCode + ' not handled by test case.', 400, 400);
+            }
+        });
+    },</pre></code><br/>
+
+For this to work we need some graphical output of strings, so we add this method to the Graphics object above:
+
+<em>graphics.js:</em>
+<code>
+<pre lang="javascript">    drawnString: null,
+    drawString: function(text, x, y) {
+
+        if (this.drawnString) {
+            this.removeNodeFromGameContainer(drawnString);
+        }
+
+        drawnString = document.createElement('div');
+
+        drawnString.style.top = y + "px";
+        drawnString.style.left = x + "px";
+        var txtNode = document.createTextNode(text);
+        drawnString.appendChild(txtNode);
+
+        this.getGameContainer().appendChild(drawnString);
+    }</pre></code><br/>
+
+Next up: a reliable cross-browser way of detecting key presses.
+
+<em>util.js:</em>
+<code>
+<pre lang="javascript">function setKeyReaction(keyEventHandler) {
+    document.onkeydown = function(e) {
+        if (window.event) // IE
+        {
+            keyEventHandler(window.event.keyCode);
+        }
+        else if (e.which) // Netscape/Firefox/Opera
+        {
+            keyEventHandler(e.which);
+        }
+    };
+}</pre></code><br/>
+
+The key input test now works, echoing a string representation of the pressed keys in the test bench. Now let's try using direction keys to move a square around the screen.
+
+<em>test.js:</em>
+<code>
+<pre lang="javascript">    testMoveSquare: function() {
+        Graphics.clearGameContainer();
+
+        var dronePos = {
+            x: 400,
+            y: 400
+        };
+
+        function moveDrone(dx, dy) {
+            dronePos.x += dx;
+            dronePos.y += dy;
+
+            drone.style.left = dronePos.x;
+            drone.style.top = dronePos.y;
+        }
+
+        // Create the square graphic
+        var drone = Graphics.createRectangleDiv("green", dronePos.x, dronePos.y, 20, 20);
+
+        // Register key mapping
+        setKeyReaction(function(keyCode) {
+            switch (keyCode) {
+            case DIR_KEY_DOWN:
+                moveDrone(0, 5);
+                break;
+            case DIR_KEY_UP:
+                moveDrone(0, -5);
+                break;
+            case DIR_KEY_LEFT:
+                moveDrone( - 5, 0);
+                break;
+            case DIR_KEY_RIGHT:
+                moveDrone(5, 0);
+                break;
+            default:
+                //KeyCode not handled by test case
+                Graphics.drawString('Use direction keys to move', 400, 400);
+            }
+        });
+    }</pre></code><br/>
+
+<strong>Set the stage</strong>
+
+We have a very simple tetris tile to play with now. The next ingredient is the playing field.
+
+<em>test.js:</em>
+<code>
+<pre lang="javascript">    testDrawPlayingField: function() {
+        Graphics.clearGameContainer();
+        Field.init("magenta", "blue", 400, 100); // Set up field state
+        Field.tileOn(0, 0);
+        Field.tileOn(1, 1);
+    }</pre></code><br/>
+
+We want a two dimensional grid of (sometimes visible) colored tiles. Now we start to enjoy those augmentations we did to <strong>Array</strong> earlier on.
+
+<em>field.js:</em>
+<code>
+<pre lang="javascript">var Field = {
+
+    // no of tiles
+    WIDTH: 12,
+    // no of tiles
+    HEIGHT: 20,
+
+    State: {
+        gridState: null,
+        gridTiles: null,
+        gridBackground: null,
+        // Absolute px position of field left border in window
+        posX: 0,
+        // Absolute px position of field top border in window
+        posY: 0
+    },
+
+    init: function(fieldColor, backgroundColor, posX, posY) {
+        this.State.posX = posX;
+        this.State.posY = posY;
+        this.State.gridBackground = Graphics.createFieldBackground(fieldcolor, this.State.posX, this.State.posY, (Piece.State.tileWidth * this.WIDTH), (Piece.State.tileHeight * this.HEIGHT));
+        this.State.gridState = get2dArray(this.WIDTH, this.HEIGHT, 0);
+        this.State.gridTiles = this.createHiddenTileArray(this.State.posX, this.State.posY, this.WIDTH, this.HEIGHT, backgroundColor, Piece.State.tileWidth, Piece.State.tileHeight);
+    },
+
+    createHiddenTileArray: function(posX, posY, matrixWidth, matrixHeight, color, tileWidth, tileHeight) {
+        var matrix = get2dArray(matrixWidth, matrixHeight, 0);
+        return matrix.map(function(element, x, y) {
+            element = Graphics.createRectangleDiv(color, posX + (tileWidth * x), posY + (tileHeight * y), tileWidth, tileHeight);
+            element.style.visibility = "hidden";
+            return element;
+        });
+    },
+
+    tileOn: function(x, y) {
+        if (posWithinField(x, y)) {
+            this.State.gridState[x][y] = 1;
+            this.State.gridTiles[x][y].style.visibility = "visible";
+        }
+    },
+
+    tileOff: function(x, y) {
+        if (posWithinField(x, y)) {
+            this.State.gridState[x][y] = 0;
+            this.State.gridTiles[x][y].style.visibility = "hidden";
+        }
+    },
+
+    isTileOn: function(x, y) {
+        if (posWithinField(x, y)) {
+            return (this.State.gridState[x][y]);
+        }
+    },
+
+    posWithinField: function(x, y) {
+        return ((x >= 0) && (y>= 0) &&
+           (x <= Piece.State.tileWidth * this.WIDTH) &&
+           (y <= Piece.State.tileHeight * this.HEIGHT))
+    }
+};</pre></code><br/>
+
+Voilà:
+
+<img class="alignnone size-full wp-image-162" title="quicktetrisfieldtest" src="http://kjeldahlnilsson.net/images/uploads/2009/01/quicktetrisfieldtest.jpg" alt="quicktetrisfieldtest" width="736" height="566" />
+
+In our next installment we'll set up interaction between moving pieces and the tetris board.
+#+END_HTML

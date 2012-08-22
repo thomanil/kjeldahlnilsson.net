@@ -1,0 +1,40 @@
+#+TITLE:     Mass Effect Review (Late To The Party)
+#+EMAIL:     thomas@kjeldahlnilsson.net
+#+DATE:      12.04.2008
+#+DESCRIPTION:
+#+KEYWORDS:
+#+LANGUAGE:  en
+#+OPTIONS: H:3 num:nil toc:nil @:t ::t |:t ^:t -:t f:t *:t <:t 
+#+OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+INFOJS_OPT: view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
+#+EXPORT_SELECT_TAGS: export
+#+EXPORT_EXCLUDE_TAGS: noexport
+#+LINK_UP:
+#+LINK_HOME:
+#+XSLT:
+
+#+BEGIN_HTML
+<p>  I looked forward to <a href="http://%20http//en.wikipedia.org/wiki/Mass_Effect" title="Mass Effect">Mass Effect</a> for <strong>years </strong>before its launch last november. Then it finally came out for the Xbox 360... and literally the next day our daughter was born. Fatherhood took scary &amp; wonderful precedence, and the game ended up in my <a href="http://aidanmoher.com/blog/?p=146" title="Pile O'Shame">Pile O'Shame.</a></p>
+
+<p>Recently,  I had the apartment to myself for two weeks while my better half and our daughter took an extended holiday up north.  Let's just say I didn't work much on my tan while they were away. "Time to play through Mass Effect!"</p>
+
+<p>First off: this game is far from flawless.</p>
+
+<p>The user interface ranges from functional to horrible. Inventory management basically amounts to a single flat list of items, without even the most rudimentary sort options. Prepare to scroll through pages and pages of text when you buy, sell and manage items.</p>
+
+<p><a href="http://www.bioware.com">Bioware  </a>opted for realtime, action-based combat with prominent cover and squad gameplay mechanics. Though competent enough, these action bits feel nowhere near as polished as the <a href="http://rainbowsixgame.de.ubi.com/vegas/">Rainbow Sixes</a> or <a href="http://gearsofwar.com/">Gears of War</a>.</p>
+
+<p>Finally, side quests aren't nearly as interesting as the main story missions. You quickly discover that most of the optional quests obviously recycle a limited set of mission objectives, art assets and room layouts.</p>
+
+<p><strong>However.</strong> All this is quickly forgotten when you're a few missions into the main story.</p>
+
+<p>Mass Effect is an astounding roleplaying game. While the narrative of the game may not be <a href="http://en.wikipedia.org/wiki/Nebula_award">Nebula </a>winning material, it still stands heads and shoulders above most narrative-driven video games.</p>
+
+<p>The plot is fairly straight-forward; artificial, mechanical beings turn on their makers and then try taking over the galaxy. <a href="http://www.scifi.com/battlestar/">Sound familiar?</a> Yeah, not the most original premise.</p>
+
+<p>What makes the game so enjoyable is its <strong>mood</strong>. If you like <a href="http://imdb.com/title/tt0076759/">classic </a><a href="http://imdb.com/title/tt0084726/">science </a><a href="http://imdb.com/title/tt0083658/">fiction </a>movies, you will absolutely love this game. The music sounds like it fell straight out of an old <a href="http://en.wikipedia.org/wiki/Blade_Runner_(soundtracks)">Vangelis</a> soundtrack. The universe of the game is detailed and feels well thought out. Voice acting is top notch throughout the game. The developers even <a href="http://www.xbox.com/en-US/games/m/masseffect/20070925-derekvisionary.htm">added graphical grain filters to mimic those classic movies</a> (well, most of them are probably digitally remastered and visually crystal clean these days, but you get the idea).</p>
+
+<p>The story, while not very innovative in itself, builds to a very cool climax toward the end of the game; along the way I had plenty of "Wow!" moments. The game often nails that <a href="http://www.imdb.com/title/tt0062622/">sense of wonder</a> that good science fiction is so capable of evoking.</p>
+
+<p>In short, if you are even the slightest bit interested in video games and science fiction, you should run out and buy this game. Just make sure you have a chunk of free time to play through it - it'll take a solid 20-40 hours to finish.</p>
+#+END_HTML

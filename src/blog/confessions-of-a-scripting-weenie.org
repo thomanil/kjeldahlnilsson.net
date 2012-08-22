@@ -1,0 +1,46 @@
+#+TITLE:     Confessions Of A Scripting Weenie
+#+EMAIL:     thomas@kjeldahlnilsson.net
+#+DATE:      09.05.2008
+#+DESCRIPTION:
+#+KEYWORDS:
+#+LANGUAGE:  en
+#+OPTIONS: H:3 num:nil toc:nil @:t ::t |:t ^:t -:t f:t *:t <:t 
+#+OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+INFOJS_OPT: view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
+#+EXPORT_SELECT_TAGS: export
+#+EXPORT_EXCLUDE_TAGS: noexport
+#+LINK_UP:
+#+LINK_HOME:
+#+XSLT:
+
+#+BEGIN_HTML
+<p>  I'm a big fan of project automation. So it's slightly embarrassing to admit that I really don't have a proper scripting language in my toolbox.</p>
+
+<p>What usually happens is that, depending on the task, I end up with a mixture of .bat files, command line tools, Ant build scripts and manual search-replace operations in Emacs. If I need to script anything that's complex enough to make those tools inadequate (loops, conditionals, recursion, non-trivial state), I fall back on Java.</p>
+
+<p>Hardly a complete toolbox, I know.</p>
+
+<p>I've known this for a while, but recently<span style="font-weight: bold" class="Apple-style-span"> <a href="http://thomas.kjeldahlnilsson.net/blog/?p=9"><span style="font-weight: normal" class="Apple-style-span">I decided to actually do something about it.</span></a> </span>So, time to A) learn Ruby properly and B) brush up on scripting and data crunching in general.</p>
+
+<p><img src="http://www.pragprog.com/images/covers/190x228/ruby.jpg?1184184147" height="228" width="189" /></p>
+
+<p>I already had <a href="http://www.amazon.com/Programming-Ruby-Pragmatic-Programmers-Guide/dp/1934356085/ref=pd_bbs_sr_1?ie=UTF8&amp;s=books&amp;qid=1208380639&amp;sr=8-1">Programming Ruby</a> (aka <span style="font-weight: bold" class="Apple-style-span">"The Pickaxe"</span>) by <a href="http://en.wikipedia.org/wiki/Andy_Hunt_%28author%29">Andy Hunt</a> lying around, so I worked my way through that first to bone up on basic Ruby syntax. I won't go into detail on this book, it's already given a lot of praise in other places. Suffice to say, many consider it to be the standard reference book on Ruby.</p>
+
+<p><img src="http://www.pragprog.com/images/covers/190x228/bmsft.jpg?1188432696" height="228" width="190" /></p>
+
+<p>Then I picked up <a href="http://www.amazon.com/Everyday-Scripting-Ruby-Teams-Testers/dp/0977616614/ref=pd_bbs_sr_1?ie=UTF8&amp;s=books&amp;qid=1208380711&amp;sr=8-1">Everyday Scripting in Ruby</a>. While the target audience is actually testers and other "supporting, non-coder personell", it works pretty well as a companion piece to the Pickaxe.</p>
+
+<p><em>The Pickaxe</em> uses a standard object oriented application development for its examples. <em>Everyday Scripting</em> on the other hand employs standard scripting tasks instead; ie. file system manipulation, data crunching, web scraping and the like. The material that teaches Ruby syntax and OOP in general is clearly intended for people without much serious programming experience and does feel overly verbose in some parts - but it worked well as a refresher and "double take" after reading <em>The Pickaxe</em>. Finally, the book goes into some syntax "rubyisms"<span style="font-weight: bold" class="Apple-style-span"> </span>that <em>The Pickaxe </em>glosses over.</p>
+
+<p><img src="http://www.pragprog.com/images/covers/190x228/gwd.jpg?1184184147" height="228" width="189" /></p>
+
+<p><span style="font-weight: bold" class="Apple-style-span"><span style="font-weight: normal" class="Apple-style-span"><a href="http://www.amazon.com/Data-Crunching-Everyday-Problems-Python/dp/0974514071/ref=pd_bbs_sr_1?ie=UTF8&amp;s=books&amp;qid=1208380990&amp;sr=8-1">Data Crunching</a></span> </span>is another book on scripting. This book is more language agnostic (examples are provided in Python and Java). Think of it as a cookbook of common data manipulation tasks. Topics range between plain text, xml, binary data, relation databases and more.</p>
+
+<p>I particularly liked the section on regular expressions - it felt like one of the best introductions I've read on the subject.  The examples are actually relevant (matching mail adresses, urls, phone numbers) as opposed to the standard silly pattern matching examples of "ab, abab, aab" (ad nauseum) that many other regex introductions opt for instead.</p>
+
+<p>It's not a thick book, but the material is compact. I also found I quite liked the authors' dry sense of humor.</p>
+
+<p><strong>All of these books contain a fair amount of useful advice on programming in general</strong>. In other words, they feel very much in line with the other books in the "<a href="http://pragprog.com/">Pragmatic Bookshelf</a>". The authors regularly branch off into insightful advice on general methodology, techniques and tradeoffs related to the code and examples in the books.</p>
+
+<p>In short, I feel like I've put some new tools in my automation toolbox, but I still need to practise them a lot more. I <strong>particularly </strong>need to work on my <a href="http://www.amazon.com/Mastering-Regular-Expressions-Jeffrey-Friedl/dp/0596528124/ref=pd_bbs_sr_1?ie=UTF8&amp;s=books&amp;qid=1208380489&amp;sr=8-1">regex skills! </a></p>
+#+END_HTML

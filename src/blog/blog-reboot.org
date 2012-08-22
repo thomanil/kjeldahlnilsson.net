@@ -1,0 +1,28 @@
+#+TITLE:     Blog reboot
+#+EMAIL:     thomas@kjeldahlnilsson.net
+#+DATE:      12.05.2007
+#+DESCRIPTION:
+#+KEYWORDS:
+#+LANGUAGE:  en
+#+OPTIONS: H:3 num:nil toc:nil @:t ::t |:t ^:t -:t f:t *:t <:t 
+#+OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+INFOJS_OPT: view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
+#+EXPORT_SELECT_TAGS: export
+#+EXPORT_EXCLUDE_TAGS: noexport
+#+LINK_UP:
+#+LINK_HOME:
+#+XSLT:
+
+#+BEGIN_HTML
+<p>I'm changing a few things about this blog.</p>
+
+<p><strong>First; </strong>new blogging software. The last setup had no spam protection of any sort, so I ended up with 50+ spam comments under every post within weeks. I ended up just trashing the old blog and installing a new one, powered by <a href="http://wordpress.com/">Wordpress</a>. Will be interesting to see how effective the Akismet plugin is against spam comments...</p>
+
+<p><strong>Secondly; </strong>I'm adjusting the scope of my posts wee bit. Originally I wanted to use this blog exclusively for work and development-related stuff. That didn't really work, for two reasons. At my last <a href="http://www.ergogroup.no">job </a>I ended up writing most of my software development posts on the internal blog of my employer. I've also found that my enthusiasm for writing about strictly work-related stuff on my spare time isn't constant, but rather waning and waxing over time.</p>
+
+<p>So from now on I'll use the blog to prattle on about things both work-related and otherwise. Hopefully this'll motivate me to trickle out more regular posts... well, maybe. We'll see.</p>
+
+<p><strong>Finally</strong>; I reposted the few posts that did make it into the old blog.</p>
+
+
+#+END_HTML

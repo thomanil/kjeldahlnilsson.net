@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>How To Create a Minesweeper Game With TestDriven JavaScript in Less Than 14 Minutes</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+<meta name="title" content="How To Create a Minesweeper Game With TestDriven JavaScript in Less Than 14 Minutes"/>
+<meta name="generator" content="Org-mode"/>
+<meta name="generated" content="25.03.2011"/>
+<meta name="author" content="Thomas Kjeldahl Nilsson"/>
+<meta name="description" content=""/>
+<meta name="keywords" content=""/>
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  html { font-family: Times, serif; font-size: 12pt; }
+  .title  { text-align: center; }
+  .todo   { color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #add8e6; font-weight:normal }
+  .target { }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  {margin-left:auto; margin-right:0px;  text-align:right;}
+  .left   {margin-left:0px;  margin-right:auto; text-align:left;}
+  .center {margin-left:auto; margin-right:auto; text-align:center;}
+  p.verse { margin-left: 3% }
+  pre {
+	border: 1pt solid #AEBDCC;
+	background-color: #F3F5F7;
+	padding: 5pt;
+	font-family: courier, monospace;
+        font-size: 90%;
+        overflow:auto;
+  }
+  table { border-collapse: collapse; }
+  td, th { vertical-align: top;  }
+  th.right  { text-align:center;  }
+  th.left   { text-align:center;   }
+  th.center { text-align:center; }
+  td.right  { text-align:right;  }
+  td.left   { text-align:left;   }
+  td.center { text-align:center; }
+  dt { font-weight: bold; }
+  div.figure { padding: 0.5em; }
+  div.figure p { text-align: center; }
+  div.inlinetask {
+    padding:10px;
+    border:2px solid gray;
+    margin:10px;
+    background: #ffffcc;
+  }
+  textarea { overflow-x: auto; }
+  .linenr { font-size:smaller }
+  .code-highlighted {background-color:#ffff00;}
+  .org-info-js_info-navigation { border-style:none; }
+  #org-info-js_console-label { font-size:10px; font-weight:bold;
+                               white-space:nowrap; }
+  .org-info-js_search-highlight {background-color:#ffff00; color:#000000;
+                                 font-weight:bold; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+
+</head>
+<body>
+
+<div id="preamble">
+
+</div>
+
+<div id="content">
+<h1 class="title">How To Create a Minesweeper Game With TestDriven JavaScript in Less Than 14 Minutes</h1>
+
+
+<p><em>Originally performed in front of a live audience at the Go Open 2011 / Communities in Action event in Oslo.</em></p>
+
+<p>A <a title="Code Kata" href="http://codekata.pragprog.com/">code kata</a> is a simple exercise used to sharpen programming skills. You only actually practice problem solving the very first time you perform the kata. Then you repeat, and repeat again. And again. The objective of the exercise is to practice speed, technique and tools.</p>
+
+<p>In the following clip I implement a variant of the <a title="Minesweeper code kata" href="http://codingdojo.org/cgi-bin/wiki.pl?KataMinesweeper">Minesweeper</a> code kata in JavaScript.</p>
+
+<p>(Run it in fullscreen to see the code more clearly)</p>
+
+<p><object width="640" height="480"><param name="allowfullscreen" value="true" /><param name="allowscriptaccess" value="always" /><param name="movie" value="http://vimeo.com/moogaloop.swf?clip_id=21474244&amp;server=vimeo.com&amp;show_title=1&amp;show_byline=1&amp;show_portrait=1&amp;color=00ADEF&amp;fullscreen=1&amp;autoplay=0&amp;loop=0" /><embed src="http://vimeo.com/moogaloop.swf?clip_id=21474244&amp;server=vimeo.com&amp;show_title=1&amp;show_byline=1&amp;show_portrait=1&amp;color=00ADEF&amp;fullscreen=1&amp;autoplay=0&amp;loop=0" type="application/x-shockwave-flash" allowfullscreen="true" allowscriptaccess="always" width="640" height="480"></embed></object></p>
+
+<p>Note: I use testdriven development through most of the process. Toward the end I drop the unit testing when I finish the visuals and gameplay logic. I could drive the whole thing with unit tests but opted for a more visually interesting ending. :)</p>
+
+<p>You can <a title="minesweeper code" href="https://github.com/thomanil/sweeper">look through the code at my github account</a>. Each commit in the repo is separate exercise done from scratch.</p>
+
+<p>Libraries and tools used:
+<ul>
+        <li><a title="Underscore.js library" href="http://documentcloud.github.com/underscore/">Underscore.js</a></li>
+        <li><a title="jQuery framework" href="http://jquery.com/">jQuery</a></li>
+        <li><a title="Grid.js library" href="https://github.com/thomanil/Grid">Grid.js</a></li>
+        <li><a title="clAutotest tool" href="https://github.com/thomanil/clAutotest">clAutotest</a></li>
+        <li><a href="http://macromates.com/">TextMate</a></li>
+</ul></p>
+</div>
+
+<div id="postamble">
+<p class="date">Date: 25.03.2011</p>
+<p class="author">Author: Thomas Kjeldahl Nilsson</p>
+<p class="creator">Org version 7.8.11 with Emacs version 24</p>
+<a href="http://validator.w3.org/check?uri=referer">Validate XHTML 1.0</a>
+
+</div>
+</body>
+</html>

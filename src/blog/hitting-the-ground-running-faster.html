@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>Hitting the ground running&hellip; faster</title>
+<meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"/>
+<meta name="title" content="Hitting the ground running&hellip; faster"/>
+<meta name="generator" content="Org-mode"/>
+<meta name="generated" content="23.05.2006"/>
+<meta name="author" content="Thomas Kjeldahl Nilsson"/>
+<meta name="description" content=""/>
+<meta name="keywords" content=""/>
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  html { font-family: Times, serif; font-size: 12pt; }
+  .title  { text-align: center; }
+  .todo   { color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #add8e6; font-weight:normal }
+  .target { }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  {margin-left:auto; margin-right:0px;  text-align:right;}
+  .left   {margin-left:0px;  margin-right:auto; text-align:left;}
+  .center {margin-left:auto; margin-right:auto; text-align:center;}
+  p.verse { margin-left: 3% }
+  pre {
+	border: 1pt solid #AEBDCC;
+	background-color: #F3F5F7;
+	padding: 5pt;
+	font-family: courier, monospace;
+        font-size: 90%;
+        overflow:auto;
+  }
+  table { border-collapse: collapse; }
+  td, th { vertical-align: top;  }
+  th.right  { text-align:center;  }
+  th.left   { text-align:center;   }
+  th.center { text-align:center; }
+  td.right  { text-align:right;  }
+  td.left   { text-align:left;   }
+  td.center { text-align:center; }
+  dt { font-weight: bold; }
+  div.figure { padding: 0.5em; }
+  div.figure p { text-align: center; }
+  div.inlinetask {
+    padding:10px;
+    border:2px solid gray;
+    margin:10px;
+    background: #ffffcc;
+  }
+  textarea { overflow-x: auto; }
+  .linenr { font-size:smaller }
+  .code-highlighted {background-color:#ffff00;}
+  .org-info-js_info-navigation { border-style:none; }
+  #org-info-js_console-label { font-size:10px; font-weight:bold;
+                               white-space:nowrap; }
+  .org-info-js_search-highlight {background-color:#ffff00; color:#000000;
+                                 font-weight:bold; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+
+</head>
+<body>
+
+<div id="preamble">
+
+</div>
+
+<div id="content">
+<h1 class="title">Hitting the ground running&hellip; faster</h1>
+
+
+<p>  I was recently dropped into a project which has been running for while. After digging into the code and documentation I started thinking about just that process: what are the most effective ways of getting up to speed in an unfamiliar project?</p>
+
+<p>
+Few projects employ the complete UML arsenal of documentation... so once you've skimmed the (usually incomplete) documentation, you have to actually start digging. Some ways of doing this, in no particular order:
+<ul>
+        <li>Run through the unit tests of the most vital parts of the code. Pull out as much information as possible. Turn up log levels, add trace statements if few or none exist. You can save time by using <a href="http://en.wikipedia.org/wiki/Aspect_oriented_programming">AOP</a> mechanisms to weave in tracing.</li>
+        <li>Start fixing existing bugs quickly... but carefully (if test coverage is low).</li>
+        <li>Fix broken unit tests. Improve test coverage, code some "learning tests".</li>
+        <li>Use tools to visualize the project. A tool like <a href="http://www.ggtools.net/grand/">Grand</a> is invaluable when digging through an unfamiliar Ant build script.</li>
+        <li>Use tools that analyze code quality and the general project integrity. Some things can be determined quantitatively: test coverage, code duplication and such. Tools like <a href="http://xradar.sourceforge.net/">XRadar</a> can spot these things for you.You'll learn while digging through this information, and hopefully be better armed to improve the project when you start writing your own code. Also, if you are able to do it tactfully without stepping on any toes, offer to refactor any especially weak areas.</li>
+        <li>Unless you are the sole developer, <a href="http://extremeprogramming.org/rules/pair.html">pair up </a>with one of the others. You drive and the (within the project context) more experienced developer navigates.</li>
+        <li> If pairing isn't an option, get short and focused one-on-one braindumps from other people in the project. Pull up some important and/or complicated use cases, and step through their actual code together. <a href="http://en.wikipedia.org/wiki/Mind_map/">Mindmaps</a> are great for taking notes (<a href="http://freemind.sourceforge.net/wiki/index.php/Main_Page">Freemind</a> is a good open source mindmapping program). When using mind maps you are (well, at least I am) more able to organize your thoughts in a tree structure. Branches can be nested, folded and rearranged quickly - this is great because you'll probably bounce around different concepts quickly while walking through the code; "Oh yeah, I almost forgot, you should know [fact X] about [class Y that we covered 5 minutes ago]...."</li>
+        <li>Improve documentation. This is a good learning excercise if there are vital areas in the project which are completely void of documentation. Boring, but forces you to understand the things you are describing.</li>
+</ul></p>
+
+<p>I probably forgot a bunch of stuff here. I implore any visitors to add more in the comment section. :)</p>
+</div>
+
+<div id="postamble">
+<p class="date">Date: 23.05.2006</p>
+<p class="author">Author: Thomas Kjeldahl Nilsson</p>
+<p class="creator">Org version 7.8.11 with Emacs version 24</p>
+<a href="http://validator.w3.org/check?uri=referer">Validate XHTML 1.0</a>
+
+</div>
+</body>
+</html>

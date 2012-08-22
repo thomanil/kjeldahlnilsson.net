@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>Javascript Tetris Pt 2: Planning</title>
+<meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"/>
+<meta name="title" content="Javascript Tetris Pt 2: Planning"/>
+<meta name="generator" content="Org-mode"/>
+<meta name="generated" content="22.01.2009"/>
+<meta name="author" content="Thomas Kjeldahl Nilsson"/>
+<meta name="description" content=""/>
+<meta name="keywords" content=""/>
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  html { font-family: Times, serif; font-size: 12pt; }
+  .title  { text-align: center; }
+  .todo   { color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #add8e6; font-weight:normal }
+  .target { }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  {margin-left:auto; margin-right:0px;  text-align:right;}
+  .left   {margin-left:0px;  margin-right:auto; text-align:left;}
+  .center {margin-left:auto; margin-right:auto; text-align:center;}
+  p.verse { margin-left: 3% }
+  pre {
+	border: 1pt solid #AEBDCC;
+	background-color: #F3F5F7;
+	padding: 5pt;
+	font-family: courier, monospace;
+        font-size: 90%;
+        overflow:auto;
+  }
+  table { border-collapse: collapse; }
+  td, th { vertical-align: top;  }
+  th.right  { text-align:center;  }
+  th.left   { text-align:center;   }
+  th.center { text-align:center; }
+  td.right  { text-align:right;  }
+  td.left   { text-align:left;   }
+  td.center { text-align:center; }
+  dt { font-weight: bold; }
+  div.figure { padding: 0.5em; }
+  div.figure p { text-align: center; }
+  div.inlinetask {
+    padding:10px;
+    border:2px solid gray;
+    margin:10px;
+    background: #ffffcc;
+  }
+  textarea { overflow-x: auto; }
+  .linenr { font-size:smaller }
+  .code-highlighted {background-color:#ffff00;}
+  .org-info-js_info-navigation { border-style:none; }
+  #org-info-js_console-label { font-size:10px; font-weight:bold;
+                               white-space:nowrap; }
+  .org-info-js_search-highlight {background-color:#ffff00; color:#000000;
+                                 font-weight:bold; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+
+</head>
+<body>
+
+<div id="preamble">
+
+</div>
+
+<div id="content">
+<h1 class="title">Javascript Tetris Pt 2: Planning</h1>
+
+
+  <em>Part<a href="http://kjeldahlnilsson.net/blog/?p=71"> </a><a href="http://kjeldahlnilsson.net/blog/?p=71">1</a>, 2, <a href="http://kjeldahlnilsson.net/blog/?p=73">3</a>, <a href="http://kjeldahlnilsson.net/blog/?p=74">4</a>, <a href="http://kjeldahlnilsson.net/blog/?p=75">5</a>, <a href="http://kjeldahlnilsson.net/blog/?p=77">6</a>, <a href="http://kjeldahlnilsson.net/blog/?p=76">7</a>, <a href="http://kjeldahlnilsson.net/blog/?p=78">8</a></em>
+
+What sort of game should we build?
+
+It has to be something simple, since this is just a learning exercise for me (as a relative Javascript newbie). The scope of the project should be small, preferrably under a week or two using free time in the evenings. This will limit the complexity of the game; we can't support too much input, ouput or complex game state.
+
+We also don't have time to seriously ponder <a title="The Chemistry Of Game Design (Gamasutra)" href="http://www.gamasutra.com/view/feature/1524/the_chemistry_of_game_design.php">high level game design</a>, so the most practical approach is to just clone an existing game template. <a title="Tetris" href="http://en.wikipedia.org/wiki/Tetris">Tetris</a> is a nice candidate. Everyone knows how to play it. It has few and simple rules and a nicely static and rectangular playing field. Also, we can get away with very basic and functional presentation. You don't need fancy art direction and killer sound to play tetris.
+
+5 minutes of whiteboarding yields a minimalist <a title="Gamasutra game design document article" href="http://www.gamasutra.com/features/19991019/ryan_01.htm">game design document</a>:
+
+<img class="alignnone size-full wp-image-140" title="quicktetrisdesigndoc" src="http://kjeldahlnilsson.net/images/uploads/2009/01/quicktetrisdesigndoc.jpg" alt="quicktetrisdesigndoc" width="500" height="375" />
+
+We'll dub the game <strong>Quicktetris</strong>. This reminds us to keep the project small, simple and easily finished. :) Another fifteen minutes spent <a title="Mindmapping" href="http://en.wikipedia.org/wiki/Mindmap">mindmapping</a> and we have a rough <a title="Scrum product backlog" href="http://en.wikipedia.org/wiki/Scrum_(development)#Product_backlog">backlog</a> of features that we need to implement:
+
+<img class="alignnone size-full wp-image-141" title="quicktetrisprojectplanning" src="http://kjeldahlnilsson.net/images/uploads/2009/01/quicktetrisprojectplanning.jpg" alt="quicktetrisprojectplanning" width="1020" height="933" />
+
+(This was the rough, preliminary plan. While I started out with the plan outlined in the mindmap above, the actual implementation work ended up a little different.)
+
+That should be enough planning for our little project; time go get started!
+</div>
+
+<div id="postamble">
+<p class="date">Date: 22.01.2009</p>
+<p class="author">Author: Thomas Kjeldahl Nilsson</p>
+<p class="creator">Org version 7.8.11 with Emacs version 24</p>
+<a href="http://validator.w3.org/check?uri=referer">Validate XHTML 1.0</a>
+
+</div>
+</body>
+</html>

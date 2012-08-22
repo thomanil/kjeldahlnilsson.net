@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>FizzBuzz: A JavaScript Code Kata, TDD Style (Video) </title>
+<meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"/>
+<meta name="title" content="FizzBuzz: A JavaScript Code Kata, TDD Style (Video) "/>
+<meta name="generator" content="Org-mode"/>
+<meta name="generated" content="15.02.2010"/>
+<meta name="author" content="Thomas Kjeldahl Nilsson"/>
+<meta name="description" content=""/>
+<meta name="keywords" content=""/>
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  html { font-family: Times, serif; font-size: 12pt; }
+  .title  { text-align: center; }
+  .todo   { color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #add8e6; font-weight:normal }
+  .target { }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  {margin-left:auto; margin-right:0px;  text-align:right;}
+  .left   {margin-left:0px;  margin-right:auto; text-align:left;}
+  .center {margin-left:auto; margin-right:auto; text-align:center;}
+  p.verse { margin-left: 3% }
+  pre {
+	border: 1pt solid #AEBDCC;
+	background-color: #F3F5F7;
+	padding: 5pt;
+	font-family: courier, monospace;
+        font-size: 90%;
+        overflow:auto;
+  }
+  table { border-collapse: collapse; }
+  td, th { vertical-align: top;  }
+  th.right  { text-align:center;  }
+  th.left   { text-align:center;   }
+  th.center { text-align:center; }
+  td.right  { text-align:right;  }
+  td.left   { text-align:left;   }
+  td.center { text-align:center; }
+  dt { font-weight: bold; }
+  div.figure { padding: 0.5em; }
+  div.figure p { text-align: center; }
+  div.inlinetask {
+    padding:10px;
+    border:2px solid gray;
+    margin:10px;
+    background: #ffffcc;
+  }
+  textarea { overflow-x: auto; }
+  .linenr { font-size:smaller }
+  .code-highlighted {background-color:#ffff00;}
+  .org-info-js_info-navigation { border-style:none; }
+  #org-info-js_console-label { font-size:10px; font-weight:bold;
+                               white-space:nowrap; }
+  .org-info-js_search-highlight {background-color:#ffff00; color:#000000;
+                                 font-weight:bold; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+
+</head>
+<body>
+
+<div id="preamble">
+
+</div>
+
+<div id="content">
+<h1 class="title">FizzBuzz: A JavaScript Code Kata, TDD Style (Video) </h1>
+
+
+<p><strong><span style="font-weight: normal;">A </span>code kata<span style="font-weight: normal;"> is a short programming task. </span><span style="font-weight: normal;">Its purpose is to let you practice tools and technique. You pick a relatively small problem and practice it repeatedly. Since the task is small, you free yourself to focus on technique and speed, tools and workflows, as opposed to active problem solving.</span></strong></p>
+
+<p>I was inspired by the "katacasts" of <a href="http://katas.softwarecraftsmanship.org/?p=71">Uncle Bob</a> as well as my friend <a href="http://johannesbrodwall.com/2009/12/31/my-first-katacast/">Johannes</a>, and decided to do one of my own. I chose a very simple task for this clip: the <a href="http://www.codinghorror.com/blog/2007/02/why-cant-programmers-program.html">FizzBuzz interview question</a>.</p>
+
+<p><strong>Print digits from 0 to 100. For every digit which divides with three, print "fizz" instead. For digits dividing with five, print "buzz". For digits which divide with both, print "fizzbuzz".</strong></p>
+
+<p>My solution, as shown in the video below, was meant to accomplish two things:</p>
+
+<p><strong> Demonstrate simple TDD workflow in JavaScript.</strong> Many software developers tend to treat JavaScript as the redheaded stepchild of programming languages. We unit test our "real" code (Java, C#, Ruby, whatever), but for some reason, that tends to go out the window when we switch to JavaScript. This is a shame; automated regression testing becomes extremely useful once your JavaScript code grows into hundreds or thousands LOC.</p>
+
+<p><strong> Improve my technique and speed</strong> in my editor of choice - <a href="http://macromates.com/">TextMate</a>. I'm trying to use the mouse as little as possible, can you tell? I still consider myself fairly slow in TextMate, but I improved while practicing for this screencast.</p>
+
+<p><object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" width="400" height="300" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0"><param name="allowfullscreen" value="true" /><param name="allowscriptaccess" value="always" /><param name="src" value="http://vimeo.com/moogaloop.swf?clip_id=9453172&amp;server=vimeo.com&amp;show_title=1&amp;show_byline=1&amp;show_portrait=0&amp;color=&amp;fullscreen=1" /><embed type="application/x-shockwave-flash" width="640" height="424" src="http://vimeo.com/moogaloop.swf?clip_id=9453172&amp;server=vimeo.com&amp;show_title=1&amp;show_byline=1&amp;show_portrait=0&amp;color=&amp;fullscreen=1" allowscriptaccess="always" allowfullscreen="true"></embed></object></p>
+
+<p><strong> Note:</strong> I generate a tiny development environment in the beginning of the clip. This setup is something I've put together for a JavaScript course I'm holding internally at my workplace. The environment is meant to get you started quickly with good practices and useful tools (like <a href="http://developer.yahoo.com/yui/yuitest/">YUI Test</a>, <a href="http://www.jslint.com/">jsLint</a>, <a href="http://jquery.com/">jQuery</a>). I'll probably turn it into a tiny open source project once it's somewhat more stable. Feel free to tweet me if you want a look at it.</p>
+
+<p><em> The clip was shot using SnapzProX on OS X 10.6.2. I edited the clip with Final Cut Express. No changes were made to the kata footage itself - I only added music and intro/outro screens.</em></p>
+</div>
+
+<div id="postamble">
+<p class="date">Date: 15.02.2010</p>
+<p class="author">Author: Thomas Kjeldahl Nilsson</p>
+<p class="creator">Org version 7.8.11 with Emacs version 24</p>
+<a href="http://validator.w3.org/check?uri=referer">Validate XHTML 1.0</a>
+
+</div>
+</body>
+</html>

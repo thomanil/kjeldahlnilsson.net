@@ -1,0 +1,40 @@
+#+TITLE:     Javascript Tetris Pt 1: Rationale
+#+EMAIL:     thomas@kjeldahlnilsson.net
+#+DATE:      21.01.2009
+#+DESCRIPTION:
+#+KEYWORDS:
+#+LANGUAGE:  en
+#+OPTIONS: H:3 num:nil toc:nil @:t ::t |:t ^:t -:t f:t *:t <:t 
+#+OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+INFOJS_OPT: view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
+#+EXPORT_SELECT_TAGS: export
+#+EXPORT_EXCLUDE_TAGS: noexport
+#+LINK_UP:
+#+LINK_HOME:
+#+XSLT:
+
+#+BEGIN_HTML
+  <em>Part 1, <a href="http://kjeldahlnilsson.net/blog/?p=72">2</a>, <a href="http://kjeldahlnilsson.net/blog/?p=73">3</a>, <a href="http://kjeldahlnilsson.net/blog/?p=74">4</a>, <a href="http://kjeldahlnilsson.net/blog/?p=75">5</a>, <a href="http://kjeldahlnilsson.net/blog/?p=77">6</a>, <a href="http://kjeldahlnilsson.net/blog/?p=76">7</a>, <a href="http://kjeldahlnilsson.net/blog/?p=78">8</a></em>
+
+<em><strong>UPDATED</strong>: Fixed a bug in collision detection causing tiles on far left to fall through.</em>
+
+I've wanted to learn Javascript for a while now - and I'd like to learn it properly this time.
+
+Of course I've used a smattering of Javascript code here and there. Small stuff, like input validation in web pages. Unfortunately, I've mostly relied on good old "google-copy-paste-tweak" coding. I even used <a href="http://cocoon.apache.org/">serverside</a> Javascript in a project at one point, but I never really made the effort to <strong>properly</strong> learn the language.
+
+And I don't think I'm the only guy guilty of an aversion towards it. If you come from <a title="Java" href="http://en.wikipedia.org/wiki/Java_(software_platform)">strongly typed</a>, <a title="C#" href="http://en.wikipedia.org/wiki/C_Sharp_(programming_language)">compiled languages</a> and suddenly have to accomplish something using browser scripting, you might have the same reaction I did: <em>"Eeeew!"</em>.
+
+<em>"No fancy IDE or compiler to hold my hand? Annoying crossbrowser issues? The syntax sort of looks like java... but without classes or type safety? Screw this!"</em>
+
+In the years after that, Javascript usage took off as a part of the AJAX/Web 2.0 phenomenon... and I mostly ignored it for a while, having been burned by my earlier experience. Fortunately I saw the light eventually. :)
+
+I learned to like interpreted, dynamic languages through <a title="Scripting blog post" href="http://kjeldahlnilsson.net/blog/?p=19">Ruby</a>, so Javascript syntax started to make much more sense to me. Fiddling with <a title="The Little Schemer" href="http://www.amazon.com/Little-Schemer-Daniel-P-Friedman/dp/0262560992">functional programming</a> also helped. Javascript has powerful stuff like higher order functions, closures, eval and metaprogramming. The language actually <a title="Javascript background" href="http://weblogs.mozillazine.org/roadmap/archives/2008/04/popularity.html">started as a Scheme dialect</a>, before the author was told to "make it look like Java".
+
+Javascript also turned into a more reliable tool through a <a title="Prototype" href="http://www.prototypejs.org/">bunch</a> of <a title="Dojo" href="http://dojotoolkit.org/">new</a> <a title="JQuery" href="http://jquery.com/">libraries</a>. These extended the language and hid some of the icky crossbrowser problems.
+
+Finally, and most importantly, Javascript has become very pervasive. Disregarding the standard Web 2.0 <a title="Google Maps" href="http://maps.google.no/">applications</a>, the language can be applied in a number of different contexts - <a title="Rhino" href="http://www.mozilla.org/rhino/">embedded</a> wherever you have a JVM, in Flash/Flex, the <a title="Google App Engine" href="http://code.google.com/intl/nb/appengine/kb/general.html#language">Google App Engine</a>... I love tools I can take with me everywhere.
+
+Steve Yegge's <a title="Javascript" href="http://www.youtube.com/watch?v=BttI-y9VzXQ&amp;eurl=http://ajaxian.com/archives/steve-yegge-on-server-side-javascript">talk on Rhino</a> was the final straw; I needed to learn the core language. Also, optional bonus points for updating myself on DOM scripting and CSS.
+
+What's the best way of learning a tool? <strong>Use it to create something!</strong> We want to build something not overly trivial, with a variety of requirements on input, output, data structures, state and program flow... so let's build a game. We'll have to deal with graphics, sound, user input and game state. Perfect.
+#+END_HTML

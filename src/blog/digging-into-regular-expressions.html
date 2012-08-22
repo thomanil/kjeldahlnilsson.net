@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>Digging Into Regular Expressions</title>
+<meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"/>
+<meta name="title" content="Digging Into Regular Expressions"/>
+<meta name="generator" content="Org-mode"/>
+<meta name="generated" content="06.06.2008"/>
+<meta name="author" content="Thomas Kjeldahl Nilsson"/>
+<meta name="description" content=""/>
+<meta name="keywords" content=""/>
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  html { font-family: Times, serif; font-size: 12pt; }
+  .title  { text-align: center; }
+  .todo   { color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #add8e6; font-weight:normal }
+  .target { }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  {margin-left:auto; margin-right:0px;  text-align:right;}
+  .left   {margin-left:0px;  margin-right:auto; text-align:left;}
+  .center {margin-left:auto; margin-right:auto; text-align:center;}
+  p.verse { margin-left: 3% }
+  pre {
+	border: 1pt solid #AEBDCC;
+	background-color: #F3F5F7;
+	padding: 5pt;
+	font-family: courier, monospace;
+        font-size: 90%;
+        overflow:auto;
+  }
+  table { border-collapse: collapse; }
+  td, th { vertical-align: top;  }
+  th.right  { text-align:center;  }
+  th.left   { text-align:center;   }
+  th.center { text-align:center; }
+  td.right  { text-align:right;  }
+  td.left   { text-align:left;   }
+  td.center { text-align:center; }
+  dt { font-weight: bold; }
+  div.figure { padding: 0.5em; }
+  div.figure p { text-align: center; }
+  div.inlinetask {
+    padding:10px;
+    border:2px solid gray;
+    margin:10px;
+    background: #ffffcc;
+  }
+  textarea { overflow-x: auto; }
+  .linenr { font-size:smaller }
+  .code-highlighted {background-color:#ffff00;}
+  .org-info-js_info-navigation { border-style:none; }
+  #org-info-js_console-label { font-size:10px; font-weight:bold;
+                               white-space:nowrap; }
+  .org-info-js_search-highlight {background-color:#ffff00; color:#000000;
+                                 font-weight:bold; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+
+</head>
+<body>
+
+<div id="preamble">
+
+</div>
+
+<div id="content">
+<h1 class="title">Digging Into Regular Expressions</h1>
+
+
+<p>  Stop me if you've heard this sentiment before: <em>"Regex? You mean that archaic text matching stuff that Unix freaks use?"</em></p>
+
+<p><a href="http://en.wikipedia.org/wiki/Regular_expression">Regular expressions</a> (often abbreviated as 'regex') are surprisingly unpopular in the developer community (at least at the places that I've worked). Which is a shame. It's a powerful tool, and something any professional programmer should have in his toolbox.</p>
+
+<p>You may not need them very often if you just develop <a href="http://en.wikipedia.org/wiki/Create%2C_read%2C_update_and_delete">CRUD</a> applications in a nice cosy web framework. But some day you may need to crunch some text files, manually export some data, or <a href="http://en.wikipedia.org/wiki/Web_scraping">scrape a web page</a>... and then you'll have a much easier time of it if you're able to quickly bang out a regular expression.</p>
+
+<p>I've known "just enough to be dangerous" about regular expressions for years, but never got over that initial hump; every time I needed to use them I had to find a cheat sheet on the web and basically rediscover the syntax. This didn't exactly make for a tool that I eagerly reached for. This also ties into my unfortunate <a href="http://thomas.kjeldahlnilsson.net/blog/?p=19">weak knowledge of scripting languages</a>.</p>
+
+<p>So I needed to improve myself in this area. I started by forcing myself to do some nontrivial text crunching in Ruby; a web scraper, some text file processing, stuff like that. Unfortunately, language specific regex documentation usually sucks because it</p>
+
+<p><strong>A)</strong> is often very short (see the slim treatment of regular expressions in <a href="http://pragprog.com/titles/ruby/programming-ruby">The Pickaxe</a>)</p>
+
+<p><strong>B)</strong> uses lame, simplistic examples</p>
+
+<p>and <strong>C)</strong>, is often incomplete.</p>
+
+<p>Incomplete in the sense that they leave nuances out, and only cover the specific flavor of regex of that specific programming language. If you switch to another language with another subset of regex functionality you have to spend time relearning things and discovering new quirks.</p>
+
+<p>Which is why I went and bought this sucker:
+<img src="http://thomas.kjeldahlnilsson.net/images/uploads/2008/06/regexcover.png" height="387" width="293" />
+</p>
+
+<p><a href="http://oreilly.com/catalog/9780596002893/">Mastering Regular Expressions</a> is an excruciatingly complete reference on regex. It starts with a basic overview of syntax and "pattern matching thinking", then goes on to cover the superset of regex syntax across all the major languages and tools. It delves into how regular expressions work under the hood, discusses performance issues, and provides in depth discussion of how some of the major languages support it (Perl, Java, .Net, PHP). All in all, a very complete and well written reference. I highly recommend it.</p>
+
+<p>
+No,  of course I didn't read the book cover to cover :). But I worked through the core chapters, and the big takeaways for me were:
+<ul>
+        <li><strong>Appreciation of possibilities.</strong> I now have a lower threshold for using regular expressions since I know the syntax better and see more cases where it can be used to good effect.</li>
+        <li><strong>Appreciation of problems. </strong>There are plenty of common pitfalls to avoid in the general syntax, as well as gotchas in specific flavors of regex.</li>
+</ul></p>
+
+<p>And finally: now I can use <a href="http://www.regexbuddy.com/">Regex Buddy</a> with a clear conscience, yay! I have nothing against using GUI wrappers to speed up the work process. But I do strongly feel that one should, to a certain degree, understand and be able to use the underlying tools as well. It's the difference between using a supporting tool as running shoes rather than a pair of crutches; the former makes you go even faster, the latter just saves you from being a cripple.</p>
+</div>
+
+<div id="postamble">
+<p class="date">Date: 06.06.2008</p>
+<p class="author">Author: Thomas Kjeldahl Nilsson</p>
+<p class="creator">Org version 7.8.11 with Emacs version 24</p>
+<a href="http://validator.w3.org/check?uri=referer">Validate XHTML 1.0</a>
+
+</div>
+</body>
+</html>

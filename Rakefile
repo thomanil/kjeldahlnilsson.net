@@ -49,8 +49,7 @@ end
 def generate_blog
   blog_posts = []
 
-  # TODO Firing up emacs once for each file = super slow.
-  #      Write some custom elisp to do all files in one go
+  # TODO run as single op
   Dir.glob("./src/blog/*.org").each do |path|
     `emacs --batch --visit=#{path} --funcall org-export-as-html`
     doc = Nokogiri::HTML(File.read(path.gsub(".org", ".html")))
@@ -81,9 +80,9 @@ def generate_blog
 
     # Add navigation and subscribe link to bottom of post body
     body += "<div id='anav'>"
-    body += "<a href='#{blog_posts[i-1][:filename]}'>Newer </a>" if i > 0
-    body += "<a href='archive.html''>Archive</a>"	
-    body += "<a href='#{blog_posts[i+1][:filename]}'> Older</a>" if i < (blog_posts.size - 1)
+    body += "<a href='#{blog_posts[i+1][:filename]}'>Older</a>" if i < (blog_posts.size - 1)
+    body += "<a href='archive.html''> Archive </a>"	
+    body += "<a href='#{blog_posts[i-1][:filename]}'>Newer</a>" if i > 0
     body += "<a class='right' href='http://feeds.feedburner.com/ThomasKjeldahlNilssonsBlog'>Subscribe</a>"
     body += "</div>"
 
@@ -149,28 +148,39 @@ ENTRY
 end
 
 
-###################
-# TMP Wordpress import
-##################¤
 
-task :import do
-  
-  # TODO pull out blogposts from xml file
+#############################
+#############################
+#############################
 
+desc "TMP, remove later"
+task :impodfrt do
+  xml = Nokogiri::XML(File.read("wp_posts.xml"))
+  xml.xpath("//table").each do |table|
+    filename = table.xpath("column[@name='post_name']").text
+    title = table.xpath("column[@name='post_title']").text
+    publish_date = table.xpath("column[@name='post_date']").text
+    publish_date = Time.parse(publish_date).strftime("%d.%m.%Y")
+    body = table.xpath("column[@name='post_content']")[0].content
 
-  
-  # TODO for each blogpost:
-  create_orgfile("imported-blog-post.org", "Imported Blog post", "08.08.1988", "<em>This is a test</em>")
-  
-end
-
-def create_orgfile(filename, title, publish_date, content)
-  File.open("src/blog/#{filename}", "w+") do |f|
-    f.write(orgfile_body(title, publish_date, content))
+    # http://kjeldahlnilsson.net/blog/wp-content/uploads/2010/12/dasKeyboard1.jpg"
+    
+    body = body.gsub("blog/wp-content", "images")
+    
+    # TODO fix standard link and img url errors
+    # TODO after final import, go through and do manual fixes
+    
+    create_orgfile(filename, title, publish_date, body)
   end
 end
 
-def orgfile_body(title, publish_date, content)
+def create_orgfile(filename, title, publish_date, body)
+  File.open("src/blog/#{filename}.org", "w+") do |f|
+    f.write(orgfile_body(title, publish_date, body))
+  end
+end
+
+def orgfile_body(title, publish_date, body)
   body = <<TEMPLATE
 #+TITLE:     #{title}
 #+EMAIL:     thomas@kjeldahlnilsson.net
@@ -188,7 +198,7 @@ def orgfile_body(title, publish_date, content)
 #+XSLT:
 
 #+BEGIN_HTML
-  #{content}
+  #{body}
 #+END_HTML
 TEMPLATE
 end

@@ -1,0 +1,508 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>Javascript Tetris Pt 5: The Life Of A Piece</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+<meta name="title" content="Javascript Tetris Pt 5: The Life Of A Piece"/>
+<meta name="generator" content="Org-mode"/>
+<meta name="generated" content="25.01.2009"/>
+<meta name="author" content="Thomas Kjeldahl Nilsson"/>
+<meta name="description" content=""/>
+<meta name="keywords" content=""/>
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  html { font-family: Times, serif; font-size: 12pt; }
+  .title  { text-align: center; }
+  .todo   { color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #add8e6; font-weight:normal }
+  .target { }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  {margin-left:auto; margin-right:0px;  text-align:right;}
+  .left   {margin-left:0px;  margin-right:auto; text-align:left;}
+  .center {margin-left:auto; margin-right:auto; text-align:center;}
+  p.verse { margin-left: 3% }
+  pre {
+	border: 1pt solid #AEBDCC;
+	background-color: #F3F5F7;
+	padding: 5pt;
+	font-family: courier, monospace;
+        font-size: 90%;
+        overflow:auto;
+  }
+  table { border-collapse: collapse; }
+  td, th { vertical-align: top;  }
+  th.right  { text-align:center;  }
+  th.left   { text-align:center;   }
+  th.center { text-align:center; }
+  td.right  { text-align:right;  }
+  td.left   { text-align:left;   }
+  td.center { text-align:center; }
+  dt { font-weight: bold; }
+  div.figure { padding: 0.5em; }
+  div.figure p { text-align: center; }
+  div.inlinetask {
+    padding:10px;
+    border:2px solid gray;
+    margin:10px;
+    background: #ffffcc;
+  }
+  textarea { overflow-x: auto; }
+  .linenr { font-size:smaller }
+  .code-highlighted {background-color:#ffff00;}
+  .org-info-js_info-navigation { border-style:none; }
+  #org-info-js_console-label { font-size:10px; font-weight:bold;
+                               white-space:nowrap; }
+  .org-info-js_search-highlight {background-color:#ffff00; color:#000000;
+                                 font-weight:bold; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+
+</head>
+<body>
+
+<div id="preamble">
+
+</div>
+
+<div id="content">
+<h1 class="title">Javascript Tetris Pt 5: The Life Of A Piece</h1>
+
+
+  <em>Full source code can be downloaded from project home at <a href="http://kjeldahlnilsson.net/portfolio.php">kjeldahlnilsson.net</a>.</em>
+
+<em>Part <a href="http://kjeldahlnilsson.net/blog/?p=71">1</a>, <a href="http://kjeldahlnilsson.net/blog/?p=72">2</a>, <a href="http://kjeldahlnilsson.net/blog/?p=73">3</a>, <a href="http://kjeldahlnilsson.net/blog/?p=74">4</a>, 5, <a href="http://kjeldahlnilsson.net/blog/?p=77">6</a>, <a href="http://kjeldahlnilsson.net/blog/?p=76">7</a>, <a href="http://kjeldahlnilsson.net/blog/?p=78">8</a></em>
+
+In this installment we are going to set up the proper four-tile tetris piece and its interaction with the playing field. Be warned; this is the installment where we write most of our code. Grab some coffee before we start. :)
+
+We will add a single functional, visual test for the piece and field interaction. I started out with separate tests for painting the piece, moving it, collision detection and so forth. However, in the end I found a single test sufficed to check all these things - so we'll simply use that, keeping our code walkthrough somewhat brief.
+
+The test sets up the playing piece, the play field, and behavior for user input: movement, rotation and switching the shape of the tetris piece.
+
+<em>test.js:</em>
+<code> 
+<pre lang="javascript"> testPieceCollision: function() {
+        Graphics.clearGameContainer();
+
+        Field.init("blue", 400, 100);
+        Piece.init();
+
+        // Register key mapping
+        setKeyReaction(function(keyCode) {
+            switch (keyCode) {
+            case DIR_KEY_DOWN:
+                Piece.moveDown(15);
+                break;
+            case DIR_KEY_UP:
+                Piece.moveUp(15);
+                break;
+            case DIR_KEY_LEFT:
+                Piece.moveLeft(Piece.State.tileWidth);
+                break;
+            case DIR_KEY_RIGHT:
+                Piece.moveRight(Piece.State.tileWidth);
+                break;
+            case NUM_KEY_ONE:
+                Piece.toggleSquareShape();
+                break;
+            case NUM_KEY_TWO:
+                Piece.toggleLineShape();
+                break;
+            case NUM_KEY_THREE:
+                Piece.toggleTeeShape();
+                break;
+            case NUM_KEY_FOUR:
+                Piece.toggleRHookShape();
+                break;
+            case NUM_KEY_FIVE:
+                Piece.toggleLHookShape();
+                break;
+            case NUM_KEY_SIX:
+                Piece.toggleRightLShape();
+                break;
+            case NUM_KEY_SEVEN:
+                Piece.toggleLeftLShape();
+                break;
+            case SPACE_KEY:
+                Piece.rotate(true);
+                break;
+            default:
+                Graphics.drawString('Direction keys moves, space rotates, 1-5 changes piece type', 400, 400);
+            }
+        });
+    },</pre></code><br/>
+
+In Tetris, the playing piece is made up of four tiles. We have seven shapes - seven basic ways of ways of grouping the four tiles.
+
+<img class="alignnone size-full wp-image-464" title="tetrispiecetypes" src="http://kjeldahlnilsson.net/images/uploads/2009/01/tetrispiecetypes.jpg" alt="tetrispiecetypes" width="360" height="120" />
+
+All of these piece types can be rotated in ninety degree steps, giving us up to four different shapes per piece type. All piece shapes, no matter their rotation, fit inside a 4*4 grid... another two dimensional array. We'll define the possible shapes of the tetris piece as array literals. I'll limit the code listing to the possible shapes for the "T" piece type, for brevitys sake:
+
+<em>piece.js:</em>
+<code>
+<pre lang="javascript">//   x
+//  xxx : tee
+var tee0dg =
+[[0, 0, 1, 0],
+ [0, 1, 1, 1],
+ [0, 0, 0, 0],
+ [0, 0, 0, 0]];
+
+var tee90dg =
+[[0, 0, 1, 0],
+ [0, 0, 1, 1],
+ [0, 0, 1, 0],
+ [0, 0, 0, 0]];
+
+var tee180dg =
+[[0, 0, 0, 0],
+ [0, 1, 1, 1],
+ [0, 0, 1, 0],
+ [0, 0, 0, 0]];
+
+var tee270dg =
+[[0, 0, 1, 0],
+ [0, 1, 1, 0],
+ [0, 0, 1, 0],
+ [0, 0, 0, 0]];
+
+var teeRotations = [tee0dg, tee90dg, tee180dg, tee270dg];</pre></code><br/>
+
+Finally we wrap the possible rotated shapes in an array, so we hold all possible rotated shapes of that piece type in one place. We do the same for all other piece shapes.
+
+Now we have everything we need to define the playing piece and its behavior.
+
+<em>piece.js:</em>
+<code>
+<pre lang="javascript">var Piece = {
+
+    State: {
+        piecePos: {
+            x: 0,
+            y: 0
+        },
+        color: "black",
+        currRotation: squareRotations[0],
+        currShape: squareRotations,
+        rotationCounter: 0,
+        // The four sprites that make up the piece
+        tiles: [null, null, null, null],
+        tileWidth: 23,
+        tileHeight: 30
+    },
+
+    init: function(color) {
+
+        rotationCounter = 0;
+
+        var width = this.State.tileWidth;
+        var height = this.State.tileHeight;
+
+        if (!color) { // Assume colorful diagnostic pattern
+            this.State.tiles[0] = Graphics.createRectangleDiv("green", 0, 0, width, height);
+            this.State.tiles[1] = Graphics.createRectangleDiv("yellow", 0, 0, width, height);
+            this.State.tiles[2] = Graphics.createRectangleDiv("orange", 0, 0, width, height);
+            this.State.tiles[3] = Graphics.createRectangleDiv("red", 0, 0, width, height);
+        }
+        else {
+            this.State.tiles[0] = Graphics.createRectangleDiv(color, 0, 0, width, height);
+            this.State.tiles[1] = Graphics.createRectangleDiv(color, 0, 0, width, height);
+            this.State.tiles[2] = Graphics.createRectangleDiv(color, 0, 0, width, height);
+            this.State.tiles[3] = Graphics.createRectangleDiv(color, 0, 0, width, height);
+        }
+
+        this.reset();
+    },
+
+    // Reset piece pos to middle of middle, top
+    reset: function() {
+        this.State.piecePos.x = Field.State.posX + ((Field.WIDTH / 2) * this.State.tileWidth) - (2 * this.State.tileWidth);
+        this.State.piecePos.y = Field.State.posY - (this.State.tileHeight * 2);
+        this.setRandomShape();
+        this.redraw();
+    },
+
+    drawSingleTile: function(xSlot, ySlot, tileNo) {
+        var derivedX = this.State.piecePos.x + (xSlot * this.State.tileWidth);
+        var derivedY = this.State.piecePos.y + (ySlot * this.State.tileHeight);
+        this.State.tiles[tileNo].style.top = derivedY;
+        this.State.tiles[tileNo].style.left = derivedX;
+    },
+
+    redraw: function() {
+        var tileCounter = 0;
+        this.State.currRotation.eachWithIndexes(function(element, x, y) {
+            if (element === 1) { // Is the matrix slot ticked?
+                Piece.drawSingleTile(x, y, tileCounter);
+                tileCounter++;
+            }
+        });
+        tileCounter = 0;
+    },
+
+    move: function(dx, dy) {
+        var directionIsDown = (dy > 0);
+
+        var collisionCheck = Field.checkCollisions(this.State.piecePos.x, this.State.piecePos.y, this.State.currRotation, directionIsDown, dx, dy);
+        if (collisionCheck.collides) {
+            if (collisionCheck.sticks) {
+                Field.mergeShapeIntoField(this.State.piecePos.x, this.State.piecePos.y, this.State.currRotation);
+                this.reset();
+                this.isGameOver();
+            }
+        }
+        else {
+            this.State.piecePos.x += dx;
+            this.State.piecePos.y += dy;
+            this.redraw();
+        }
+    },
+
+    moveUp: function(speed) {
+        this.move(0, -(speed));
+    },
+    moveDown: function(speed) {
+        this.move(0, speed);
+    },
+    moveLeft: function(speed) {
+        this.move( - (speed), 0);
+    },
+    moveRight: function(speed) {
+        this.move(speed, 0);
+    },
+
+    setRandomShape: function() {
+        var random = Math.floor(Math.random() * 7);
+
+        switch (random) {
+        case 0:
+            this.toggleSquareShape();
+            break;
+        case 1:
+            this.toggleLineShape();
+            break;
+        case 2:
+            this.toggleTeeShape();
+            break;
+        case 3:
+            this.toggleRHookShape();
+            break;
+        case 4:
+            this.toggleLHookShape();
+            break;
+        case 5:
+            this.toggleRightLShape();
+            break;
+        case 6:
+            this.toggleLeftLShape();
+            break;
+        }
+    },
+
+    rotate: function(doCollisionCheck) {
+        this.State.rotationCounter++;
+        if (this.State.rotationCounter == this.State.currShape.length) {
+            this.State.rotationCounter = 0;
+        }
+
+        if (doCollisionCheck) {
+            var collisionCheck = Field.checkCollisions(this.State.piecePos.x, this.State.piecePos.y, this.State.currShape[this.State.rotationCounter], false, 0, 0);
+            if (collisionCheck.collides) {
+                return;
+            }
+        }
+
+        this.State.currRotation = this.State.currShape[this.State.rotationCounter];
+        this.redraw();
+    },
+
+    resetRotation: function() {
+        this.State.currRotation = this.State.currShape[0];
+        this.State.rotationCounter = 0;
+        this.redraw();
+    },
+
+    toggleSquareShape: function() {
+        this.State.currShape = squareRotations;
+        this.resetRotation();
+    },
+
+    toggleLineShape: function() {
+        this.State.currShape = lineRotations;
+        this.resetRotation();
+    },
+
+    toggleTeeShape: function() {
+        this.State.currShape = teeRotations;
+        this.resetRotation();
+    },
+
+    toggleRHookShape: function() {
+        this.State.currShape = rhookRotations;
+        this.resetRotation();
+    },
+
+    toggleLHookShape: function() {
+        this.State.currShape = lhookRotations;
+        this.resetRotation();
+    },
+
+    toggleLeftLShape: function() {
+        this.State.currShape = leftLRotations;
+        this.resetRotation();
+    },
+
+    toggleRightLShape: function() {
+        this.State.currShape = rightLRotations;
+        this.resetRotation();
+    }
+
+};</pre></code><br/>
+
+Whew. The final task is to define how the field behaves when the playing piece touches its borders, or other tiles on the field. In other words, collision detection. The <strong>Field</strong> object will take the playing piece position, shape, direction and speed and determine two things: will the piece collide with anything? If it collides, does it also stick to that surface? If it does, the <strong>Piece</strong> will, as defined above, ask <strong>Field</strong> to merge its shape into the current position in the <strong>Field</strong> grid.
+
+We add the following members to the <strong>Field</strong> object literal (which we started defining in yesterdays blog post):
+
+<em>field.js:</em>
+<code>
+<pre lang="javascript">    CollisionData: {
+        collides: false,
+        sticks: false
+    },
+
+    checkCollisions: function(xPos, yPos, shapeArray, directionIsDown, dx, dy) {
+        if (this.State.gridState) {
+            var fieldCollision = this.pieceCollidesWithField(xPos, yPos, shapeArray, directionIsDown, dx, dy);
+            var boundaryCollision = this.pieceCollidesWithFloorOrWall(xPos, yPos, shapeArray, directionIsDown, dx, dy);
+            var collisionResult = Object.create(this.CollisionData);
+            collisionResult.collides = fieldCollision.collides || boundaryCollision.collides;
+            collisionResult.sticks = fieldCollision.sticks || boundaryCollision.sticks;
+            return collisionResult;
+        }
+    },
+
+    pieceCollidesWithField: function(xPos, yPos, shapeArray, directionIsDown, dx, dy) {
+        var collision = Object.create(this.CollisionData);
+
+        shapeArray.eachWithIndexes(function(element, x, y) {
+            if (!element || (collision && collision.collides)) {
+                return;
+            }
+
+            var tileXPos = xPos + (Piece.State.tileWidth * x) + dx;
+            var tileYPos = yPos + (Piece.State.tileHeight * y) + 1;
+            var movingRect = makeRect(tileXPos, tileYPos, Piece.State.tileWidth, Piece.State.tileHeight);
+
+            Field.State.gridTiles.eachWithIndexes(function(tile, arrX, arrY) {
+                if (collision.collides) {
+                    return;
+                }
+
+                if (Field.isTileOn(arrX, arrY)) { // Only  collision if tile is actually switched on
+                    var tileX = Field.State.posX + (Piece.State.tileWidth * arrX);
+
+
+
+                    var tileY = Field.State.posY + (Piece.State.tileHeight * arrY);
+                    var fieldRect = makeRect(tileX, tileY, Piece.State.tileWidth, Piece.State.tileHeight);
+                    collision.collides = intersectRect(movingRect, fieldRect);
+
+                    if (collision.collides && directionIsDown) {
+                        collision.sticks = true;
+
+                    }
+                }
+            });
+        });
+
+        return collision;
+    },
+
+    pieceCollidesWithFloorOrWall: function(xPos, yPos, shapeArray, directionIsDown, dx, dy) {
+        var collision;
+
+        shapeArray.eachWithIndexes(function(element, x, y) {
+            if (!element || (collision && collision.collides)) {
+                return;
+            }
+
+            collision = Object.create(Field.CollisionData);
+
+            // Check for floor collision
+            var tileYPos = yPos + (Piece.State.tileHeight * y) + 1;
+            var tileBottom = tileYPos + Piece.State.tileHeight;
+            var fieldBottom = Field.State.posY + (Piece.State.tileHeight * Field.HEIGHT);
+            collision.collides = (tileBottom > fieldBottom);
+            collision.sticks = directionIsDown;
+
+            // Check for wall collision (if no floor collision)
+            if (!collision.collides) {
+                var tileXPos = xPos + (Piece.State.tileWidth * x) + dx;
+                var tileLeft = tileXPos;
+                var tileRight = tileXPos + Piece.State.tileWidth;
+                var fieldLeft = Field.State.posX;
+                var fieldRight = Field.State.posX + (Piece.State.tileWidth * Field.WIDTH);
+                collision.collides = (tileLeft < fieldLeft || tileRight > fieldRight);
+            }
+        });
+
+        return collision;
+    },
+
+    mergeShapeIntoField: function(xPos, yPos, shapeArray) {
+        shapeArray.eachWithIndexes(function(element, x, y) {
+            if (element) {
+                var tileAbsoluteXPos = xPos + (Piece.State.tileWidth * x);
+                var tileAbsoluteYPos = yPos + (Piece.State.tileHeight * y);
+                var tileXPosInField = tileAbsoluteXPos - Field.State.posX;
+                var tileYPosInField = tileAbsoluteYPos - Field.State.posY;
+                var tileXLocationInField = tileXPosInField / Piece.State.tileWidth;
+                var tileYLocationInField = Math.round(tileYPosInField / Piece.State.tileHeight);
+                Field.tileOn(tileXLocationInField, tileYLocationInField);
+            }
+        });
+
+        Field.doRowClears();
+    }</pre></code><br/>
+
+I'm not completely happy with the <strong>pieceCollides*()</strong> methods. Some of the variable names could be clearer. Checking the entire field for collisions is a little brute force (collision can only occur in the field tiles overlapping and directly surrounding the piece). The calculation of coordinates could be simplified by having <strong>Piece</strong> use coordinates relative to <strong>Field</strong>. And methods with more than two levels worth of nested blocks are just asking for an additional method extract. This implementation does the job well enough for now, however.
+
+Once the playing piece has "stuck" and been merged into the field, we check if any rows have been completely filled in the playing field - these should be cleared, and the pieces above should be shuffled down. We'll hold off implementing <strong>doRowClears()</strong>, however - todays installment is already running a little long. :)
+
+In the next part we'll finish the piece-field interaction. We'll also add some visual and aural interest to the game.
+</div>
+
+<div id="postamble">
+<p class="date">Date: 25.01.2009</p>
+<p class="author">Author: Thomas Kjeldahl Nilsson</p>
+<p class="creator">Org version 7.8.11 with Emacs version 24</p>
+<a href="http://validator.w3.org/check?uri=referer">Validate XHTML 1.0</a>
+
+</div>
+</body>
+</html>

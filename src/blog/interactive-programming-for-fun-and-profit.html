@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>Interactive Programming for Fun and Profit</title>
+<meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"/>
+<meta name="title" content="Interactive Programming for Fun and Profit"/>
+<meta name="generator" content="Org-mode"/>
+<meta name="generated" content="13.09.2010"/>
+<meta name="author" content="Thomas Kjeldahl Nilsson"/>
+<meta name="description" content=""/>
+<meta name="keywords" content=""/>
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  html { font-family: Times, serif; font-size: 12pt; }
+  .title  { text-align: center; }
+  .todo   { color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #add8e6; font-weight:normal }
+  .target { }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  {margin-left:auto; margin-right:0px;  text-align:right;}
+  .left   {margin-left:0px;  margin-right:auto; text-align:left;}
+  .center {margin-left:auto; margin-right:auto; text-align:center;}
+  p.verse { margin-left: 3% }
+  pre {
+	border: 1pt solid #AEBDCC;
+	background-color: #F3F5F7;
+	padding: 5pt;
+	font-family: courier, monospace;
+        font-size: 90%;
+        overflow:auto;
+  }
+  table { border-collapse: collapse; }
+  td, th { vertical-align: top;  }
+  th.right  { text-align:center;  }
+  th.left   { text-align:center;   }
+  th.center { text-align:center; }
+  td.right  { text-align:right;  }
+  td.left   { text-align:left;   }
+  td.center { text-align:center; }
+  dt { font-weight: bold; }
+  div.figure { padding: 0.5em; }
+  div.figure p { text-align: center; }
+  div.inlinetask {
+    padding:10px;
+    border:2px solid gray;
+    margin:10px;
+    background: #ffffcc;
+  }
+  textarea { overflow-x: auto; }
+  .linenr { font-size:smaller }
+  .code-highlighted {background-color:#ffff00;}
+  .org-info-js_info-navigation { border-style:none; }
+  #org-info-js_console-label { font-size:10px; font-weight:bold;
+                               white-space:nowrap; }
+  .org-info-js_search-highlight {background-color:#ffff00; color:#000000;
+                                 font-weight:bold; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+
+</head>
+<body>
+
+<div id="preamble">
+
+</div>
+
+<div id="content">
+<h1 class="title">Interactive Programming for Fun and Profit</h1>
+
+
+<p>  <em>This is the blog post version of a talk I gave at the JavaZone 2010 conference.</em></p>
+
+<p>I've had dynamic programming languages (JavaScript, Ruby, Lisp) on the brain lately. A common trait of these languages is the ability to program interactively.</p>
+
+<p>The concept is simple, but I think it's easier to show rather than tell what interactive programming is. Here's an example, demonstrated in IRB (Interactive Ruby).</p>
+
+<p><object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" width="600" height="400" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0"><param name="allowfullscreen" value="true" /><param name="allowscriptaccess" value="always" /><param name="src" value="http://vimeo.com/moogaloop.swf?clip_id=14709877&amp;server=vimeo.com&amp;show_title=1&amp;show_byline=1&amp;show_portrait=1&amp;color=00ADEF&amp;fullscreen=1&amp;autoplay=0&amp;loop=0" /><embed type="application/x-shockwave-flash" width="600" height="400" src="http://vimeo.com/moogaloop.swf?clip_id=14709877&amp;server=vimeo.com&amp;show_title=1&amp;show_byline=1&amp;show_portrait=1&amp;color=00ADEF&amp;fullscreen=1&amp;autoplay=0&amp;loop=0" allowscriptaccess="always" allowfullscreen="true"></embed></object></p>
+
+<p>What's happening here?</p>
+
+<p>Well, I write very basic Ruby code. But watch what happens along the way. Every Ruby statement I write is evaluated and run by the environment. The result is printed back on the command line. The environment remembers my actions. I define variables and functions. I'm able to build new things on the fly, and I get instant feedback for everything I do. No recompilation or restart steps necessary.</p>
+
+<p>Our usual process for software development is like a steel mill. We create a mold (write code in an IDE). Then we stamp out a chunk of steel (compile, deploy, restart). Does the steel chunk (software system) have the wrong shape? Back to the drawing board, then.</p>
+
+<p>This feedback-loop is much shorter than before thanks to faster compilation, incremental compilation, faster computers and unit testing - but we still waste time running back and forth like this.</p>
+
+<p>Interactive programming, on the other hand, is somewhat like working with clay; work on the actual artifact directly. Mold it, add some clay (code), keep working, see what happens. No feedback loop at all.</p>
+
+<p>This isn't a replacement for our usual tools and workflow - it's a useful supplement. Yes, you'd better use steel to build a production car. But prototypes are easier to build in clay. Likewise, interactive programming is a useful utility for serious software development.</p>
+
+<p>So interactive programming is useful because you work faster, due to a shorter feedback-loop. You're able to write less code, because you spend less time building infrastructure and boilerplate.</p>
+
+<p>However, I suspect that the single Ruby example above didn't full drive home the point. Let's look at a few other scenarious, all of which I use regularly myself.</p>
+
+<p>I sometimes use interactive programming as an <strong>systems interface</strong> for running webapps. In the clip below I start up an interactive Rails console on a testserver. This gives me access to the same APIs and data as my server backend - interactively - <em>while the system is still running</em>.</p>
+
+<p><object width="600" height="400"><param name="allowfullscreen" value="true" /><param name="allowscriptaccess" value="always" /><param name="movie" value="http://vimeo.com/moogaloop.swf?clip_id=14709904&amp;server=vimeo.com&amp;show_title=1&amp;show_byline=1&amp;show_portrait=1&amp;color=00ADEF&amp;fullscreen=1&amp;autoplay=0&amp;loop=0" /><embed src="http://vimeo.com/moogaloop.swf?clip_id=14709904&amp;server=vimeo.com&amp;show_title=1&amp;show_byline=1&amp;show_portrait=1&amp;color=00ADEF&amp;fullscreen=1&amp;autoplay=0&amp;loop=0" type="application/x-shockwave-flash" allowfullscreen="true" allowscriptaccess="always" width="600" height="400"></embed></object></p>
+
+<p>You can use Rails console as a replacement for a heavy web interface. Instead of building functionality you might not need, simply use the console. If you find yourself doing the same task repeatedly, <strong>then</strong> consider building a web UI for that task.</p>
+
+<p>The console is also useful for small experiments while developing the system - try ideas out before commiting to them with production code.</p>
+
+<p>Now, let's move on to frontend work. The Firebug plugin provides another useful interactive environment. Watch:</p>
+
+<p><object width="600" height="400"><param name="allowfullscreen" value="true" /><param name="allowscriptaccess" value="always" /><param name="movie" value="http://vimeo.com/moogaloop.swf?clip_id=14711715&amp;server=vimeo.com&amp;show_title=1&amp;show_byline=1&amp;show_portrait=1&amp;color=00ADEF&amp;fullscreen=1&amp;autoplay=0&amp;loop=0" /><embed src="http://vimeo.com/moogaloop.swf?clip_id=14711715&amp;server=vimeo.com&amp;show_title=1&amp;show_byline=1&amp;show_portrait=1&amp;color=00ADEF&amp;fullscreen=1&amp;autoplay=0&amp;loop=0" type="application/x-shockwave-flash" allowfullscreen="true" allowscriptaccess="always" width="600" height="400"></embed></object></p>
+
+<p>This was a very simple example. I do however use the same techniques when I develop more complex UIs; the Firebug console is useful for testing stuff out "live".</p>
+
+<p>Unit testing is great for JavaScript development, but I often don't know exactly what I'm looking for, how I want the final result to look. The Firebug console lets me quickly, iteratively look for a solution.</p>
+
+<p>With me so far? In that case I think I know what you're thinking. <em>"I don't want to write code straight to the command line! I like my editor just fine!"</em> Well, you could write code in your IDE and then paste it into the interactive environment. However, it would be nice if the IDE let us send code straight to the console, right? Let's look at one way of doing this.</p>
+
+<p>Clojure is a young but promising programming language. It's just a few years old, but it's built on mature technology. Clojure is a Lisp dialect. What we've called interactive consoles so far, Lispers often call REPL (Read Eval Print Loops), and Lisp has a much stronger tradition of using REPL tools.</p>
+
+<p>Let's look at an example in Clojure. I stay in Emacs during the entire demonstration, marking and sending code to a separate REPL process. In this example I use this workflow to work effectively with 3d graphics (OpenGL is something I know very little about, so an interactive workflow is useful to ensure I get immediate feedback while testin things out).</p>
+
+<p>The clip starts with a demonstration of the basic workflow, then some simple 3d graphics play, and finally I implement the rendering of a simple Tetris game (download src <a href="http://kjeldahlnilsson.net/clojureTetris.zip">here</a>, if you wish).</p>
+
+<p><object width="600" height="400"><param name="allowfullscreen" value="true" /><param name="allowscriptaccess" value="always" /><param name="movie" value="http://vimeo.com/moogaloop.swf?clip_id=14709925&amp;server=vimeo.com&amp;show_title=1&amp;show_byline=1&amp;show_portrait=1&amp;color=00ADEF&amp;fullscreen=1&amp;autoplay=0&amp;loop=0" /><embed src="http://vimeo.com/moogaloop.swf?clip_id=14709925&amp;server=vimeo.com&amp;show_title=1&amp;show_byline=1&amp;show_portrait=1&amp;color=00ADEF&amp;fullscreen=1&amp;autoplay=0&amp;loop=0" type="application/x-shockwave-flash" allowfullscreen="true" allowscriptaccess="always" width="600" height="400"></embed></object></p>
+
+<p>What have we seen so far?</p>
+
+<p>Interactive programming gives you <strong>fast feedback</strong>. You're able to <strong>work faster</strong> and <strong>write less code</strong>. This is useful for <strong>learning and exploring</strong>, for<strong> system administration and testing</strong>, and for <strong>visual prototyping</strong>.</p>
+
+<p>Finally, have a look at the clips below. They are examples of Livecoding, where programmers and artist use interactive programming as a medium for performance art. The code and its output is improvised, sometimes in front of a live audience. Interesting example of skilled interactive programming taken to the extreme!</p>
+
+<p><object width="600" height="400"><param name="allowfullscreen" value="true" /><param name="allowscriptaccess" value="always" /><param name="movie" value="http://vimeo.com/moogaloop.swf?clip_id=2433947&amp;server=vimeo.com&amp;show_title=1&amp;show_byline=1&amp;show_portrait=1&amp;color=00ADEF&amp;fullscreen=1&amp;autoplay=0&amp;loop=0" /><embed src="http://vimeo.com/moogaloop.swf?clip_id=2433947&amp;server=vimeo.com&amp;show_title=1&amp;show_byline=1&amp;show_portrait=1&amp;color=00ADEF&amp;fullscreen=1&amp;autoplay=0&amp;loop=0" type="application/x-shockwave-flash" allowfullscreen="true" allowscriptaccess="always" width="600" height="400"></embed></object></p>
+
+<p><object width="600" height="400"><param name="allowfullscreen" value="true" /><param name="allowscriptaccess" value="always" /><param name="movie" value="http://vimeo.com/moogaloop.swf?clip_id=2502546&amp;server=vimeo.com&amp;show_title=1&amp;show_byline=1&amp;show_portrait=1&amp;color=00ADEF&amp;fullscreen=1&amp;autoplay=0&amp;loop=0" /><embed src="http://vimeo.com/moogaloop.swf?clip_id=2502546&amp;server=vimeo.com&amp;show_title=1&amp;show_byline=1&amp;show_portrait=1&amp;color=00ADEF&amp;fullscreen=1&amp;autoplay=0&amp;loop=0" type="application/x-shockwave-flash" allowfullscreen="true" allowscriptaccess="always" width="600" height="400"></embed></object>
+
+<p><strong>References:</strong></p>
+
+<p><a href="http://en.wikipedia.org/wiki/Read-eval-print_loop">A list of REPL environments</a></p>
+
+<p><a href="http://tagaholic.me/2009/05/11/demystifying-irb-commands.html">Demystifying IRB commands (interactive Ruby)</a></p>
+
+<p><a href="http://slash7.com/2006/12/21/secrets-of-the-rails-console-ninjas/">Secrets of the Rails Console Ninjas</a></p>
+
+<p><a href="http://getfirebug.com/wiki/index.php/Console_Panel">The Firebug Console Panel</a></p>
+
+<p><a href="http://clojure.org/getting_started">Clojure.org: 'Getting started'</a></p>
+
+<p><a href="http://technomancy.us/126">in which are found tricks of the trade concerning clojure authorship</a></p>
+
+<p><a href="http://wiki.github.com/ztellman/penumbra/getting-started">Penumbra OpenGL framework: 'Getting started'</a></p>
+
+<p><a href="http://impromptu.moso.com.au/resources.html">Impromptu livecoding environment introduction</a></p>
+
+<p><a href="http://impromptu.moso.com.au/gallery.html">Andrew Sorenson livecoding videos</a></p>
+</div>
+
+<div id="postamble">
+<p class="date">Date: 13.09.2010</p>
+<p class="author">Author: Thomas Kjeldahl Nilsson</p>
+<p class="creator">Org version 7.8.11 with Emacs version 24</p>
+<a href="http://validator.w3.org/check?uri=referer">Validate XHTML 1.0</a>
+
+</div>
+</body>
+</html>

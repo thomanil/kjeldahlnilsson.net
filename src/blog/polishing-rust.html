@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>Polishing Rust</title>
+<meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"/>
+<meta name="title" content="Polishing Rust"/>
+<meta name="generator" content="Org-mode"/>
+<meta name="generated" content="24.04.2008"/>
+<meta name="author" content="Thomas Kjeldahl Nilsson"/>
+<meta name="description" content=""/>
+<meta name="keywords" content=""/>
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  html { font-family: Times, serif; font-size: 12pt; }
+  .title  { text-align: center; }
+  .todo   { color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #add8e6; font-weight:normal }
+  .target { }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  {margin-left:auto; margin-right:0px;  text-align:right;}
+  .left   {margin-left:0px;  margin-right:auto; text-align:left;}
+  .center {margin-left:auto; margin-right:auto; text-align:center;}
+  p.verse { margin-left: 3% }
+  pre {
+	border: 1pt solid #AEBDCC;
+	background-color: #F3F5F7;
+	padding: 5pt;
+	font-family: courier, monospace;
+        font-size: 90%;
+        overflow:auto;
+  }
+  table { border-collapse: collapse; }
+  td, th { vertical-align: top;  }
+  th.right  { text-align:center;  }
+  th.left   { text-align:center;   }
+  th.center { text-align:center; }
+  td.right  { text-align:right;  }
+  td.left   { text-align:left;   }
+  td.center { text-align:center; }
+  dt { font-weight: bold; }
+  div.figure { padding: 0.5em; }
+  div.figure p { text-align: center; }
+  div.inlinetask {
+    padding:10px;
+    border:2px solid gray;
+    margin:10px;
+    background: #ffffcc;
+  }
+  textarea { overflow-x: auto; }
+  .linenr { font-size:smaller }
+  .code-highlighted {background-color:#ffff00;}
+  .org-info-js_info-navigation { border-style:none; }
+  #org-info-js_console-label { font-size:10px; font-weight:bold;
+                               white-space:nowrap; }
+  .org-info-js_search-highlight {background-color:#ffff00; color:#000000;
+                                 font-weight:bold; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+
+</head>
+<body>
+
+<div id="preamble">
+
+</div>
+
+<div id="content">
+<h1 class="title">Polishing Rust</h1>
+
+
+<p>  I'm nowhere near as good a programmer as I should be.</p>
+
+<p>I'm not <strong>terrible</strong> - just a bit off from where I should be.</p>
+
+<p>What actually made this hit home was, initially, some of the job interviews I went through last year. I did get offers from all the companies I interviewed at. Maybe this isn't saying much given how crazy<strong> </strong>the IT job market has been for the last few years... or am I actually <a href="http://www.codinghorror.com/blog/archives/000781.html">ahead of a bunch of really terrible programmers</a>? Now there's a scary thought for you!</p>
+
+<p>Anyway, some of the more hardball interview questions did give me a clear sense of some areas I'm weak, rusty or just plain ignorant in. Later on I got an additional wakeup call from <a href="http://steve.yegge.googlepages.com/five-essential-phone-screen-questions">this blog post</a>. Go on, go read it right now.</p>
+
+<p>Some consider Steve Yegges idea of a phone screen (or job interview) somewhat harsh. However, you should <strong>know </strong>this stuff if you consider yourself a professional developer. The article painfully reminded me of all the stuff I've either A) forgotten or B) simply never bothered to learn.</p>
+
+<p>So, resolution time. I'm going to pick a few areas that I need to improve in initially, and I'll try to invest at least a few hours each week (outside of work). My current todo list:
+<ul>
+        <li>Learn <a href="http://www.ruby-lang.org/en/">Ruby</a> properly. I never bothered to master a scripting language, though I've dabbled in Ruby and Perl before. And I should take the opportunity to become more proficient with <a href="http://www.amazon.com/Mastering-Regular-Expressions-Jeffrey-Friedl/dp/0596528124/ref=pd_bbs_sr_1?ie=UTF8&amp;s=books&amp;qid=1207950991&amp;sr=1-1">regular expressions</a> while I'm at it.</li>
+        <li>Learn a <a href="http://en.wikipedia.org/wiki/Functional_programming">functional</a><strong> </strong>programming language, at least enough to feel more familiar and comfortable with that paradigm. I've worked with people who are fond of <a href="http://paulgraham.com/rootsoflisp.html">Lisp</a>, and it clearly showed in their Java code. In a good way.</li>
+        <li><a href="http://www.amazon.com/Basic-Mathematics-Serge-Lang/dp/0387967877/ref=pd_bbs_7?ie=UTF8&amp;s=books&amp;qid=1207950516&amp;sr=8-7">Brush up</a><strong> </strong>on my <a href="http://www.amazon.com/Mathematical-Methods-Physical-Sciences-Mary/dp/0471198269/ref=sr_1_1?ie=UTF8&amp;s=books&amp;qid=1207950584&amp;sr=1-1">math skills</a>. I was never a very inspired math student in school, but I'm continuing to find that I really should've focused more on that.</li>
+</ul></p>
+
+<p>Time to polish the rust and sharpen the blade.</p>
+</div>
+
+<div id="postamble">
+<p class="date">Date: 24.04.2008</p>
+<p class="author">Author: Thomas Kjeldahl Nilsson</p>
+<p class="creator">Org version 7.8.11 with Emacs version 24</p>
+<a href="http://validator.w3.org/check?uri=referer">Validate XHTML 1.0</a>
+
+</div>
+</body>
+</html>

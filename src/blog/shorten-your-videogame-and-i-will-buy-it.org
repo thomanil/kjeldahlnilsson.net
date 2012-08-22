@@ -1,0 +1,51 @@
+#+TITLE:     Shorten Your Videogame And I Will Buy It
+#+EMAIL:     thomas@kjeldahlnilsson.net
+#+DATE:      04.07.2008
+#+DESCRIPTION:
+#+KEYWORDS:
+#+LANGUAGE:  en
+#+OPTIONS: H:3 num:nil toc:nil @:t ::t |:t ^:t -:t f:t *:t <:t 
+#+OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+INFOJS_OPT: view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
+#+EXPORT_SELECT_TAGS: export
+#+EXPORT_EXCLUDE_TAGS: noexport
+#+LINK_UP:
+#+LINK_HOME:
+#+XSLT:
+
+#+BEGIN_HTML
+  
+<p align="center"> <img src="http://thomas.kjeldahlnilsson.net/images/uploads/2008/07/gtacover.jpg" alt="GTA IV box art" /></p>
+
+<p>Finally got my hands on <a href="http://www.1up.com/do/reviewPage?cId=3167589&amp;p=4" title="1Up GTAIV review">GTA IV</a> last week, yay. I'm about five hours into it so far. My initial impression of the game itself is very positive... and I still have trouble really enjoying it.</p>
+
+<p>Why? Because I know that the chance of me completing the storyline of this game, ie "getting the whole experience", is slim to none. Translation: I don't have as much time as I'd like for this hobby any more. Boo hoo.</p>
+
+<p>Part of the problem is that I can be a terrible neat-freak and completionist in some ways. So I really like <strong>finishing </strong>a<strong> </strong>good game. And on the flip side, I also hate <strong>not</strong> being able to finish said game.</p>
+
+<p>This is of course is due to the whole "having a life" and "being a responsible adult" thing... which is a worthwhile tradeoff. But when I actually do find the time to turn on my Xbox, knowing that I probably won't be able to get through the whole game ends up tainting the experience.</p>
+
+<p><em>"Ahh, but Thomas, couldn't you space it out a little? Pace yourself! Just finish the stupid game in X months instead of X days or weeks!"</em> Yeah, that's what I thought too. Unfortunately I find that I lose interest in most games after a certain point in time, especially after extended breaks. It's akin to stopping in the middle of a massive novel; the threshold for getting back into it rises as time passes.</p>
+
+<p>Good for me, then, that the entire games industry seems to be changing to suit my lifestyle.</p>
+
+<p><a href="http://thomas.kjeldahlnilsson.net/images/uploads/2008/07/cod4cover.jpg" title="Call of Duty IV box art"></a></p>
+
+<p style="text-align: center"><img src="http://thomas.kjeldahlnilsson.net/images/uploads/2008/07/portalcover.jpg" alt="Portal box art" /><a href="http://thomas.kjeldahlnilsson.net/images/uploads/2008/07/portalcover.jpg" title="Portal box art"> </a></p>
+
+<p>Case study A: <a href="http://www.1up.com/do/reviewPage?cId=3163578&amp;p=1" title="1Up Portal review">Portal</a>. Innovative and thoughtful gameplay, at times brilliantly funny, and above all <em>perfectly sized</em>. 3-4 hours total gameplay (unless you're a little slow). It was exactly what it needed to be<strong> - </strong>no more, no less.</p>
+
+<p><a href="http://thomas.kjeldahlnilsson.net/images/uploads/2008/07/cod4cover.jpg" title="Call of Duty IV box art"></a></p>
+
+<p style="text-align: center"><img src="http://thomas.kjeldahlnilsson.net/images/uploads/2008/07/cod4cover.jpg" alt="Call of Duty IV box art" /></p>
+
+<p>Case study B: <a href="http://www.1up.com/do/reviewPage?cId=3164496&amp;p=1&amp;sec=REVIEWS" title="1Up COD4 review">Call of Duty 4</a>. Great first person shooter with a single player component only 5-6 hours long; basically a solid rollercoaster ride with very little artificial filler or padding along the way. Again, the amount of gameplay there was just right.</p>
+
+<p>I find that I really appreciate these smaller, more contained games - even though they often cost as much as the ones with 5-10 times as much content. And interestingly, these shorter games seem to be examples of an ongoing shift in the games industry.</p>
+
+<p>Producing big budget video games is growing increasingly expensive. It takes serious time and money to design, code and provide art/audio assets for these products. In the old days, you could stick<strong> </strong>a couple of programmers in a basement<strong> </strong>and possibly have a blockbuster hit a few months later. Today, you need literally hundreds of employees<strong> </strong>working for years, since the complexity and media production values of these games are so much higher than they used to be. This forces developers to cut the <a href="http://en.wikipedia.org/wiki/Scope_(project_management)" title="Wikipedia reference on scope in project management">scope</a><strong> </strong>of their games before releasing them.</p>
+
+<p>Meanwhile, the gamer demographic is changing. The average age of the customer is <a href="http://www.bizreport.com/2008/04/study_gamer_demographic_complex.html" title="Gamer demographic study">33 and rising</a>. Publishers and developers essentially have to adapt to a maturing audience which has less free time on their hands. People like me (and a lot of my friends).</p>
+
+<p>So I probably won't get through GTA IV. Big deal. My age group (kids over the age of thirty) has plenty of other cool stuff to look forward to. Can't wait for Portal 2. :)</p>
+#+END_HTML

@@ -1,0 +1,44 @@
+#+TITLE:     Subversion@home
+#+EMAIL:     thomas@kjeldahlnilsson.net
+#+DATE:      26.05.2006
+#+DESCRIPTION:
+#+KEYWORDS:
+#+LANGUAGE:  en
+#+OPTIONS: H:3 num:nil toc:nil @:t ::t |:t ^:t -:t f:t *:t <:t 
+#+OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+INFOJS_OPT: view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
+#+EXPORT_SELECT_TAGS: export
+#+EXPORT_EXCLUDE_TAGS: noexport
+#+LINK_UP:
+#+LINK_HOME:
+#+XSLT:
+
+#+BEGIN_HTML
+<p>  What's more geeky than obsessing over backup schemes on your home computer?</p>
+
+<p>*drumroll*</p>
+
+<p>Setting up version control at home!</p>
+
+<p>I recently decided to start using <a href="http://subversion.tigris.org/">Subversion</a> for version control of files on my home desktops.</p>
+
+<p>I got the idea after switching to <a href="http://www.site5.com/">Site5</a> as host for my home domain. Their knowledge base references some <a href="http://www.julianyap.com/wiki/index.php?title=Subversion_on_Site5">handy</a> <a href="http://forums.site5.com/showthread.php?t=7348&amp;highlight=svn">howto</a> files for setting up an ssh-accessible svn repository at their servers. Neat.</p>
+
+
+<p>What I basically did:
+<ul>
+	<li>Got ssh access to my site5 domain</li>
+	<li>Set up a repository on the domain</li>
+	<li>Installed subversion via <a href="http://darwinports.opendarwin.org/">Darwin Ports</a> on my Mac</li>
+	<li>Added my home projects and miscellaneous files to the repository</li>
+	<li>Played around with svn in the Terminal.</li>
+</ul></p>
+
+<p>I'm quite keen on knowing how to do things on the command line, but opening a terminal and typing <code>svn commit --message "Commited change X in file Y"</code> gets old quickly. So onto a GUI app we go. <a href="http://scplugin.tigris.org/">Scplugin</a> is a nice open source svn client that integrates into the Finder in OS X, a la <a href="http://tortoisesvn.tigris.org/">Tortoise SVN</a> on Windows.</p>
+
+<p>Screenshot:</p>
+
+<p><a title="svnScreenshot" href="http://thomas.kjeldahlnilsson.net/images/uploads/2007/05/svn_01.jpg"><img src="http://thomas.kjeldahlnilsson.net/images/uploads/2007/05/svn_01.thumbnail.jpg" alt="svnScreenshot" /></a></p>
+
+<p>Presto! Off-site (off-continent, actually!) backups, more controllable retrieval of backups and older versions, ability to check out and work on my home projects anywhere. Now to convince my girlfriend to commit her files regularly, too...</p>
+#+END_HTML

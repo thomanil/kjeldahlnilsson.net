@@ -1,0 +1,39 @@
+#+TITLE:     How To Create a Minesweeper Game With TestDriven JavaScript in Less Than 14 Minutes
+#+EMAIL:     thomas@kjeldahlnilsson.net
+#+DATE:      25.03.2011
+#+DESCRIPTION:
+#+KEYWORDS:
+#+LANGUAGE:  en
+#+OPTIONS: H:3 num:nil toc:nil @:t ::t |:t ^:t -:t f:t *:t <:t 
+#+OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+INFOJS_OPT: view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
+#+EXPORT_SELECT_TAGS: export
+#+EXPORT_EXCLUDE_TAGS: noexport
+#+LINK_UP:
+#+LINK_HOME:
+#+XSLT:
+
+#+BEGIN_HTML
+<p><em>Originally performed in front of a live audience at the Go Open 2011 / Communities in Action event in Oslo.</em></p>
+
+<p>A <a title="Code Kata" href="http://codekata.pragprog.com/">code kata</a> is a simple exercise used to sharpen programming skills. You only actually practice problem solving the very first time you perform the kata. Then you repeat, and repeat again. And again. The objective of the exercise is to practice speed, technique and tools.</p>
+
+<p>In the following clip I implement a variant of the <a title="Minesweeper code kata" href="http://codingdojo.org/cgi-bin/wiki.pl?KataMinesweeper">Minesweeper</a> code kata in JavaScript.</p>
+
+<p>(Run it in fullscreen to see the code more clearly)</p>
+
+<p><object width="640" height="480"><param name="allowfullscreen" value="true" /><param name="allowscriptaccess" value="always" /><param name="movie" value="http://vimeo.com/moogaloop.swf?clip_id=21474244&amp;server=vimeo.com&amp;show_title=1&amp;show_byline=1&amp;show_portrait=1&amp;color=00ADEF&amp;fullscreen=1&amp;autoplay=0&amp;loop=0" /><embed src="http://vimeo.com/moogaloop.swf?clip_id=21474244&amp;server=vimeo.com&amp;show_title=1&amp;show_byline=1&amp;show_portrait=1&amp;color=00ADEF&amp;fullscreen=1&amp;autoplay=0&amp;loop=0" type="application/x-shockwave-flash" allowfullscreen="true" allowscriptaccess="always" width="640" height="480"></embed></object></p>
+
+<p>Note: I use testdriven development through most of the process. Toward the end I drop the unit testing when I finish the visuals and gameplay logic. I could drive the whole thing with unit tests but opted for a more visually interesting ending. :)</p>
+
+<p>You can <a title="minesweeper code" href="https://github.com/thomanil/sweeper">look through the code at my github account</a>. Each commit in the repo is separate exercise done from scratch.</p>
+
+<p>Libraries and tools used:
+<ul>
+	<li><a title="Underscore.js library" href="http://documentcloud.github.com/underscore/">Underscore.js</a></li>
+	<li><a title="jQuery framework" href="http://jquery.com/">jQuery</a></li>
+	<li><a title="Grid.js library" href="https://github.com/thomanil/Grid">Grid.js</a></li>
+	<li><a title="clAutotest tool" href="https://github.com/thomanil/clAutotest">clAutotest</a></li>
+	<li><a href="http://macromates.com/">TextMate</a></li>
+</ul></p>
+#+END_HTML

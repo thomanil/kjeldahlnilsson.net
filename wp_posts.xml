@@ -837,7 +837,7 @@ One of the reasons I really dig &lt;a href=&quot;http://www.totallyradshow.com/&
         <table name="wp_posts">
             <column name="ID">71</column>
             <column name="post_author">1</column>
-            <column name="post_date">2009-01-28 21:16:57</column>
+            <column name="post_date">2009-01-21 21:16:57</column>
             <column name="post_date_gmt">2009-01-28 19:16:57</column>
             <column name="post_content">&lt;em&gt;Part 1, &lt;a href=&quot;http://kjeldahlnilsson.net/blog/?p=72&quot;&gt;2&lt;/a&gt;, &lt;a href=&quot;http://kjeldahlnilsson.net/blog/?p=73&quot;&gt;3&lt;/a&gt;, &lt;a href=&quot;http://kjeldahlnilsson.net/blog/?p=74&quot;&gt;4&lt;/a&gt;, &lt;a href=&quot;http://kjeldahlnilsson.net/blog/?p=75&quot;&gt;5&lt;/a&gt;, &lt;a href=&quot;http://kjeldahlnilsson.net/blog/?p=77&quot;&gt;6&lt;/a&gt;, &lt;a href=&quot;http://kjeldahlnilsson.net/blog/?p=76&quot;&gt;7&lt;/a&gt;, &lt;a href=&quot;http://kjeldahlnilsson.net/blog/?p=78&quot;&gt;8&lt;/a&gt;&lt;/em&gt;
 
@@ -888,7 +888,7 @@ http://kjeldahlnilsson.net/blog/?p=73</column>
         <table name="wp_posts">
             <column name="ID">72</column>
             <column name="post_author">1</column>
-            <column name="post_date">2009-01-28 21:17:46</column>
+            <column name="post_date">2009-01-22 21:17:46</column>
             <column name="post_date_gmt">2009-01-28 19:17:46</column>
             <column name="post_content">&lt;em&gt;Part&lt;a href=&quot;http://kjeldahlnilsson.net/blog/?p=71&quot;&gt; &lt;/a&gt;&lt;a href=&quot;http://kjeldahlnilsson.net/blog/?p=71&quot;&gt;1&lt;/a&gt;, 2, &lt;a href=&quot;http://kjeldahlnilsson.net/blog/?p=73&quot;&gt;3&lt;/a&gt;, &lt;a href=&quot;http://kjeldahlnilsson.net/blog/?p=74&quot;&gt;4&lt;/a&gt;, &lt;a href=&quot;http://kjeldahlnilsson.net/blog/?p=75&quot;&gt;5&lt;/a&gt;, &lt;a href=&quot;http://kjeldahlnilsson.net/blog/?p=77&quot;&gt;6&lt;/a&gt;, &lt;a href=&quot;http://kjeldahlnilsson.net/blog/?p=76&quot;&gt;7&lt;/a&gt;, &lt;a href=&quot;http://kjeldahlnilsson.net/blog/?p=78&quot;&gt;8&lt;/a&gt;&lt;/em&gt;
 
@@ -935,8 +935,8 @@ http://kjeldahlnilsson.net/blog/?p=75</column>
         <table name="wp_posts">
             <column name="ID">73</column>
             <column name="post_author">1</column>
-            <column name="post_date">2009-01-28 21:18:38</column>
-            <column name="post_date_gmt">2009-01-28 19:18:38</column>
+            <column name="post_date">2009-01-23 21:18:38</column>
+            <column name="post_date_gmt">2009-01-23 19:18:38</column>
             <column name="post_content">&lt;em&gt;Full source code can be downloaded from project home at &lt;a href=&quot;http://kjeldahlnilsson.net/portfolio.php&quot;&gt;kjeldahlnilsson.net&lt;/a&gt;.&lt;/em&gt;
 
 &lt;em&gt;Part&lt;a href=&quot;http://kjeldahlnilsson.net/blog/?p=71&quot;&gt; &lt;/a&gt;&lt;a href=&quot;http://kjeldahlnilsson.net/blog/?p=71&quot;&gt;1&lt;/a&gt;, &lt;a href=&quot;http://kjeldahlnilsson.net/blog/?p=72&quot;&gt;2&lt;/a&gt;, 3, &lt;a href=&quot;http://kjeldahlnilsson.net/blog/?p=74&quot;&gt;4&lt;/a&gt;, &lt;a href=&quot;http://kjeldahlnilsson.net/blog/?p=75&quot;&gt;5&lt;/a&gt;, &lt;a href=&quot;http://kjeldahlnilsson.net/blog/?p=77&quot;&gt;6&lt;/a&gt;, &lt;a href=&quot;http://kjeldahlnilsson.net/blog/?p=76&quot;&gt;7&lt;/a&gt;, &lt;a href=&quot;http://kjeldahlnilsson.net/blog/?p=78&quot;&gt;8&lt;/a&gt;&lt;/em&gt;
@@ -1374,8 +1374,8 @@ Yay! It's free untill tomorrow (sunday 20th of july), after that you have to eit
         <table name="wp_posts">
             <column name="ID">74</column>
             <column name="post_author">1</column>
-            <column name="post_date">2009-01-28 21:20:17</column>
-            <column name="post_date_gmt">2009-01-28 19:20:17</column>
+            <column name="post_date">2009-01-24 21:20:17</column>
+            <column name="post_date_gmt">2009-01-24 19:20:17</column>
             <column name="post_content">&lt;em&gt;Full source code can be downloaded from project home at &lt;a href=&quot;http://kjeldahlnilsson.net/portfolio.php&quot;&gt;kjeldahlnilsson.net&lt;/a&gt;.&lt;/em&gt;
 
 &lt;em&gt;Part&lt;a href=&quot;http://kjeldahlnilsson.net/blog/?p=71&quot;&gt; &lt;/a&gt;&lt;a href=&quot;http://kjeldahlnilsson.net/blog/?p=71&quot;&gt;1&lt;/a&gt;, &lt;a href=&quot;http://kjeldahlnilsson.net/blog/?p=72&quot;&gt;2&lt;/a&gt;, &lt;a href=&quot;http://kjeldahlnilsson.net/blog/?p=73&quot;&gt;3&lt;/a&gt;, 4, &lt;a href=&quot;http://kjeldahlnilsson.net/blog/?p=75&quot;&gt;5&lt;/a&gt;, &lt;a href=&quot;http://kjeldahlnilsson.net/blog/?p=77&quot;&gt;6&lt;/a&gt;, &lt;a href=&quot;http://kjeldahlnilsson.net/blog/?p=76&quot;&gt;7&lt;/a&gt;, &lt;a href=&quot;http://kjeldahlnilsson.net/blog/?p=78&quot;&gt;8&lt;/a&gt;&lt;/em&gt;
@@ -1674,7 +1674,7 @@ http://kjeldahlnilsson.net/blog/?p=76</column>
         <table name="wp_posts">
             <column name="ID">75</column>
             <column name="post_author">1</column>
-            <column name="post_date">2009-01-28 21:22:12</column>
+            <column name="post_date">2009-01-25 21:22:12</column>
             <column name="post_date_gmt">2009-01-28 19:22:12</column>
             <column name="post_content">&lt;em&gt;Full source code can be downloaded from project home at &lt;a href=&quot;http://kjeldahlnilsson.net/portfolio.php&quot;&gt;kjeldahlnilsson.net&lt;/a&gt;.&lt;/em&gt;
 
@@ -2106,7 +2106,7 @@ http://kjeldahlnilsson.net/blog/?p=76</column>
         <table name="wp_posts">
             <column name="ID">76</column>
             <column name="post_author">1</column>
-            <column name="post_date">2009-01-28 21:26:49</column>
+            <column name="post_date">2009-01-27 21:26:49</column>
             <column name="post_date_gmt">2009-01-28 19:26:49</column>
             <column name="post_content">&lt;em&gt;Full source code can be downloaded from project home at &lt;a href=&quot;http://kjeldahlnilsson.net/portfolio.php&quot;&gt;kjeldahlnilsson.net&lt;/a&gt;.&lt;/em&gt;
 
@@ -2265,7 +2265,7 @@ http://kjeldahlnilsson.net/blog/?p=75</column>
         <table name="wp_posts">
             <column name="ID">77</column>
             <column name="post_author">1</column>
-            <column name="post_date">2009-01-28 21:23:35</column>
+            <column name="post_date">2009-01-26 21:23:35</column>
             <column name="post_date_gmt">2009-01-28 19:23:35</column>
             <column name="post_content">&lt;em&gt;Full source code can be downloaded from project home at &lt;a href=&quot;http://kjeldahlnilsson.net/portfolio.php&quot;&gt;kjeldahlnilsson.net&lt;/a&gt;.&lt;/em&gt;
 

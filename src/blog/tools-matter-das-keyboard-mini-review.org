@@ -1,0 +1,40 @@
+#+TITLE:     Tools Matter: Das Keyboard Mini-review
+#+EMAIL:     thomas@kjeldahlnilsson.net
+#+DATE:      06.12.2010
+#+DESCRIPTION:
+#+KEYWORDS:
+#+LANGUAGE:  en
+#+OPTIONS: H:3 num:nil toc:nil @:t ::t |:t ^:t -:t f:t *:t <:t 
+#+OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+INFOJS_OPT: view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
+#+EXPORT_SELECT_TAGS: export
+#+EXPORT_EXCLUDE_TAGS: noexport
+#+LINK_UP:
+#+LINK_HOME:
+#+XSLT:
+
+#+BEGIN_HTML
+<p>So <strong>I blew 150$ on a new keyboard recently</strong>. Was it worth it?</p>
+
+<p>I've used a desktop Apple keyboard for a while, but never really got comfortable with it. It was just... off. I felt slower than I should, and never got used to the shape and feedback of the keys.</p>
+
+I've had my eye on the more classic, mechanical IBM Model-M style keyboards for a while. Jeff Atwoods <a title="The Keyboard Cult" href="http://www.codinghorror.com/blog/2010/10/the-keyboard-cult.html">recent blog post</a> finally pushed me over the edge. I ended up with this: the <a href="http://www.daskeyboard.com/model-s-ultimate/">Das Keyboard Model S Ultimate</a>.
+<p style="text-align: left;"><a href="http://kjeldahlnilsson.net/images/uploads/2010/12/dasKeyboard1.jpg"><img class="aligncenter size-full wp-image-1512" title="dasKeyboardLarge" src="http://kjeldahlnilsson.net/images/uploads/2010/12/dasKeyboard1.jpg" alt="" width="515" height="216" /></a></p>
+<p style="text-align: left;">After a month of use I'm really happy with it. My typing speed has gone from 70-ish to 85-ish words per minute, and I <strong>love</strong> the feel of it.</p>
+<p style="text-align: left;">It may not be for everyone, though. Here's my summary:</p>
+
+<p><strong>Pros:</strong>
+<ul>
+	<li>The keys have a  great, tactile feedback. I really like the old-school mechanical "CLICK-CLACK" feedback, it's much crisper than anything else I've used for the last decade.</li>
+	<li>Solid build quality. It feels three times as heavy as my old Apple aluminum keyboard.</li>
+	<li>Cool aesthetics. I mean, just look at it! It's as if Batman and Darth Vader got together to design computer hardware.</li>
+</ul></p>
+
+<p><strong>Cons:</strong>
+<ul>
+	<li>It has a shiny finish. Looks good... but stains really easily. I had fingermarks all over it after a few hours.</li>
+	<li>It's <em>loud</em>. Really loud. <em>"Wake up your child sleeping in the next room"</em>-loud. I'm not kidding about his: my office is way down in the basement of our house. My Significant Other can hear me loud and clear upstairs when I'm working.</li>
+</ul></p>
+
+<p><strong>All in all: If you have the money, are considering an old-school keyboard and don't mind the noise, go for it!</strong></p>
+#+END_HTML

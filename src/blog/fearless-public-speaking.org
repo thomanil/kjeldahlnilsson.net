@@ -1,0 +1,28 @@
+#+TITLE:     Fearless Public Speaking
+#+EMAIL:     thomas@kjeldahlnilsson.net
+#+DATE:      24.06.2010
+#+DESCRIPTION:
+#+KEYWORDS:
+#+LANGUAGE:  en
+#+OPTIONS: H:3 num:nil toc:nil @:t ::t |:t ^:t -:t f:t *:t <:t 
+#+OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+INFOJS_OPT: view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
+#+EXPORT_SELECT_TAGS: export
+#+EXPORT_EXCLUDE_TAGS: noexport
+#+LINK_UP:
+#+LINK_HOME:
+#+XSLT:
+
+#+BEGIN_HTML
+<p>  I used to <strong>hate</strong> public speaking. Sweaty palms, stomach aches... the works. However, over the last year or so I finally got over it. Speaking to a big room of people simply doesn't bother me anymore.</p>
+
+<p>It somehow happened over a relatively short period of time. I talked this over with a friend recently: "<em>what changed?"</em> I think the following three points did the trick for me:</p>
+
+<p><strong>Know your material inside out.</strong> Throw away your index cards, force yourself to really internalize your material before presenting it. Mastery breeds confidence.</p>
+
+<p><strong>P</strong><strong>ractice practice practice.</strong> Every time you speak you'll improve, and you'll get a little more comfortable each time. Super obvious point, but speaking regularly does diminish the fear of it.</p>
+
+<p><strong>Set it in perspective. </strong>I think this was key for me. I've had several scares at the hospital during the last year (unfounded ones, fortunately!) Now I use that experience to ground myself before speaking. Compared to the loss of a loved one, how scary is it really to get up in front of a crowd of peers? <em>"Remember that hospital waiting room? This is peanuts in comparison! Sack up, dude!"</em></p>
+
+<p>Perhaps some of these measures will work for you as well?</p>
+#+END_HTML

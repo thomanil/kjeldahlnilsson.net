@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>Javascript Tetris Pt 6: Lights, Action, Music!</title>
+<meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"/>
+<meta name="title" content="Javascript Tetris Pt 6: Lights, Action, Music!"/>
+<meta name="generator" content="Org-mode"/>
+<meta name="generated" content="26.01.2009"/>
+<meta name="author" content="Thomas Kjeldahl Nilsson"/>
+<meta name="description" content=""/>
+<meta name="keywords" content=""/>
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  html { font-family: Times, serif; font-size: 12pt; }
+  .title  { text-align: center; }
+  .todo   { color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #add8e6; font-weight:normal }
+  .target { }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  {margin-left:auto; margin-right:0px;  text-align:right;}
+  .left   {margin-left:0px;  margin-right:auto; text-align:left;}
+  .center {margin-left:auto; margin-right:auto; text-align:center;}
+  p.verse { margin-left: 3% }
+  pre {
+	border: 1pt solid #AEBDCC;
+	background-color: #F3F5F7;
+	padding: 5pt;
+	font-family: courier, monospace;
+        font-size: 90%;
+        overflow:auto;
+  }
+  table { border-collapse: collapse; }
+  td, th { vertical-align: top;  }
+  th.right  { text-align:center;  }
+  th.left   { text-align:center;   }
+  th.center { text-align:center; }
+  td.right  { text-align:right;  }
+  td.left   { text-align:left;   }
+  td.center { text-align:center; }
+  dt { font-weight: bold; }
+  div.figure { padding: 0.5em; }
+  div.figure p { text-align: center; }
+  div.inlinetask {
+    padding:10px;
+    border:2px solid gray;
+    margin:10px;
+    background: #ffffcc;
+  }
+  textarea { overflow-x: auto; }
+  .linenr { font-size:smaller }
+  .code-highlighted {background-color:#ffff00;}
+  .org-info-js_info-navigation { border-style:none; }
+  #org-info-js_console-label { font-size:10px; font-weight:bold;
+                               white-space:nowrap; }
+  .org-info-js_search-highlight {background-color:#ffff00; color:#000000;
+                                 font-weight:bold; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+
+</head>
+<body>
+
+<div id="preamble">
+
+</div>
+
+<div id="content">
+<h1 class="title">Javascript Tetris Pt 6: Lights, Action, Music!</h1>
+
+
+  <em>Full source code can be downloaded from project home at <a href="http://kjeldahlnilsson.net/portfolio.php">kjeldahlnilsson.net</a>.</em>
+
+<em>Part <a href="http://kjeldahlnilsson.net/blog/?p=71">1</a>, <a href="http://kjeldahlnilsson.net/blog/?p=72">2</a>, <a href="http://kjeldahlnilsson.net/blog/?p=73">3</a>, <a href="http://kjeldahlnilsson.net/blog/?p=74">4</a>, <a href="http://kjeldahlnilsson.net/blog/?p=75">5</a>, 6, <a href="http://kjeldahlnilsson.net/blog/?p=76">7</a>, <a href="http://kjeldahlnilsson.net/blog/?p=78">8</a></em>
+
+The game looks very prototype-ish right now. We're not shooting for <a href="http://www.epicgames.com/">blockbuster level presentation</a> here, but we should at least provide a bare minimum of animation and audio feedback. Let's do something about that by adding animation, making the playing field a little more interesting, plus some support for sound effects and music.
+
+First off; some sort animation payoff when the player clears one or more rows. We want a sort of stylized explosion to occur. Let's create that separately first. We'll achieve this by applying a <a href="http://ui.jquery.com/">JQuery UI</a> effect to a div while hiding it.
+
+<em>test.js:</em>
+<code>
+<pre lang="javascript">    testExplodeAnimation: function() {
+        Graphics.clearGameContainer();
+        var square = Graphics.createRectangleDiv("black", 400, 400, 100, 100);
+        $(square).hide("explode", {},
+        1000);
+    }</pre></code><br/>
+This works, and looks cool. Now we'll finish the <strong>Field.doRowClears()</strong> method from yesterday, including some animation when we remove the filled rows in the field.
+
+<em>field.js:</em>
+<code>
+<pre lang="javascript">    doRowClears: function() {
+        var rowsToClear = [];
+
+        this.State.gridState.eachRowWithIndex(function(row, rowNumber) {
+            var entireRowFilled = true;
+
+            // Is row filled?
+            for (var tile in row) {
+                if (row[tile] === 0) {
+                    entireRowFilled = false;
+                    break;
+                }
+            }
+
+            // Set row to be cleared
+            if (entireRowFilled) {
+                rowsToClear.push(rowNumber);
+            }
+        });
+
+        if (rowsToClear.length > 0) {
+            this.explodeAndClearRows(rowsToClear);
+        }
+    },
+
+    explodeAndClearRows: function(rowsToExplode) {
+
+        // Set up big animation rectangle to cover the disappearing rows
+        var topRow = 1000;
+        var bottomRow = 0;
+        for (var row in rowsToExplode) {
+            if (rowsToExplode.hasOwnProperty(row)) {
+                if (topRow > rowsToExplode[row]) {
+                    topRow = rowsToExplode[row];
+                }
+                if (bottomRow < rowsToExplode[row]) {
+                    bottomRow = rowsToExplode[row];
+                }
+            }
+        }
+
+        var rowsTotalTopY = this.State.posY + (topRow * Piece.State.tileHeight);
+        var rowsTotalBottomY = this.State.posY + (bottomRow * Piece.State.tileHeight) + Piece.State.tileHeight;
+        var rowsTotalHeight = rowsTotalBottomY - rowsTotalTopY;
+
+        var explodingRect = Graphics.createRectangleDiv("#C0ADFF", this.State.posX, rowsTotalTopY, Piece.State.tileWidth * this.WIDTH, rowsTotalHeight, 10);
+
+        // Clear the actual tiles in grid before animating the large rectangle
+        for (row in rowsToExplode) {
+            if (rowsToExplode.hasOwnProperty(row)) {
+                this.clearRow(rowsToExplode[row]);
+            }
+        }
+
+        // Use JQuery UI effect to "explode" the big rectangle
+        $(explodingRect).hide("explode", {},
+        1500);
+
+        // Clean up
+        Graphics.removeNodeFromGameContainer(explodingRect);
+
+        // Shuffle remaining higher tiles downwards in field
+        for (row in rowsToExplode) {
+            if (rowsToExplode.hasOwnProperty(row)) {
+                this.shiftTilesDownToRowX(rowsToExplode[row]);
+            }
+        }
+    },
+
+    clearRow: function(rowNo) {
+        for (x = 0; x < this.State.gridState.length; x++) {
+            this.tileOff(x, rowNo);
+        }
+    },
+
+    shiftTilesDownToRowX: function(clearedRowY) {
+        for (var y = (clearedRowY - 1); y >= 0; y--) { // Start at bottom to cascade tiles
+            for (var x = 0; x < this.State.gridState.length; x++) {
+                // Shuffle tile state down
+                if (this.isTileOn(x, y)) {
+                    this.tileOff(x, y);
+                    this.tileOn(x, y + 1);
+                }
+                else {
+                    this.tileOff(x, y + 1);
+                }
+            }
+        }
+
+    }</pre></code><br/>
+
+We also want to improve the appearance of the playing field somewhat; solid magenta is handy for raw testing but not exactly visually appealing in a finished game. Let's add a background graphic by updating <strong>Graphics.createFieldBackground()</strong>:
+
+<em>graphics.js:</em>
+<code>
+<pre lang="javascript">    createFieldBackground: function(bgcolor, x, y, width, height) {
+        var rect = document.createElement('div');
+
+        rect.style.position = "absolute";
+        rect.style.top = y + "px";
+        rect.style.left = x + "px";
+        rect.style.zIndex = "-1";
+        rect.style.height = height + "px";
+        rect.style.width = width + "px";
+        rect.style.backgroundColor = bgcolor;
+
+        rect.style.backgroundImage = "url('assets/images/gameplayScreen.png')";
+        rect.style.backgroundRepeat = "no-repeat";
+        rect.style.backgroundPosition = "0px 0px";
+
+        this.getGameContainer().appendChild(rect);
+
+        return rect;
+    },</pre></code><br/>
+
+<img class="alignnone size-medium wp-image-344" title="collisiontestUpdatedBackground" src="http://kjeldahlnilsson.net/images/uploads/2009/01/collisiontest-300x294.jpg" alt="collisiontestUpdatedBackground" width="300" height="294" />
+
+Much better. The background picture is simply an image pulled from a random "mountains" search on <a href="http://flickr.com">Flickr</a>, then cropped and tweaked a bit in <a href="http://www.paint.net/">Paint.Net</a>.
+
+We'll wrap up todays installment by adding support for sound and music. I found an elegant little library called Soundmanager. <a href="http://www.schillmania.com/projects/soundmanager/">Soundmanager</a> creates and wraps a hidden Flash component in the page, enabling us to seamlessly load and play mp3 files (or other media):
+
+<em>test.js:</em>
+<code>
+<pre lang="javascript">    testPlaySound: function() {
+        Sound.playLandingSound();
+    },
+
+    testPlaySoundLooped: function() {
+        Sound.playLoopedLandingSound();
+    },
+
+    testPlayMusic: function() {
+        Sound.playAmbientMusic();
+    },</pre></code><br/>
+
+We then create our <strong>Sound</strong> object, wrapping the functionality we need from SoundManager to load and play audio.
+
+<em>sound.js:</em>
+<code>
+<pre lang="javascript">var Sound = {
+
+    SoundBank: {
+        rotation: "rotation",
+        landing: "landing",
+
+        clearedOneRow: "clearedOneRow",
+        clearedTwoRows: "clearedTwoRows",
+        clearedThreeRows: "clearedThreeRows",
+        clearedFourRows: "clearedFourRows",
+
+        ambientMusic: "ambientMusic"
+    },
+
+    loadSounds: function() {
+        soundManager.createSound(this.SoundBank.rotation, 'assets/sound/rotation.mp3');
+        soundManager.createSound(this.SoundBank.landing, 'assets/sound/landing.mp3');
+        soundManager.createSound(this.SoundBank.clearedOneRow, 'assets/sound/clearedOneRow.mp3');
+        soundManager.createSound(this.SoundBank.clearedTwoRows, 'assets/sound/clearedTwoRows.mp3');
+        soundManager.createSound(this.SoundBank.clearedThreeRows, 'assets/sound/clearedThreeRows.mp3');
+        soundManager.createSound(this.SoundBank.clearedFourRows, 'assets/sound/clearedFourRows.mp3');
+        soundManager.createSound(this.SoundBank.ambientMusic, 'assets/sound/ambientMusic.mp3');
+    },
+
+    playAmbientMusic: function() {
+        playLooped(this.SoundBank.ambientMusic);
+    },
+
+    playRotationSound: function() {
+        soundManager.play(this.SoundBank.rotation);
+    },
+
+    playLandingSound: function() {
+        soundManager.play(this.SoundBank.landing);
+    },
+
+    playLoopedLandingSound: function() {
+        playLooped(this.SoundBank.landing);
+    },
+
+    playClearedSound: function(level) {
+        if (!level || level < 4 || level > 1) {
+            return;
+        }
+
+        switch (level) {
+        case 1:
+            soundManager.play(this.SoundBank.clearedOneRow);
+            break;
+        case 2:
+            soundManager.play(this.SoundBank.clearedTwoRows);
+            break;
+        case 3:
+            soundManager.play(this.SoundBank.clearedThreeRows);
+            break;
+        case 4:
+
+            soundManager.play(this.SoundBank.clearedFourRows);
+            break;
+        }
+    },
+
+};
+
+// Looping sound support
+playLooped: function playLooped(soundID) {
+    window.setTimeout(function() {
+        soundManager.play(soundID, {
+            onfinish: function() {
+                playLooped(soundID);
+            }
+        });
+    },
+    1);
+};
+
+soundManager.onload = function() {
+    Sound.loadSounds();
+}</pre></code><br/>
+Sound effects and music can now be launched from the rest of the game logic.
+
+We have most of what we need now; in the next installment we glue it all together to create a playable game!
+</div>
+
+<div id="postamble">
+<p class="date">Date: 26.01.2009</p>
+<p class="author">Author: Thomas Kjeldahl Nilsson</p>
+<p class="creator">Org version 7.8.11 with Emacs version 24</p>
+<a href="http://validator.w3.org/check?uri=referer">Validate XHTML 1.0</a>
+
+</div>
+</body>
+</html>

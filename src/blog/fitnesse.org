@@ -1,0 +1,24 @@
+#+TITLE:     Fitnesse!
+#+EMAIL:     thomas@kjeldahlnilsson.net
+#+DATE:      21.06.2006
+#+DESCRIPTION:
+#+KEYWORDS:
+#+LANGUAGE:  en
+#+OPTIONS: H:3 num:nil toc:nil @:t ::t |:t ^:t -:t f:t *:t <:t 
+#+OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+INFOJS_OPT: view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
+#+EXPORT_SELECT_TAGS: export
+#+EXPORT_EXCLUDE_TAGS: noexport
+#+LINK_UP:
+#+LINK_HOME:
+#+XSLT:
+
+#+BEGIN_HTML
+
+<p>I spent this afternoon playing with <a href="http://fitnesse.org/">Fitnesse</a>. Fitnesse is an acceptance testing framework developed by some of the people behind the <a href="http://butunclebob.com/">Uncle Bob</a> website.</p>
+
+<p>Using it for acceptance testing, getting customers to write tests in excel etc sounds very nice... but we only use it for integration testing (and by extension, implicit documentation of our different server environments). And it works very well for this!</p>
+
+<p><strong>Pros</strong>: It's very easy to set up and get started with.</p>
+<p><strong>Cons</strong>: The documentation could be a lot better in certain spots. Prepare to do a lot of hunting through minimalistic wiki doc pages in the beginning...</p>
+#+END_HTML

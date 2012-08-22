@@ -1,0 +1,26 @@
+#+TITLE:     "JavaScript Needn't Hurt!" : A JavaScript Primer
+#+EMAIL:     thomas@kjeldahlnilsson.net
+#+DATE:      12.03.2010
+#+DESCRIPTION:
+#+KEYWORDS:
+#+LANGUAGE:  en
+#+OPTIONS: H:3 num:nil toc:nil @:t ::t |:t ^:t -:t f:t *:t <:t 
+#+OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+INFOJS_OPT: view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
+#+EXPORT_SELECT_TAGS: export
+#+EXPORT_EXCLUDE_TAGS: noexport
+#+LINK_UP:
+#+LINK_HOME:
+#+XSLT:
+
+#+BEGIN_HTML
+<p>I've created a free, downloadable workshop for you. It introduces you to the skills, tools and techniques of modern JavaScript development.</p>
+
+<p>The workshop takes roughly half a day (3-4 hrs) when presented properly, with equal parts presentation and practical exercises. You can use the slides and exercises as a personal study aid, or you can arrange a proper workshop for your own colleagues or clients. Alternatively,<a title="Contact Info" href="http://kjeldahlnilsson.net/contact.php"> contact me</a>. I'm able to hold the workshop on-site in and around Oslo.</p>
+
+<p><strong><a title="Download link" href="http://kjeldahlnilsson.net/jsnh.zip">DOWNLOAD</a></strong><strong><a title="Download link" href="http://kjeldahlnilsson.net/jsnh.zip"> HERE</a> <em><span style="font-weight: normal;">(slides, lecture notes, exercises, solutions, examples, tools)</span></em></strong></p>
+
+<p><object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" width="425" height="355" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0"><param name="allowFullScreen" value="true" /><param name="allowScriptAccess" value="always" /><param name="src" value="http://static.slidesharecdn.com/swf/ssplayer2.swf?doc=slides-100310162930-phpapp02&amp;rel=0&amp;stripped_title=javascript-neednt-hurt-3390657" /><param name="allowfullscreen" value="true" /><embed type="application/x-shockwave-flash" width="425" height="355" src="http://static.slidesharecdn.com/swf/ssplayer2.swf?doc=slides-100310162930-phpapp02&amp;rel=0&amp;stripped_title=javascript-neednt-hurt-3390657" allowscriptaccess="always" allowfullscreen="true"></embed></object></p>
+
+<p><div id="__ss_3390657" style="width: 425px;"><div style="padding: 5px 0 12px;"><em>This work is licensed under Creative Commons Attribution 3.0 License. You're free to use it, change it and share it freely, as long as my name stays in the credits. </em></div></div></p>
+#+END_HTML

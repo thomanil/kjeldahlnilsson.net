@@ -1,0 +1,48 @@
+#+TITLE:     Painless Estimates
+#+EMAIL:     thomas@kjeldahlnilsson.net
+#+DATE:      14.04.2009
+#+DESCRIPTION:
+#+KEYWORDS:
+#+LANGUAGE:  en
+#+OPTIONS: H:3 num:nil toc:nil @:t ::t |:t ^:t -:t f:t *:t <:t 
+#+OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+INFOJS_OPT: view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
+#+EXPORT_SELECT_TAGS: export
+#+EXPORT_EXCLUDE_TAGS: noexport
+#+LINK_UP:
+#+LINK_HOME:
+#+XSLT:
+
+#+BEGIN_HTML
+<p>  How do you determine how long something will take to build?</p>
+
+<p>In an ideal world, many of us would probably like to simply work until the stakeholder/product owner decides we're done, keeping our expense meter running all along. This is (very roughly) the approach taken by agile software development methodologies such as <a title="Wikipedia Scrum definition" href="http://en.wikipedia.org/wiki/Scrum_(development)">Scrum</a>.</p>
+
+<p>Unfortunately, in the real world we often need to know roughly how long something will take <strong>before</strong> we start working on it. This is basic <a title="Wikipedia 'product managment&quot; entry" href="http://en.wikipedia.org/wiki/Product_management">product management</a>: the feasability of a new project, product or feature is (in part) derived from the initially estimated cost of building it. <em>"That new nifty feature will take more than four months to add to our product? Maybe we have better things to do with our time, then."</em></p>
+
+<p>What's the best way of doing this up-front estimation? There's certainly lots of approaches out there. Personally, I've settled on the following method:
+<ol>
+	<li><span class="comment"><span class="comment"><span style="color: #000000;">Start by getting your bearings somewhat. </span></span><span style="color: #000000;">This means doing <strong>enough</strong> design and requirement gathering up front. Talk to stakeholders and users. Play around with any new unfamiliar technology that the work will require. </span>  
+
+</span></li>
+	<li><span class="comment"><span style="color: #000000;">Extract the concrete tasks that must be done. Each task should take less than eight <strong>ideal</strong> hours to complete </span></span><span class="comment"><span style="color: #000000;"> (see below)</span></span><span class="comment"><span style="color: #000000;">. Tasks larger than this are often opaque "lumps" of many tasks, which are harder to estimate accurately- so divide the work into subtasks as needed. Don't forget work related to polish and testing: integration testing, documentation, release routines, etc.</span>  
+
+</span></li>
+	<li><span class="comment"><span style="color: #000000;">Estimate each task in <strong>ideal</strong> hours: "how many hours would this take if I could focus 100%, no interruptions, closed office?" Another approach is to estimate using abstract or relative units, before translating to actual ideal hours. <a title="Poke Planning Game description" href="http://www.codinghorror.com/blog/archives/000981.html">The Poker Planning Game</a> and the <a title="Pomodoro Technique website" href="http://www.pomodorotechnique.com/">Pomodoro Technique</a> are good examples of this approach.</span>  
+
+</span></li>
+	<li><span class="comment"><span style="color: #000000;">Add up total ideal hours. Then multiply by a <strong>risk factor</strong>, to allow for <a title="Murphy's Law wikipedia entry" href="http://en.wikipedia.org/wiki/Murphy%27s_law">Murphy's Law</a>. My personal minimum is usually 1.2 (20%) - and that's if I have a very good handle on both the technology, the requirements and most other significant factors.</span>  
+
+</span></li>
+	<li><span class="comment"><span style="color: #000000;">Figure out how many <strong>ideal</strong> hours you actually get done each week. How much effective time do you really have left when you subtract meetings, interruptions, lunch, motivation lapses, etc etc? Divide the hour number from step 4 by these actual hours accomplished each week. Now you know roughly how many <strong>actual</strong> hours the work will take.</span>  
+
+</span></li>
+	<li><span class="comment"><span style="color: #000000;">Finally, take <strong>external dependencies</strong> into consideration. Will Joe Developer be there week one or is he tied up? Will Sue Tester go for a three week holiday to Hawaii at some point? Set up the project schedule based on these known constraints.</span>  
+
+</span></li>
+</ol></p>
+
+<p><span class="comment">This method is heavily inspired by <span class="comment">Mike Cohn's</span> <a title="Amazon book link" href="http://www.amazon.com/Agile-Estimating-Planning-Robert-Martin/dp/0131479415">Agile Estimating and Planning</a>, and I use it both at my dayjob and for private side projects. I've found this to yield quite </span><span class="comment">accurate estimates for small projects - eg. where the scope is less than, say, 3 months with less than four developers.</span></p>
+
+<p><span class="comment">For larger projects you may find that estimating work up in such fine grained tasks involves a lot of uncertainty. "How can I know exactly what specific tasks will be required all through my project?". Well, yes - for projects with larger scopes, this quickly turns into riskful guesswork.  This is what makes estimating entire large projects up front (and, by extension, taking on large fixed cost projects) such a <a title="Dr Dobbs article on fixed cost projects (Scott Ambler)" href="http://www.ddj.com/209101238">dicey proposition</a>.</span></p>
+#+END_HTML

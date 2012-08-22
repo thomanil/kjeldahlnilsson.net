@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>Rails Deployment Tinkering</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+<meta name="title" content="Rails Deployment Tinkering"/>
+<meta name="generator" content="Org-mode"/>
+<meta name="generated" content="28.05.2008"/>
+<meta name="author" content="Thomas Kjeldahl Nilsson"/>
+<meta name="description" content=""/>
+<meta name="keywords" content=""/>
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  html { font-family: Times, serif; font-size: 12pt; }
+  .title  { text-align: center; }
+  .todo   { color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #add8e6; font-weight:normal }
+  .target { }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  {margin-left:auto; margin-right:0px;  text-align:right;}
+  .left   {margin-left:0px;  margin-right:auto; text-align:left;}
+  .center {margin-left:auto; margin-right:auto; text-align:center;}
+  p.verse { margin-left: 3% }
+  pre {
+	border: 1pt solid #AEBDCC;
+	background-color: #F3F5F7;
+	padding: 5pt;
+	font-family: courier, monospace;
+        font-size: 90%;
+        overflow:auto;
+  }
+  table { border-collapse: collapse; }
+  td, th { vertical-align: top;  }
+  th.right  { text-align:center;  }
+  th.left   { text-align:center;   }
+  th.center { text-align:center; }
+  td.right  { text-align:right;  }
+  td.left   { text-align:left;   }
+  td.center { text-align:center; }
+  dt { font-weight: bold; }
+  div.figure { padding: 0.5em; }
+  div.figure p { text-align: center; }
+  div.inlinetask {
+    padding:10px;
+    border:2px solid gray;
+    margin:10px;
+    background: #ffffcc;
+  }
+  textarea { overflow-x: auto; }
+  .linenr { font-size:smaller }
+  .code-highlighted {background-color:#ffff00;}
+  .org-info-js_info-navigation { border-style:none; }
+  #org-info-js_console-label { font-size:10px; font-weight:bold;
+                               white-space:nowrap; }
+  .org-info-js_search-highlight {background-color:#ffff00; color:#000000;
+                                 font-weight:bold; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+
+</head>
+<body>
+
+<div id="preamble">
+
+</div>
+
+<div id="content">
+<h1 class="title">Rails Deployment Tinkering</h1>
+
+
+  
+<p style="background: #ffffff none repeat scroll 0% 50%; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial"><font face="Times New Roman, serif"><font size="3"><span style="font-style: normal"><span>So I developed my first little </span></span></font></font><strong><a href="http://www.rubyonrails.org/"><font face="Times New Roman, serif"><font size="3"><span style="font-style: normal"><strong>Rails</strong></span></font></font></a></strong><font face="Times New Roman, serif"><font size="3"><span style="font-style: normal"><span> application recently.</span></span></font></font></p>
+<p style="background: #ffffff none repeat scroll 0% 50%; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial"><font face="Times New Roman, serif"><font size="3"><span style="font-style: normal"><span>Given how <a href="http://en.wikipedia.org/wiki/Rapid_application_development">“</a></span></span></font></font><a href="http://en.wikipedia.org/wiki/Rapid_application_development"><font face="Times New Roman, serif"><font size="3"><span style="font-style: normal"><strong>RAD</strong></span></font></font></a><font face="Times New Roman, serif"><font size="3"><span style="font-style: normal"><span>-y” and agile the development process feels in the Rails framework (at least compared to something like <a href="http://www.springframework.org/go-webflow2">Spring MVC</a> + <a href="http://www.hibernate.org/">Hibernate</a>), </span></span></font></font><font face="Times New Roman, serif"><font size="3"><span style="font-style: normal"><span>I was expecting the actual deployment of the thing to be a breeze. </span></span></font></font></p>
+<p style="background: #ffffff none repeat scroll 0% 50%; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; font-style: normal"> <font face="Times New Roman, serif"><font size="3">I was wrong.</font></font></p>
+<p style="background: #ffffff none repeat scroll 0% 50%; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial"><font face="Times New Roman, serif"><font size="3"><span style="font-style: normal"><span>Rails deployment is done using a tool or framework called </span></span></font></font><a href="http://capify.org/"><font face="Times New Roman, serif"><font size="3"><span style="font-style: normal"><strong>Capistrano</strong></span></font></font></a><font face="Times New Roman, serif"><font size="3"><span style="font-style: normal"><span>. Capistrano kinda resembles </span></span></font></font><a href="http://rake.rubyforge.org/"><font face="Times New Roman, serif"><font size="3"><span style="font-style: normal"><strong>Rake</strong></span></font></font></a><font face="Times New Roman, serif"><font size="3"><span style="font-style: normal"><span>; you define tasks and variables in a deploy script (like a </span></span></font></font><a href="http://rake.rubyforge.org/files/doc/rakefile_rdoc.html"><font face="Times New Roman, serif"><font size="3"><span style="font-style: normal"><strong>Rakefile</strong></span></font></font></a><font face="Times New Roman, serif"><font size="3"><span style="font-style: normal"><span>), hooking it directly to your </span></span></font></font><a href="http://en.wikipedia.org/wiki/Software_configuration_management"><font face="Times New Roman, serif"><font size="3"><span style="font-style: normal"><strong>SCM</strong></span></font></font></a><font face="Times New Roman, serif"><font size="3"><span style="font-style: normal"><span> system of choice (</span></span></font></font><a href="http://subversion.tigris.org/"><font face="Times New Roman, serif"><font size="3"><span style="font-style: normal"><strong>Subversion</strong></span></font></font></a><font face="Times New Roman, serif"><font size="3"><span style="font-style: normal"><span> in my case). Running the Capistrano deployment tasks then refreshes your Rails server environment with the latest and greatest version of your application, directly from the repository (Capistrano can be used for automating a bunch of other remote tasks too).</span></span></font></font></p>
+<p style="background: #ffffff none repeat scroll 0% 50%; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; font-style: normal"> <font face="Times New Roman, serif"><font size="3">Actually making this process work as expected took me a whole evening, several cups of coffee and occasional copious swearing. I don’t recall every roadblock I encountered, but the following two were the big (ie. most time-consuming) gotchas for me:</font></font></p>
+
+<ul>
+        <li><font face="Times New Roman, serif"><font size="3">Capistrano is a little sensitive         to Subversion repository url structure. Putting the root of your Rails app      in </font></font><em><font face="Times New Roman, serif"><font size="3">applicationName\</font></font></em><strong><font face="Times New Roman, serif"><font size="3">trunk\applicationName\</font></font></strong><font face="Times New Roman, serif"><font size="3">  works. Putting your app root directly in </font></font><em><font face="Times New Roman, serif"><font size="3">applicationName\</font></font></em><strong><font face="Times New Roman, serif"><font size="3">trunk\</font></font></strong><font face="Times New Roman, serif"><font size="3">    does not; you get a “bad url” error thrown back at you by       Capistrano (perhaps from the underlying ruby SVN wrapper). </font></font></li>
+</ul>
+<ul>
+        <li><font face="Times New Roman, serif"><font size="3">Printing         anything to stdout can </font></font><strong><a href="http://litespeedtech.com/support/forum/archive/index.php/t-1422.html"><font face="Times New Roman, serif"><font size="3"><strong>eff      things up</strong></font></font></a></strong><font face="Times New Roman, serif"><font size="3">        for the underlying webserver. I had some debug </font></font><font face="Times New Roman, serif"><font size="3"><em>puts        </em></font></font><font face="Times New Roman, serif"><font size="3">statements        in my application. These were no problem when testing on localhost.     In the server environment, however, they caused the pages to be         served as plain text instead of html. Took me some googling to  figure that one out. </font></font></li>
+</ul>
+<strong><font face="Times New Roman, serif"><font size="3">What did I learn?</font></font></strong>
+
+<font face="Times New Roman, serif"><font size="3">The Rails deployment process feels somewhat fragile and fiddly; so set up and test the deployment routine <strong>before</strong> seriously starting development on your application. The actual changes (of which the two above were just the most annoying ones) I had to make to my application and configuration were small. They would, however, have been a bigger pain to debug and implement late in a bigger project with some momentum.</font></font>
+
+<font face="Times New Roman, serif"><font size="3"><em>Possible final disclaimer:</em> disregarding <a href="http://www.urbandictionary.com/define.php?term=pebcak">PEBCAK</a> on my part, some of the problems could be due to the Rails configuration on the shared host I’m using for my domain(s). </font></font><a href="http://www.site5.com/"><font face="Times New Roman, serif"><font size="3"><strong>Site 5</strong></font></font></a><font face="Times New Roman, serif"><font size="3"> has been very good for me so far but I’ve read some rumblings about their Rails support in the</font></font><strong><font face="Times New Roman, serif"><font size="3"> </font></font></strong><font face="Times New Roman, serif"><font size="3"><a href="http://forums.site5.com/forumdisplay.php?s=fabbe59495e7f3b06282ac3e3acf541f&amp;f=44">support forums</a>.</font></font>
+<p style="margin-bottom: 0cm">&nbsp;</p>
+</div>
+
+<div id="postamble">
+<p class="date">Date: 28.05.2008</p>
+<p class="author">Author: Thomas Kjeldahl Nilsson</p>
+<p class="creator">Org version 7.8.11 with Emacs version 24</p>
+<a href="http://validator.w3.org/check?uri=referer">Validate XHTML 1.0</a>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,21 @@
+#+TITLE:     New Awesomeness from Joss Whedon!
+#+EMAIL:     thomas@kjeldahlnilsson.net
+#+DATE:      19.07.2008
+#+DESCRIPTION:
+#+KEYWORDS:
+#+LANGUAGE:  en
+#+OPTIONS: H:3 num:nil toc:nil @:t ::t |:t ^:t -:t f:t *:t <:t 
+#+OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+INFOJS_OPT: view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
+#+EXPORT_SELECT_TAGS: export
+#+EXPORT_EXCLUDE_TAGS: noexport
+#+LINK_UP:
+#+LINK_HOME:
+#+XSLT:
+
+#+BEGIN_HTML
+  
+<p style="text-align: center"><a href="http://www.drhorrible.com"><img src="http://www.drhorrible.com/images/banners/banner2.gif" border="0" /></a></p>
+
+<p>Yay! It's free untill tomorrow (sunday 20th of july), after that you have to either wait for the DVD or purchase the series in the american iTunes music store.</p>
+#+END_HTML
