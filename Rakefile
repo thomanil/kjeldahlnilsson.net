@@ -1,11 +1,13 @@
 require 'rake'
 require 'time'
+require 'nokogiri'
 
 task :default => [:generate]
 
 desc "Wipe the previously generated site"
 task :clean do
   puts `rm -rf site`
+  puts `rm -rf src/blog/*.html`
 end
 
 desc "Generate from source"
@@ -46,26 +48,41 @@ end
 # Fix 404 when landing at kjeldahlnilsson.net/blog
 
 def generate_blog
-  # TODO orgmode: convert from orgfiles to html files (emacs batch job?)
-  # TODO orgmode: find good way to encode title of each post, extract here
-  # TODO orgmode: find good way to encode publish date, extract here
-  # TODO sort blog_pages based on publish dates, newest date = first in array
-  blog_pages = Dir.glob("./src/blog/*").map{|path|File.basename(path)}
+  blog_pages = []
 
+  # TODO Visit all orgfiles in one go - write som elisp. visit all the orgfiles, export
+  Dir.glob("./src/blog/*.org").each do |path|
+    `emacs --batch --visit=#{path} --funcall org-export-as-html`
+    doc = Nokogiri::HTML(File.read(path.gsub(".org", ".html")))
+    title = doc.css("title").text
+    body = doc.css("#content").to_html # Just grabbing the content div from exported html
+    published = "26.06.1978" # TODO Grab from header
+    published_rfc_3339 = "2003-12-13T18:30:02Z" # TODO convert from published
+    filename = File.basename(path).gsub(".org", ".html")
+    blog_pages << {:title => title,
+      :published => published,
+      :published_rfc_3339 => published_rfc_3339,
+      :body => body,
+      :filename => filename}
+  end
+    
+  # TODO sort blog_pages based on publish dates, newest date = first in array
+  
   archive = ""
   atom_entries = ""
 
-  blog_pages.each_with_index do |name, i|
-    published = "13.12.2003" # TODO extract from orgfile
-    published_rfc_3339 = "2003-12-13T18:30:02Z" # TODO convert from orgfile    
-    title = name # TODO use actual title + publish date
-
-    body = File.read("src/blog/#{name}")
+  blog_pages.each_with_index do |post, i|
+    name = post[:filename]
+    title = post[:title]
+    body = post[:body]
+    published = post[:published]
+    published_rfc_3339 = post[:published_rfc_3339]
 
     # Add navigation and subscribe link to bottom of post body
     body += "<div id='anav'>"
-    body += "<a href='#{blog_pages[i-1]}'>Newer </a>" if i > 0
-    body += "<a href='#{blog_pages[i+1]}'> Older</a>" if i < (blog_pages.size - 1)
+    body += "<a href='#{blog_pages[i-1][:filename]}'>Newer </a>" if i > 0
+    body += "<a href='archive.html''>Archive</a>"	
+    body += "<a href='#{blog_pages[i+1][:filename]}'> Older</a>" if i < (blog_pages.size - 1)
     body += "<a class='right' href='http://feeds.feedburner.com/ThomasKjeldahlNilssonsBlog'>Subscribe</a>"
     body += "</div>"
 
@@ -99,8 +116,6 @@ def generate_blog
     f.write(feed)
   end  
 end
-
-
 
 def atom_feed(entries)
   feed = <<FEED
