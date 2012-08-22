@@ -97,10 +97,7 @@ def generate_blog
   feed = atom_feed(atom_entries)
   File.open("site/atom.xml", "w+") do |f|
     f.write(feed)
-  end
-  
-  # TODO validate feed using FeedValidator.org.
-  # TODO add auto discovery link
+  end  
 end
 
 def atom_feed(entries)
@@ -123,10 +120,6 @@ FEED
 end
 
 def atom_entry(title, body, link, published)
-  # published timestamp format
-  # example: 2003-12-13T18:30:02Z
-  # (http://www.faqs.org/rfcs/rfc3339.html)
-  
   entry = <<ENTRY
 <entry>
    <title>#{title}</title>
@@ -137,5 +130,3 @@ def atom_entry(title, body, link, published)
 </entry>
 ENTRY
 end
-
-
