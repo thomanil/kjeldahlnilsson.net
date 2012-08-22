@@ -153,4 +153,42 @@ end
 # TMP Wordpress import
 ##################¤
 
+task :import do
+  
+  # TODO pull out blogposts from xml file
 
+
+  
+  # TODO for each blogpost:
+  create_orgfile("imported-blog-post.org", "Imported Blog post", "08.08.1988", "<em>This is a test</em>")
+  
+end
+
+def create_orgfile(filename, title, publish_date, content)
+  File.open("src/blog/#{filename}", "w+") do |f|
+    f.write(orgfile_body(title, publish_date, content))
+  end
+end
+
+def orgfile_body(title, publish_date, content)
+  body = <<TEMPLATE
+#+TITLE:     #{title}
+#+EMAIL:     thomas@kjeldahlnilsson.net
+#+DATE:      #{publish_date}
+#+DESCRIPTION:
+#+KEYWORDS:
+#+LANGUAGE:  en
+#+OPTIONS: H:3 num:nil toc:nil @:t ::t |:t ^:t -:t f:t *:t <:t 
+#+OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+INFOJS_OPT: view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
+#+EXPORT_SELECT_TAGS: export
+#+EXPORT_EXCLUDE_TAGS: noexport
+#+LINK_UP:
+#+LINK_HOME:
+#+XSLT:
+
+#+BEGIN_HTML
+  #{content}
+#+END_HTML
+TEMPLATE
+end
