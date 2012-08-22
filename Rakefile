@@ -48,30 +48,32 @@ end
 # Fix 404 when landing at kjeldahlnilsson.net/blog
 
 def generate_blog
-  blog_pages = []
+  blog_posts = []
 
-  # TODO Visit all orgfiles in one go - write som elisp. visit all the orgfiles, export
+  # TODO Firing up emacs once for each file = super slow.
+  #      Write some custom elisp to do all files in one go
   Dir.glob("./src/blog/*.org").each do |path|
     `emacs --batch --visit=#{path} --funcall org-export-as-html`
     doc = Nokogiri::HTML(File.read(path.gsub(".org", ".html")))
     title = doc.css("title").text
-    body = doc.css("#content").to_html # Just grabbing the content div from exported html
-    published = "26.06.1978" # TODO Grab from header
-    published_rfc_3339 = "2003-12-13T18:30:02Z" # TODO convert from published
+    body = doc.css("#content").to_html # Just grabbing the content div, drop the rest
+    published = doc.xpath("//meta[@name='generated']").attribute("content").text
+    published_rfc_3339 = Time.parse(published).xmlschema
     filename = File.basename(path).gsub(".org", ".html")
-    blog_pages << {:title => title,
+    blog_posts << {:title => title,
       :published => published,
       :published_rfc_3339 => published_rfc_3339,
       :body => body,
       :filename => filename}
   end
     
-  # TODO sort blog_pages based on publish dates, newest date = first in array
+  # Sort based on publish date, ascending age
+  blog_posts = blog_posts.sort_by{|p| Time.parse(p[:published]).tv_sec}.reverse
   
   archive = ""
   atom_entries = ""
 
-  blog_pages.each_with_index do |post, i|
+  blog_posts.each_with_index do |post, i|
     name = post[:filename]
     title = post[:title]
     body = post[:body]
@@ -80,9 +82,9 @@ def generate_blog
 
     # Add navigation and subscribe link to bottom of post body
     body += "<div id='anav'>"
-    body += "<a href='#{blog_pages[i-1][:filename]}'>Newer </a>" if i > 0
+    body += "<a href='#{blog_posts[i-1][:filename]}'>Newer </a>" if i > 0
     body += "<a href='archive.html''>Archive</a>"	
-    body += "<a href='#{blog_pages[i+1][:filename]}'> Older</a>" if i < (blog_pages.size - 1)
+    body += "<a href='#{blog_posts[i+1][:filename]}'> Older</a>" if i < (blog_posts.size - 1)
     body += "<a class='right' href='http://feeds.feedburner.com/ThomasKjeldahlNilssonsBlog'>Subscribe</a>"
     body += "</div>"
 
