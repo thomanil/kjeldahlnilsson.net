@@ -21,6 +21,13 @@ h1 {
     margin-right: 15px;
 }
 
+.left {
+    float: left;
+}
+
+.right {
+    float: right;
+}
 
 a:link {
 	color: darkorchid;
@@ -35,14 +42,9 @@ a:hover {
 	text-decoration: none;
 }
 
-
-
 img {
 	border: none;
 }
-
-
-
 
 #navbar {
 	height: auto;
@@ -58,7 +60,6 @@ img {
 	font-size: 120%;
 }
 
-
 #navbar a:link {
 	color: gray;
 	text-decoration: none;
@@ -72,7 +73,7 @@ img {
 }
 
 #anav {
-    margin-top: 60px;
+
 }
 
 #anav a:link {
@@ -87,6 +88,7 @@ img {
     color: gray;
     text-decoration: none;
     font-weight: bold;
+    margin: 0 0 0 0;
 }
 
 
