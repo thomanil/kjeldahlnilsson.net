@@ -63,9 +63,8 @@ def generate_blog
 
     # Add navigation and subscribe link to bottom of post body
     body += "<div id='anav'>"
-    body += "<a href='#{blog_pages[i-1]}'>Previous</a>" if i > 0
-    body += "<a href='archive.html'> Archive </a>"
-    body += "<a href='#{blog_pages[i+1]}'>Next</a>" if i < (blog_pages.size - 1)
+    body += "<a href='#{blog_pages[i-1]}'>Newer </a>" if i > 0
+    body += "<a href='#{blog_pages[i+1]}'> Older</a>" if i < (blog_pages.size - 1)
     body += "<a class='right' href='http://feeds.feedburner.com/ThomasKjeldahlNilssonsBlog'>Subscribe</a>"
     body += "</div>"
 
