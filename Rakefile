@@ -2,16 +2,21 @@ require 'rake'
 
 task :default => [:generate]
 
-desc "Deploy to my site"
-task :deploy do
-  puts `rsync -arl site/ ninjasti@ninjastic.net:~/public_html/thomas`
+desc "Wipe the previously generated site"
+task :clean do
+  puts `rm -rf site`
 end
 
 desc "Generate from source"
-task :generate do
+task :generate => :clean do
   setup_folders_and_assets
   generate_main_pages
   generate_blog
+end
+
+desc "Deploy to my site"
+task :deploy do
+  puts `rsync -arl site/ ninjasti@ninjastic.net:~/public_html/thomas`
 end
 
 def setup_folders_and_assets
@@ -43,18 +48,22 @@ def generate_blog
   # TODO first, convert from orgfiles to html files (emacs batch job?)
   # TODO orgmode: find good way to encode title of each post, extract here
   # TODO orgmode: find good way to encode publish date, extract here
-  blog_pages = Dir.glob("./src/blog/*").map{|path|File.basename(path)}
   # TODO sort blog_pages based on publish dates, newest date = first in array
+  blog_pages = Dir.glob("./src/blog/*").map{|path|File.basename(path)}
 
   archive = ""
+  rss_fed = ""
+
   blog_pages.each_with_index do |name, i|
-    title = name # TODO use actual title
+    title = name # TODO use actual title + publish date
     body = File.read("src/blog/#{name}")
 
     # Add navigation to bottom of post body
-    body += "<a href='#{blog_pages[i-1]}'><--Previous</a>" if i > 0
-    body += " <a href='archive.html'>Archive</a> "
-    body += "<a href='#{blog_pages[i+1]}'>Next--></a>" if i < (blog_pages.size - 1)
+    body += "<div id='anav'>"
+    body += "<a href='#{blog_pages[i-1]}'>Previous</a>" if i > 0
+    body += "<a href='archive.html'> Archive </a>"
+    body += "<a href='#{blog_pages[i+1]}'>Next</a>" if i < (blog_pages.size - 1)
+    body += "</div>"
 
     # Write actual post to file
     File.open("site/#{name}", "w+") do |f|
@@ -68,11 +77,11 @@ def generate_blog
     end
 
     # Link to it from archive page as well
-    archive += "<li><a href='#{name}'>#{title}</a></li>"
+    archive += "<a href='#{name}'>#{title}</a><br/>"
   end
-
+  
   # Write out the archive page
-  archive = "<ul>#{archive}</ul>"  
+  archive = "<div id='anav'>#{archive}</div>"
   File.open("site/archive.html", "w+") do |f|
     f.write(page(archive))
   end

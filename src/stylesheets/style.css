@@ -71,6 +71,24 @@ img {
 	font-weight: bold;
 }
 
+#anav {
+    margin-top: 60px;
+}
+
+#anav a:link {
+    font-size: 120%;
+    color: gray;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+#anav a:visited {
+    font-size: 120%;
+    color: gray;
+    text-decoration: none;
+    font-weight: bold;
+}
+
 
 #head {
 	background-color: white;
