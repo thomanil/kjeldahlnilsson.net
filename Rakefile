@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 require 'rake'
 require 'time'
 require 'nokogiri'
@@ -44,8 +45,6 @@ def generate_main_pages
     end
   end
 end
-
-# Fix 404 when landing at kjeldahlnilsson.net/blog
 
 def generate_blog
   blog_posts = []
@@ -148,3 +147,10 @@ def atom_entry(title, body, link, published)
 </entry>
 ENTRY
 end
+
+
+###################
+# TMP Wordpress import
+##################¤
+
+
