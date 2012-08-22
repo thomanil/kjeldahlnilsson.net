@@ -1,5 +1,3 @@
-
-
 body {
 	background-color: white;
 	font-family: arial;
@@ -14,7 +12,6 @@ h1 {
 	background-color: white;
 	font-family: georgia;
 }
-
 
 .portrait {
     float: left;
@@ -127,8 +124,6 @@ img {
 	width: 600px;
 	text-align: right;
 }
-
-
 
 .portfolioProject{
 	margin-top: 70px;

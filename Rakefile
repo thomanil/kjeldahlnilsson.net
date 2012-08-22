@@ -1,4 +1,5 @@
 require 'rake'
+require 'time'
 
 task :default => [:generate]
 
@@ -55,8 +56,8 @@ def generate_blog
   atom_entries = ""
 
   blog_pages.each_with_index do |name, i|
-    published = "13.12.2003" # TODO extract form orgfile
-    published_rfc_3339 = "2003-12-13T18:30:02Z" #TODO convert from orgfile    
+    published = "13.12.2003" # TODO extract from orgfile
+    published_rfc_3339 = "2003-12-13T18:30:02Z" # TODO convert from orgfile    
     title = name # TODO use actual title + publish date
 
     body = File.read("src/blog/#{name}")
@@ -99,15 +100,16 @@ def generate_blog
   end  
 end
 
+
+
 def atom_feed(entries)
-  current_time = "2003-12-13T18:30:02Z" # TODO
   feed = <<FEED
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
         <title>Thomas Kjeldahl Nilssons blog</title>
         <subtitle>Writings</subtitle>
         <link rel="self" href="http://kjeldahlnilsson.net/atom.xml"/>
-        <updated>#{current_time}</updated>
+        <updated>#{Time.now.xmlschema}</updated>
         <author>
                 <name>Thomas Kjeldahl Nilsson</name>
                 <email>thomas@kjeldahlnilsson.net</email>
