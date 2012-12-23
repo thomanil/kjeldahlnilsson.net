@@ -1,0 +1,45 @@
+#+TITLE:     Balanced Code == Good Code
+#+EMAIL:     thomas@kjeldahlnilsson.net
+#+DATE:      29.09.2012
+#+DESCRIPTION:
+#+KEYWORDS:
+#+LANGUAGE:  en
+#+OPTIONS: H:3 num:nil toc:nil @:t ::t |:t ^:t -:t f:t *:t <:t 
+#+OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+INFOJS_OPT: view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
+#+EXPORT_SELECT_TAGS: export
+#+EXPORT_EXCLUDE_TAGS: noexport
+#+LINK_UP:
+#+LINK_HOME:
+#+XSLT:
+
+What is good code?
+
+My former colleague [[https://twitter.com/ChristinGorman][Christin]] recently wrote several [[http://kranglefant.tumblr.com/post/32472145738/losing-loose-coupling][blog]] [[http://kranglefant.tumblr.com/post/30266564679/programming-like-a-pirate-alt-shift-m][posts]] which
+made me think hard about that question. And after giving it some
+thought, I came up with this: good code is above all else
+*balanced*. Like [[http://en.wikipedia.org/wiki/The_Story_of_the_Three_Bears][Goldilocks]] puts it: "not too hot, not too cold, just
+right!" Just right for its purpose.
+
+All programming boils down to tradeoffs.
+
+- *General vs specific*. How much flexibility and re-use do you need?
+  We want to keep our options open and not paint ourselves into a
+  corner. However we also want to avoid overhead and busywork.
+
+- *Long-term maintainability vs short term speed*. Are you in a
+  marathon or a sprint? We want to avoid creating a [[http://www.laputan.org/mud/mud.html#BigBallOfMud][Big Ball of Mud]]
+  which will bury us in the long run. However we also don't want to
+  apply loads of architecture, design and patterns before/unless we
+  need it.
+
+- *Perfect vs done*. Are you writing code for its own sake, or are you
+  trying to solve problems efficiently? We'd like code to be beautiful,
+  ultra-fast, fault-free and readable to a six-year-old. However we
+  generally also want our work to finish, ship, be useful and possibly
+  earn us money.
+
+Subjective aesthetics and programmer tribalism aside, good software
+happens when we get our code "just right", given current goals and
+constraints. Having the range, experience, levelheadedness and courage
+to perform this balancing act elegantly? That's the hard part.

@@ -1,0 +1,149 @@
+#+TITLE:     Javascript Tetris Pt 7: Gameplay
+#+EMAIL:     thomas@kjeldahlnilsson.net
+#+DATE:      27.01.2009
+#+DESCRIPTION:
+#+KEYWORDS:
+#+LANGUAGE:  en
+#+OPTIONS: H:3 num:nil toc:nil @:t ::t |:t ^:t -:t f:t *:t <:t 
+#+OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+INFOJS_OPT: view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
+#+EXPORT_SELECT_TAGS: export
+#+EXPORT_EXCLUDE_TAGS: noexport
+#+LINK_UP:
+#+LINK_HOME:
+#+XSLT:
+
+#+BEGIN_HTML
+<p>  <em>Full source code can be downloaded from project home at <a href="http://kjeldahlnilsson.net/portfolio.php">kjeldahlnilsson.net</a>.</em></p>
+
+<p>Today we finally get to strap together the actual game. Most of the work is already done by now - we just need to assemble the components. Let's start by handling transitions between three basic game states; intro screen, playing the game, and game over.</p>
+
+<p><em>main.js:</em></p>
+<code>
+<pre lang="javascript">var QuickTetris = {
+
+    gameModes: {
+        titleScreen: "titleScreen",
+        gamePlay: "gamePlay",
+        gameOver: "gameOver"
+    },
+
+    gameMode: null,
+
+    gotoTitleScreen: function() {
+        this.gameMode = this.gameModes.titleScreen;
+        Graphics.clearGameContainer();
+
+        Graphics.drawString("- PRESS SPACE TO START -", 0, 0);
+
+        setKeyReaction(function(keyCode) {
+            if (keyCode === SPACE_KEY) {
+                QuickTetris.gotoGamePlay();
+            }
+        });
+    },
+
+    gotoGameOver: function() {
+        this.gameMode = this.gameModes.gamePlay;
+        Graphics.clearGameContainer();
+
+        Graphics.drawString("- PRESS SPACE TO RETRY -", 0, 0);
+
+        setKeyReaction(function(keyCode) {
+            if (keyCode === SPACE_KEY) {
+                QuickTetris.gotoGamePlay();
+            }
+        });
+    },
+
+    gotoGamePlay: function() {
+        this.gameMode = this.gameModes.gamePlay;
+        Graphics.clearGameContainer();
+
+        this.dropSpeed = 3;
+
+        var fieldXPos = this.getFieldCenteredXPos();
+
+        Field.init("white", "white", fieldXPos, 50);
+        Piece.init("white");
+
+        setKeyMemory();
+    }
+
+};</pre></code><br/>
+
+<p>See that final call to <strong>setKeyMemory()</strong>? Instead of immediately reacting to keypresses, like we did in the tests previously, we instead store the last pressed key in a global variable. Our game then reacts to that stored event regularly during each pass of the game loop, preventing user input from disrupting the flow of the game.</p>
+
+<p><em>util.js:</em></p>
+
+<code>
+<pre lang="javascript">var currentKeyPress = null;
+function setKeyMemory() {
+    document.onkeydown = function(e) {
+        if (window.event) // IE
+        {
+            currentKeyPress = window.event.keyCode;
+        }
+        else if (e.which) // Netscape/Firefox/Opera
+        {
+            currentKeyPress = e.which;
+        }
+    };
+    document.onkeyup = function(e) {
+        currentKeyPress = null;
+    };
+}</pre></code><br/>
+
+<p>The heart of a typical game is the <a title="Game loop" href="http://en.wikipedia.org/wiki/Game_programming#The_game_loop">game loop</a>. For every pass of this loop we react to user input, move the piece downwards in the playing field, and (sometimes) adjust the difficulty of the game. Let's add that to the <strong>Quicktetris</strong> object above:</p>
+
+<p><em>main.js:</em></p>
+
+<code>
+<pre lang="javascript">    gameLoop: function() {
+        if (QuickTetris.gameMode === QuickTetris.gameModes.gamePlay) {
+            QuickTetris.reactToKeyPress(currentKeyPress);
+            QuickTetris.adjustDifficulty();
+            Piece.moveDown(QuickTetris.dropSpeed);
+        }
+    },
+
+    reactToKeyPress: function(keyCode) {
+        if (currentKeyPress === null) {
+            return;
+        }
+
+        switch (keyCode) {
+        case DIR_KEY_DOWN:
+            Piece.moveDown(15);
+            break;
+        case DIR_KEY_LEFT:
+            Piece.moveLeft(Piece.State.tileWidth);
+            break;
+        case DIR_KEY_RIGHT:
+            Piece.moveRight(Piece.State.tileWidth);
+            break;
+        case SPACE_KEY:
+            Piece.rotate(true);
+            break;
+        }
+
+        //Reset key
+        currentKeyPress = null;
+    }</pre></code><br/>
+
+<p>Finally we need a way of launching the game. We create our default index.html page, which, after loading, calls <strong>Quicktetris.startDefaultGameLoop()</strong>:</p>
+
+<p><em>main.js:</em></p>
+
+<code>
+<pre lang="javascript">    startDefaultGameLoop: function() {
+        this.gotoTitleScreen();
+
+        // Launch game loop - set it to fire every X milliseconds
+        setInterval(this.gameLoop, 50); // Attempting 20 FPS
+    }</pre></code><br/>
+
+<p>Aaand we're done! Go on, <a href="http://kjeldahlnilsson.net/projects/quicktetris/">try it out</a> yourself!:)</p>
+
+<p>We'll do a brief post mortem summary of the project in the next and final part.</p>
+#+END_HTML

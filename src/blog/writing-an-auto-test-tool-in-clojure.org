@@ -1,0 +1,105 @@
+#+TITLE:     Writing an Auto-Test Tool in Clojure
+#+EMAIL:     thomas@kjeldahlnilsson.net
+#+DATE:      10.05.2010
+#+DESCRIPTION:
+#+KEYWORDS:
+#+LANGUAGE:  en
+#+OPTIONS: H:3 num:nil toc:nil @:t ::t |:t ^:t -:t f:t *:t <:t 
+#+OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+INFOJS_OPT: view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
+#+EXPORT_SELECT_TAGS: export
+#+EXPORT_EXCLUDE_TAGS: noexport
+#+LINK_UP:
+#+LINK_HOME:
+#+XSLT:
+
+#+BEGIN_HTML
+<p>  I'm starting to fall in love with <a href="http://clojure.org">Clojure</a>, and I'm having lots of fun learning the basics of it. The best way to get up to speed in new programming language is to write something useful, so that's what I'm currently doing.</p>
+
+<p>My first crack at a Clojure program is a simple auto-testing tool. I like test-driven development, and I wanted a light-weight way of running my clojure unit tests continuously in the background. If I break a test, I want to find out at once. When I fix the error I want a confirmation of that as well.</p>
+
+<p>An autotest workflow is extra useful when learning a new language - in that situation you should take extra small steps, with very rapid feedback cycles guiding your way.</p>
+
+<p><em>This is what it looks like:</em></p>
+
+<p><object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" width="640" height="480" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0"><param name="allowfullscreen" value="true" /><param name="allowscriptaccess" value="always" /><param name="src" value="http://vimeo.com/moogaloop.swf?clip_id=11633909&amp;server=vimeo.com&amp;show_title=1&amp;show_byline=1&amp;show_portrait=0&amp;color=&amp;fullscreen=1" /><embed type="application/x-shockwave-flash" width="640" height="480" src="http://vimeo.com/moogaloop.swf?clip_id=11633909&amp;server=vimeo.com&amp;show_title=1&amp;show_byline=1&amp;show_portrait=0&amp;color=&amp;fullscreen=1" allowscriptaccess="always" allowfullscreen="true"></embed></object></p>
+
+<p>Keep in mind that this works best with lean, rapid unit tests (measured in seconds, not minutes). Massive fifteen-minute test-suites defeats the purpose of autotesting.</p>
+
+<p>The algorithm is trivial: a one-second-interval loop that scans for changes to source files in the project directory. If file timestamps change or new files are added, a test run is triggered. The result of the test is determined by scraping the output of the terminal. The terminal is then colored green for test success or red if anything fails (I use tiny <a href="http://developer.apple.com/Mac/library/documentation/Darwin/Reference/ManPages/man1/osascript.1.html">osascripts</a> to color the terminal in different colors).</p>
+
+<p><em>Source code:</em></p>
+
+<code>
+<pre lang="clojure">(ns com.thomanil.autotest
+  (:require clojure.contrib.shell-out))
+
+(use 'clojure.contrib.shell-out)
+
+(defn cmd-line [command] (sh "bash" :in command))
+(defn clear-console [] (println (cmd-line "clear")))
+(defn visually-indicate-test-running [] (cmd-line "osascript bin/testrunner/make-term-yellow"))
+(defn visually-indicate-success [] (cmd-line "osascript bin/testrunner/make-term-green"))
+(defn visually-indicate-failure [] (cmd-line "osascript bin/testrunner/make-term-red"))
+(defn visually-indicate-exception [] (cmd-line "osascript bin/testrunner/make-term-red"))
+(defn all-source-files [] (seq (.split (cmd-line "ls **/*.clj") "\n")))
+(defn all-test-files [] (seq (.split (cmd-line "ls test/*.clj") "\n")))
+(defn file-state [file-path] (cmd-line (str "ls -l -T " file-path)))
+(defn state-of-src-files [] (map #(file-state %) (all-source-files)))
+
+(def run-cmd "java -Xmx1G -cp lib/clojure.jar:lib/clojure-contrib.jar:.:classes clojure.lang.Script ")
+(defn run-tests [] (cmd-line (str run-cmd (apply str (interpose " " (all-test-files))))))
+
+(defn set-console-state [test-result]
+	(let [test-status (get test-result 0) test-output (get test-result 1)]
+		(when (= test-status :success)
+			(println test-output)
+			(println "ALL TESTS SUCCEED")
+			(visually-indicate-success))
+		(when (= test-status :failure)
+  			(println test-output)
+  			(println "SOME TEST(S) FAILED")
+  			(visually-indicate-failure))
+		(when (= test-status :exception)
+			(println test-output)
+			(println "EXCEPTIONS OCCURRED")
+      		(visually-indicate-exception))))
+
+(defn exception-or-failure-in-text [result]
+	(cond
+		(.contains result "Exception in") :exception
+		(.contains result "FAIL in") :failure
+	 	(.contains result "0 failures, 0 errors") :success ))
+
+(defn determine-test-status []
+	(clear-console)
+	(let [result (run-tests)]
+		(let [state (exception-or-failure-in-text result)] [state, result] )))
+
+(defn run-test []
+	(visually-indicate-test-running)
+	(set-console-state (determine-test-status)))
+
+(def monitored-files (ref (state-of-src-files)))
+
+(defn files-changed? []
+	(let [current-state (apply str (state-of-src-files))
+		  last-state (apply str @monitored-files)]
+			(if (not(= current-state last-state))
+				(do (dosync
+					(ref-set monitored-files (state-of-src-files)))
+					:true)
+				nil)))
+
+(defn test-loop []
+	(loop []
+		(if (files-changed?) (run-test))
+		(Thread/sleep 1000)
+		(recur)))
+
+(run-test)  ;Do first test no matter what
+(test-loop) ;Wait for changes in files to trigger new tests</pre>
+</code>
+
+<p><em>Disclaimer: Some of the above is probably not idiomatic Clojure code, since I'm still very much a novice in this language.</em></p>
+#+END_HTML

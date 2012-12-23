@@ -1,0 +1,62 @@
+#+TITLE:     Invest In Yourself
+#+EMAIL:     thomas@kjeldahlnilsson.net
+#+DATE:      22.02.2009
+#+DESCRIPTION:
+#+KEYWORDS:
+#+LANGUAGE:  en
+#+OPTIONS: H:3 num:nil toc:nil @:t ::t |:t ^:t -:t f:t *:t <:t 
+#+OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+INFOJS_OPT: view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
+#+EXPORT_SELECT_TAGS: export
+#+EXPORT_EXCLUDE_TAGS: noexport
+#+LINK_UP:
+#+LINK_HOME:
+#+XSLT:
+
+#+BEGIN_HTML
+<p>  I wish I could go back in time and give myself career advice.</p>
+
+<p><img class="aligncenter size-full wp-image-680" title="BackToTheFutureAdvice" src="http://kjeldahlnilsson.net/images/uploads/2009/02/btfpic.jpg" alt="BackToTheFutureAdvice" width="492" height="319" /></p>
+
+<p>Actually, I'd probably hold off on the work-related issues. Essentials first: women, lottery numbers, financial advice. <em>Back To The Future</em> 101, right? But with that out of the way: career tips! What would I say to my younger self?</p>
+
+<p><strong>1. Active knowledge management</strong></p>
+
+<p>Cultivate an <a title="Norvig's Teach Yourself Programming in Ten Years" href="http://norvig.com/21-days.html">active approach</a> to learning and growing as a craftsman. Set and follow a clear personal path - don't just let corporate whims dictate the areas of your expertise. Take charge! If you absolutely have to work with dead-end or irrelevant technology at your day job, then learn what you need in your free time.</p>
+
+<p><strong>2. Timeless skills &gt; buzzwords</strong></p>
+
+<p>On a related note, focus your spare time on diversified and technology agnostic skills, rather than <em>enterprise technology of the week </em>mandated by the corporate overlords.</p>
+
+<p>While there may be something to be said for staying painfully up to date on the latest industry trends / Gartner approved buzzwords, I personally find it more rewarding to go back and improve my core skills. There's always basic stuff <a title="Polishing Rust blog post" href="http://kjeldahlnilsson.net/blog/?p=9">I could be much better at</a>. Math, OOP, <a title="Code Kata URL" href="http://codekata.pragprog.com/">programming technique</a>: skills which will still endure when the <a title="Spring Framework link" href="http://www.springsource.org/">Spring framework</a> draws it last breath (or last download, I guess).</p>
+
+<p><strong>3. Produce in your spare time</strong></p>
+
+<p>When learning a useful new skill in your free time (see above), don't limit yourself to 'Hello World' or a dinky O'Reilly tutorial. Build something concrete. Add new stuff to your portfolio.</p>
+
+<p>Pour your energy and love of learning into tangible side projects.  Create open source software, write articles, start an <a title="Micro ISV Wikipedia Entry" href="http://en.wikipedia.org/wiki/Micro_ISV">mISV</a>, work for non-profits/charities... Do whatever appeals most to you. Just produce something!</p>
+
+<p><strong>4. You != The Company</strong></p>
+
+<p>I wrote blog posts exclusively inside a corporate intranet for a while. I'm kicking myself for that now. Most of what I wrote was rubbish, but it would still be nice to have it pad out my own blog archives rather than the graveyard of some internal company webserver (which is where my old blog posts currently reside).</p>
+
+<p>If you enjoy holding presentations, focus on external meetups and conferences. Don't hide your work in internal company venues (unless your topic concerns company secrets). You want to invest in extracurricular work that benefits both your company <strong>and</strong> your public profile; when you switch jobs you only benefit from the latter.</p>
+
+<p>Make sure your employment contract doesn't state that your employer owns everything you create outside of work. Why should you freely give away all your potential off-hours creativity to a faceless corporation (unless you're strictly a 9-5 programmer, in which case I suppose it doesn't matter)?</p>
+
+<p>And please think twice before spending your spare time on certificatons mandated by your employer. Certifications can be really useful learning excercises, but spending time outside office hours to study for them?  Only if  it clearly makes you a better craftsman.</p>
+
+<p><strong>Wrapping up</strong></p>
+
+<p>So, in summary: Take charge of your career. Improve your craftsmanship. Produce stuff. Make sure you own your work and ideas.</p>
+
+<p>I didn't give the above issues much active thought until these last two years, and I'd love to be able to give my former self some of these pointers. Fortunately, however, there's plenty of time to remedy my previous career coma. Which reminds me: I'd better get back to work on my<a title="PonderTop project" href="http://www.thoughtmuse.com"> secret side project</a>. :)</p>
+
+<p><strong>Loosely related stuff</strong></p>
+
+<p>Paul Graham on <a title="Paul Graham essay URL" href="http://www.paulgraham.com/love.html">"How To Do What You Love"</a>.</p>
+
+<p>Also, check out the video below. <a title="Zed Shaw's blog" href="http://www.zedshaw.com/blog/index.html">Zed Shaw</a> on intrigue, suspense, corporate autism, stakes and strippers. Very funny talk!</p>
+
+<p><object width="400" height="227" data="http://vimeo.com/moogaloop.swf?clip_id=2723800&amp;server=vimeo.com&amp;show_title=1&amp;show_byline=1&amp;show_portrait=0&amp;color=&amp;fullscreen=1" type="application/x-shockwave-flash"><param name="allowfullscreen" value="true" /><param name="allowscriptaccess" value="always" /><param name="src" value="http://vimeo.com/moogaloop.swf?clip_id=2723800&amp;server=vimeo.com&amp;show_title=1&amp;show_byline=1&amp;show_portrait=0&amp;color=&amp;fullscreen=1" /></object></p>
+#+END_HTML

@@ -1,0 +1,91 @@
+#+TITLE:     Javascript Tetris Pt 8: Post Mortem & References
+#+EMAIL:     thomas@kjeldahlnilsson.net
+#+DATE:      28.01.2009
+#+DESCRIPTION:
+#+KEYWORDS:
+#+LANGUAGE:  en
+#+OPTIONS: H:3 num:nil toc:nil @:t ::t |:t ^:t -:t f:t *:t <:t 
+#+OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+INFOJS_OPT: view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
+#+EXPORT_SELECT_TAGS: export
+#+EXPORT_EXCLUDE_TAGS: noexport
+#+LINK_UP:
+#+LINK_HOME:
+#+XSLT:
+
+#+BEGIN_HTML
+
+<p>This was a fun project! Time to wrap it up...</p>
+
+<p><strong>What did I take away from all this?</strong></p>
+
+<p>Well, putting together the game (and these blog posts) helped me achieve my goal: I've got a better grip on core Javascript syntax and idioms now. I find I actually like working in the language. It's very flexible, mainly because of its functional aspects and malleable Prototype object system. Ruby is still a more pleasant alternative, though. :)</p>
+
+<p>Development is rapid... as long as I use disciplined regression tests. This is key - the only reason I was able to code (and constantly refactor) this little project relatively quickly was the constant safety net of my tests. Refreshing the browser and quickly hopping through the visual tests took about 10 secs each time, making for fairly rapid dev cycles.</p>
+
+<p>I ended up with a basic but effective dev environment for dynamic web apps. I'm planning on extracting a stripped down template for future projects (with some improvements, see below).</p>
+
+<p>Finally, rapidly building something concrete and visual is a rewarding feeling in and of itself... even for a trivial toy like my dinky little game.</p>
+
+<p><strong>Room for improvement</strong></p>
+
+<p>There are, apart from the myriad candidates for refactoring, some major issues to consider in the finished product as it stands now.</p>
+
+<p>More of the code could be programmatically testdriven. For instance, much of the collision detection and state handling of Piece and Field could be tested and developed without relying on manual, visual tests. I managed without extensive unit tests here, however if the project had been a less trivial one I probably would've been more rigorous.</p>
+
+<p>Piece shape matrices could be expressed in a more compact way if I'd defined each shape once, then used matrix rotation on them as needed. Unfortunately my math is a wee bit rusty, so I opted for "readability" instead. ;)</p>
+
+<p>My use of OOP in this project could be a bit more disciplined. I reach right inside the<strong> Field</strong> and <strong>Piece</strong> objects and grab their state variables - so much for encapsulation, eh? I should've defined accessor functions, using <a title="Closure and private members" href="http://javascript.crockford.com/private.html" target="_blank">closures</a> to hide the actual state variables (this didn't really occur to me until I was close to finishing the project).</p>
+
+<p>Also, all the code should be hidden within the Quicktetris object (our application namespace). One of the quirks of Javascript is its notion of <strong>linkage through global variables</strong> - every library, function and general flotsam of Javascript code loaded in the current browser window ends up in the the same global namespace. Given the possible amount of library code that a serious application can load, our generic <strong>Test</strong>, <strong>Piece</strong>, <strong>Field </strong>, <strong>Graphics</strong> names could easily trigger naming conflicts.</p>
+
+<p>
+How much thought did I put into <strong>performance</strong>? Nada. Zip. It loads fast enough, and runs fairly smoothly on my laptop. Works for me. However, if general web application performance was more of a concern I'd probably look into some of the most obvious remedies:
+<ul>
+	<li>Compression of the javascript code. All that generous whitespace adds to the size of the transmitted script.</li>
+	<li>Concatenating all javascript into one .js file to avoid overhead of multiple http requests</li>
+	<li>Compressing the image and sound assets. Lower bitrate for sound, reduced color debth for images</li>
+	<li>Using <a href="http://developer.yahoo.com/yslow/">YSlow</a> to profile and suggest further performance tweaks</li>
+</ul></p>
+
+<p>Using straight DOM scripting combined with styled div elements works for our game. Every visual element is nice and rectangular; because of this we don't need more organic functionality such as lines, circles and curves. More flexible graphics would probably have called for a different approach. There are a few ways of doing this. The <a href="http://en.wikipedia.org/wiki/Canvas_(HTML_element)">canvas approach</a> is one, <a href="http://www.mozilla.org/projects/svg/">SVG based graphics</a> another. Unfortunately, Internet Explorer doesn't support either of them out of the box (without installing third party extensions).</p>
+
+<div>
+
+<p><strong>Time spent</strong></p>
+
+<p>The code didn't initially leap out in clean increments, as suggested throughout these blog posts. Being a relative newbie to serious Javascript development, I went through quite a few iterations - refactoring the code as I learned more.</p>
+
+<p>Finishing the basic gameplay mechanics took roughly one week, using spare time in evenings and over the weekend. Improved graphics, animation, refactoring and general cleanup was finished after another week. Planning and preparing for this series of companion blog posts added overhead to the whole process.</div></p>
+<div>
+
+<p><strong>Tools used:</strong>
+<ul>
+	<li><a title="Firebug" href="http://getfirebug.com/" target="_blank">Firebug</a> is an absolute must for debugging Javascript code, enabling you to set breakpoints, step through the code, inspect DOM/CSS/script state at all times... One particularly handy feature it offers is its text console - <strong>console.log()</strong> is so much nicer for debugging than the old school practice of dumping debug messages in a dialog box with <strong>alert()</strong>.</li>
+	<li><a href="http://www.jslint.com/">JSLint</a> is, as previously mentioned, the closest you'll get to compiling your Javascript (for now). It checks code for typical Javascript code smells. Like the author of the tool states: <em>"JSLint will hurt your feelings"</em>.</li>
+	<li><a title="Rake tutorial" href="http://www.railsenvy.com/2007/6/11/ruby-on-rails-rake-tutorial">Rake</a> is my preferred build tool. Writing procedural build scripts in Ruby is very expressive, fast and readable, especially compared to certain other <a title="Ant" href="http://ant.apache.org/">xml-based</a>, declarative <a title="Maven" href="http://maven.apache.org/">monstrosities</a>. :)</li>
+	<li><a href="http://elfz.laacz.lv/beautify/">Beautify Javascript</a> is a handy online tool for prettifying snippets of Javascript code.</li>
+	<li>Any editor will do, but I personally prefer <a href="http://macromates.com/">Textmate</a> when I work in OS X. Well worth the money.</li>
+</ul></p>
+
+<p><strong>Reference material</strong></p>
+
+<p>I usually find the <a href="http://www.w3schools.com/">W3Schools</a> pages to be an ok starting point when I research unfamiliar web standards. Their tutorials and examples are uneven, but the site works well for quickly looking up stuff like API details and HTML DOM events.</p>
+
+<p>For Norwegian readers: <a title="Christian Johansen blog" href="http://www.cjohansen.no/arkiv">this</a> is a very nice blog about Javascript and assorted web technologies. Kudos to Christian Johansen for a solid resource!</p>
+
+<p><img class="alignnone size-full wp-image-273" title="javascriptgoodpartscover" src="http://kjeldahlnilsson.net/images/uploads/2009/01/javascriptgoodpartscover.jpg" alt="javascriptgoodpartscover" width="395" height="408" /></p>
+
+<p>My main Javascript source, however, is <a href="http://en.wikipedia.org/wiki/Douglas_Crockford">Douglas Crockfords</a> work. Crockford is the author of JsLint, the <a href="http://json.org/">JSON</a> standard, and general champion of Javascript. Crockford has essentially carved out and evangelized a subset of Javascript / EcmaScript, discouraging use of the more ugly parts in the <a title="ECMAScript spec (Wikipedia)" href="http://en.wikipedia.org/wiki/ECMAScript">language spec</a>. You'll find a lot of useful articles at his site, as well as a bunch of videos at the <a href="http://developer.yahoo.com/yui/theater/">Yahoo YUI site</a>.</p>
+
+<p>I strongly recommend <a href="http://www.amazon.com/JavaScript-Good-Parts-Douglas-Crockford/dp/0596517742">his book</a>, which summarizes much of the material from the articles and videos mentioned above. At 153 pages it's one of the most dense, concise language reference books I've ever seen.</p>
+
+<em>
+<strong>Special thanks</strong>
+
+<p>My friend and colleague <a href="http://www.flipsideremix.com/">Alexander Odden (aka Flipside)</a> was kind enough to whip up some sound and music - much appreciated!</p>
+
+<p>I'm grateful to <a title="Johannes Brodwalls blog" href="http://brodwall.com/johannes/blog/">Johannes Brodwall</a>, <a title="Christian Johansens blog" href="http://www.cjohansen.no/">Christian Johansen</a>, Lars Juel Jensen, Thomas Kristensen, Henrik Storm Ofteland and Bente Storåker for (sometimes heeded) feedback, suggestions and criticism. Thanks guys (and gal)!</em></p>
+
+</div>
+#+END_HTML

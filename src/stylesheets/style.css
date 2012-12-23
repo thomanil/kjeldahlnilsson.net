@@ -1,0 +1,117 @@
+body {
+    background-color: white;
+    font-family: arial;
+}
+
+h1 {
+    font-family: georgia;
+}
+
+.portrait {
+    float: left;
+    margin-right: 15px;
+}
+
+.left {
+    float: left;
+}
+
+.right {
+    float: right;
+}
+
+p {
+    line-height: 1.5;
+}
+
+a:link {
+    color: darkorchid;
+
+}
+
+a:visited {
+    color: plum;
+}
+
+a:hover { 
+    text-decoration: none;
+}
+
+#navbar {
+    height: auto;
+    color: black;
+    background-color: white;
+    background-repeat: no-repeat;
+    float: left;
+    position: relative;
+    padding-left: 10px;
+    padding-right: 40px;
+    text-align: right;
+    font-size: 120%;
+}
+
+#navbar ul {
+    list-style-type: none;
+    margin-top: 0px;
+}
+
+#navbar a:link, #navbar a:visited {
+    color: gray;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+
+#anav {
+    margin-top: 50px;
+}
+
+#anav a:link, #anav a:visited{
+    color: gray;
+    text-decoration: none;
+}
+
+#head {
+    background-color: white;
+    color: purple;
+    clear: left;
+    height: 64px;
+    margin-top: 50px;
+    margin-left: 220px;
+    margin-right: 150px;
+    margin-bottom: 50px;
+    width: 600px;
+    font-weight: strong;
+    font-size: 1.4em;
+}
+
+#main {
+    background-color: white;
+    background-position: right bottom;
+    background-repeat: no-repeat;
+    height: auto;
+    width: 600px;
+    margin-left: 220px;
+    margin-right: 30px;
+    padding-bottom: 60px;
+}
+
+#foot {	
+    background-color: white;
+    clear: left;
+    color: grey;
+    height: 32px;
+    margin-left: 220px;
+    margin-right: 30px;
+    width: 600px;
+    text-align: right;
+}
+
+#date, hr {
+    color: gray;
+}
+
+#content ul li {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}

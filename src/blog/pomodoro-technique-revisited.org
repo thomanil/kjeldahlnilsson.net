@@ -1,0 +1,46 @@
+#+TITLE:     Pomodoro Technique Revisited
+#+EMAIL:     thomas@kjeldahlnilsson.net
+#+DATE:      30.06.2009
+#+DESCRIPTION:
+#+KEYWORDS:
+#+LANGUAGE:  en
+#+OPTIONS: H:3 num:nil toc:nil @:t ::t |:t ^:t -:t f:t *:t <:t 
+#+OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+INFOJS_OPT: view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
+#+EXPORT_SELECT_TAGS: export
+#+EXPORT_EXCLUDE_TAGS: noexport
+#+LINK_UP:
+#+LINK_HOME:
+#+XSLT:
+
+#+BEGIN_HTML
+<p><em>Three months ago I stumbled across a time management system called 'The Pomodoro Technique'. I really liked it due to the immediate productivity gains it gave me. I thought I'd follow that blog post up with my current impression of the technique, now that I've used it for a while. Todays blog entry will make more sense if you read my <a title="Original pomodoro blog post link" href="http://messynotebook.com/?p=833">the original post</a> first.</em></p>
+
+<p style="text-align: center;"><em><a title="Pomodoro Technique website" href="http://www.pomodorotechnique.com/" target="_blank"><img class="aligncenter size-full wp-image-838" title="pomodoroTechniqueLogo" src="http://kjeldahlnilsson.net/images/uploads/2009/03/pomodorologo.jpg" alt="pomodoroTechniqueLogo" width="284" height="178" /></a></em></p>
+
+<p><strong>Recap</strong></p>
+
+<p>The idea of the Pomodoro Technique is that you work in timeboxed intervals of 25 minutes. Each interval is called a "Pomodoro" (tomato). Once you've completed a pomodoro you make a note of it, and take a five minute break. After four pomodoros you take a longer break.</p>
+
+<p><strong>The Good</strong></p>
+
+<p>I'm ultra focused when I work on tasks using this system. I initially found the ticking egg timer somewhat distracting and stressful, but that passed after a week or two. Once I start the clock I'm usually able to enter a state of flow really quickly.</p>
+
+<p>I've repeatedly seen clear benefits from the self-enforced breaks; they sometimes make me step back, rethink and adjust what I'm working on. This has prevented me from going too far down some potentially time-consuming dead ends.</p>
+
+<p>Recording completed pomodoros forces me to document and take stock of how much time I spend on different tasks. This provides historical data which really helps <a title="Estimation blog post" href="http://messynotebook.com/?p=916">when I estimate</a> similar future tasks.</p>
+
+<p><em>"I'm going to complete a few eggs, dear"</em> has become a catchphrase at home <em>(eggs = egg timers / pomodoros)</em>. It's a clear way of communicating to my fiancè that I'm setting aside a concrete amount of time for work. This lets her know <em>exactly</em><strong> </strong>when I'll emerge from <a title="Rands in Repose article on &quot;The Cave&quot;" href="http://www.randsinrepose.com/archives/2006/07/10/a_nerd_in_a_cave.html">my cave</a> again. :)</p>
+
+<p><strong>The Bad</strong></p>
+
+<p>It's <em>hard</em> to stop working once the egg timer rings. This is especially noticeable if I'm almost done with a task; it's very tempting to put a few more minutes in before I take that break. Of course, those "few minutes" sometimes end up taking an hour or two...</p>
+
+<p>The technique forces me into a certain mindset. I become really focused and efficient, which is great for concrete, well planned tasks. It's not always suitable for more reflective and explorative work, though. I find I do better at things like research, brainstorming, design and general planning when I'm not under the gun of my egg timer.</p>
+
+<p>I have not used the technique seriously at my dayjob yet. I'm not using a mechanical timer there, since a ringing egg timer would be quite distracting for my coworkers (several of us share an office). One solution: use headphones combined with a software-based timer instead. Unfortunately, I find tools like <a title="mytomatoes.com link" href="http://mytomatoes.com/">mytomatoes.com</a> much less effective than a mechanical clock; the "break" audio signal is far less noticable, and it's often lost on me because I take off my headphones or listen to music while working.</p>
+
+<p><strong>Conclusion</strong></p>
+
+<p>The Pomodoro technique has boosted my productivity, and I highly encourage more software developers to try it out. I will keep using it for my side projects. It has been less useful at my dayjob, but I'm going to try to adapt it to work well there as well.</p>
+#+END_HTML

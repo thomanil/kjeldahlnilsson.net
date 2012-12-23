@@ -1,0 +1,37 @@
+#+TITLE:     Released My First Real Product!
+#+EMAIL:     thomas@kjeldahlnilsson.net
+#+DATE:      02.08.2009
+#+DESCRIPTION:
+#+KEYWORDS:
+#+LANGUAGE:  en
+#+OPTIONS: H:3 num:nil toc:nil @:t ::t |:t ^:t -:t f:t *:t <:t 
+#+OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+INFOJS_OPT: view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
+#+EXPORT_SELECT_TAGS: export
+#+EXPORT_EXCLUDE_TAGS: noexport
+#+LINK_UP:
+#+LINK_HOME:
+#+XSLT:
+
+#+BEGIN_HTML
+<p>  For the past couple of months I've worked on a nontrivial project:<strong> build, launch and sell a commercial product on my own.</strong></p>
+
+<p>I set fairly strict constraints for the project:
+<ul>
+	<li>Use less than five months to release the first version.</li>
+	<li>Work on it no more than fifteen hours a week (nights and weekends).</li>
+	<li>Don't neglect my family, which I love.</li>
+	<li>Keep my dayjob, which I really enjoy.</li>
+</ul></p>
+
+<p>Well, I did it. The result is <a title="ThoughtMuse link" href="http://thoughtmuse.com">ThoughtMuse</a>, an online mindmapping tool which runs in your browser. I released v.1.0 a week ago.</p>
+
+<p><object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" width="425" height="344" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0"><param name="allowFullScreen" value="true" /><param name="allowscriptaccess" value="always" /><param name="src" value="http://www.youtube.com/v/FzEw7c92ooQ&amp;hl=en&amp;fs=1&amp;rel=0" /><param name="allowfullscreen" value="true" /><embed type="application/x-shockwave-flash" width="425" height="344" src="http://www.youtube.com/v/FzEw7c92ooQ&amp;hl=en&amp;fs=1&amp;rel=0" allowscriptaccess="always" allowfullscreen="true"></embed></object></p>
+
+<p>It's early days.  ThoughtMuse has some rough edges which I need to improve, and there's plenty of additional features I'd like to add to it.</p>
+
+<p>So do I have any paying customers yet? Well, the magical first sale ticked in a few days after launch; the sweetest $35.40 I've ever earned. Building and selling something on your own is extremely rewarding. Making a profit? Sure, that would be nice as well. :)</p>
+
+<p>You learn<strong> a lot</strong> by building a commercial product all on your own. I'm going to write more on this later on.</p>
+
+#+END_HTML

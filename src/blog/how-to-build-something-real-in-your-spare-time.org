@@ -1,0 +1,80 @@
+#+TITLE:     How To Build Something Real (In Your Spare Time)
+#+EMAIL:     thomas@kjeldahlnilsson.net
+#+DATE:      29.05.2009
+#+DESCRIPTION:
+#+KEYWORDS:
+#+LANGUAGE:  en
+#+OPTIONS: H:3 num:nil toc:nil @:t ::t |:t ^:t -:t f:t *:t <:t 
+#+OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+INFOJS_OPT: view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
+#+EXPORT_SELECT_TAGS: export
+#+EXPORT_EXCLUDE_TAGS: noexport
+#+LINK_UP:
+#+LINK_HOME:
+#+XSLT:
+
+#+BEGIN_HTML
+<p style="text-align: center;"></p>
+<p style="text-align: center;"><img class="size-full wp-image-1098 aligncenter" title="stackedRocks" src="http://kjeldahlnilsson.net/images/uploads/2009/05/stackedrocksshrunk.jpg" alt="stackedRocks" width="267" height="400" /></p>
+<p style="text-align: center;"></p>
+
+<p>Starting a new pet project is easy. But finishing it? That's a different story.</p>
+
+<p>Many programmers love to tinker with side projects. I'll argue that most of the decent ones do, anyway. Learning new tools makes us want to build things. Innovative technologies, cool product ideas. Unfortunately, the result is usually just a sad collection of forgotten files on some hard drive.</p>
+
+<p>I'm certainly no exception to this - my portfolio isn't exactly jam packed with polished results. I've worked up enthusiasm for a variety of hobby projects over the years, with somewhat spotty follow-through.</p>
+
+<p>Recently, however, I decided to step it up a notch. "<em>This time I'm going to stick with it until I end up with a real product."</em> <strong>So I did</strong>. I bootstrapped <a title="ThoughtMuse link" href="http://thoughtmuse.com">ThoughtMuse</a>, an online mindmapping tool,  in under five months using only my spare time during nights and weekends.</p>
+
+<p>To keep development of my product rolling I try to consistently apply basic productivity techniques. They're not particularly new and amazing methods - many of them are just Project Management 101. Unfortunately, they often seem to go straight out the window when programmers sit down to work on their own time. Perhaps using basic project management practices makes pet projects feel less sexy, somehow?</p>
+
+<p>Anyway, these are some of my favourite techniques to keep producing in my spare time.</p>
+
+<p><strong>Set goals</strong></p>
+
+<p>Stating exactly what you want to achieve motivates you and focuses your efforts. And no, saying that you "kinda want to build this thingamajig" won't cut it. Be specific. Quantify. <em>What am I creating? For whom? By when? What, and how much of it, do I need to achieve?</em> Write down concrete, measurable objectives.</p>
+
+<p><strong>Divide into milestones</strong></p>
+
+<p>If your project will take more than a few weeks it's crucial that you divide the work into separate deliverables. Always having a single enormous blob of work left is demotivating. Instead, structure your project as a collection of smaller increments. And reward yourself every time you complete one of them!</p>
+
+<p><strong>Make yourself accountable</strong></p>
+
+<p>Tell someone what you are doing, and keep people informed of your progress. Talk to friends, post progress updates on your blog, whatever. The idea is to set up a small amount of external pressure to keep you going when the chips are down. <em>I told Bob that I'd finish this cool widget by March - so I'd better get cracking!</em></p>
+
+<p><strong>Something every day</strong></p>
+
+<p>You need steady momentum to keep the project rolling. It's much harder to sit down and work if you only do so every other week - you then need to use more time and energy to "spin back up" every time. You also run a higher risk of falling off the wagon completely if you miss one or two  of those long sessions. Instead you want to ingrain a steady, regular habit which feels as natural as brushing your teeth every evening.</p>
+
+<p><strong>Don't force it</strong></p>
+
+<p>Like woodworkers say: <em>don't work against the grain</em>. If you hit a serious wall in some task, switch to something completely different to keep your momentum going. There's always other stuff that also needs to be worked on. Some code proving hard to debug? Jump to, say, user interface design instead. Then come back to the original problem later on. Problems have a way of solving themselves if you let your subconcious chew on it for a while.</p>
+
+<p><strong>Iterate, iterate, iterate</strong></p>
+
+<p>You won't get every task right the first time. Allow yourself to come back to each area of your product multiple times with fresh eyes. You'll see more clearly the second and third time you return to that piece of code or functionality.</p>
+
+<p><strong>Sustainable pace</strong></p>
+
+<p>Slow and steady will get you there in the end, full sprint might not. I think that taking the tortoise route is the safest approach. Avoid burning yourself out by overworking. This is especially important in the beginning when you have lots of enthusiasm. You will feel less optimistic in a few weeks or months, it's just a matter of time - so pace yourself.</p>
+
+<p><strong>Timebox everything</strong></p>
+
+<p>Perform an initial rough <a title="Estimation blog post" href="http://messynotebook.com/?p=916">estimate</a> of how much time and effort the project will take, given how ambitious it is. Then set aside fixed amounts of time you are willing to spend on your project. <em>"I have to be done in three months, using no more than ten hours a week"</em>. Work on each specific task for <a title="Blog post on Pomodoro time management" href="http://messynotebook.com/?p=833">set amounts of time</a>.  This maximizes your focus. Timeboxing is especially useful if you're in a relationship; your girlfriend/boyfriend/wife/husband/children will thank you for this one.</p>
+
+<p><strong>Ruthlessly trim scope</strong></p>
+
+<p>This is the flip side of the technique above. You now have strictly limited time to burn on the project, so get the most out of your available hours. We have a tendency to get carried away, dream up new features and let the scope of our projects grow. Try to constantly remove instead<em>. </em>Paraphrasing Einstein: <em>"Everything should be made as simple as possible, but not simpler."</em> Do you really need this, that or the other to be satisfied with the finished product? If not, just archive the idea, then move along.</p>
+
+<p><strong>Let life intrude</strong></p>
+
+<p>Accept that Everyday Life can and will mess up your schedule sometimes. That's ok. Don't stress out about it - as long as you're moving forward you'll get there eventually. Just keep plugging away. Stick with it!</p>
+
+<p style="text-align: center;"><img class="size-full wp-image-1125 aligncenter" title="stonePath" src="http://kjeldahlnilsson.net/images/uploads/2009/05/stonepath.jpg" alt="stonePath" width="234" height="350" /></p>
+
+<p>I've described the techniques above in the context of software development, but they should be fairly universal and applicable for anyone practicing some sort of craft in their spare time. If you have any other methods which work well for you, I'd love to hear about them!</p>
+
+<p>Are there areas in which any of these techniques don't work or are actually harmful? I don't know - feel free to tell me if you know of specific counter-examples.</p>
+
+<p>Now, time to get back to work on that cool new feature...</p>
+#+END_HTML

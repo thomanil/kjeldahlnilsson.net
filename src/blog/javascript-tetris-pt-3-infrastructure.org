@@ -1,0 +1,400 @@
+#+TITLE:     Javascript Tetris Pt 3: Infrastructure
+#+EMAIL:     thomas@kjeldahlnilsson.net
+#+DATE:      23.01.2009
+#+DESCRIPTION:
+#+KEYWORDS:
+#+LANGUAGE:  en
+#+OPTIONS: H:3 num:nil toc:nil @:t ::t |:t ^:t -:t f:t *:t <:t 
+#+OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+INFOJS_OPT: view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
+#+EXPORT_SELECT_TAGS: export
+#+EXPORT_EXCLUDE_TAGS: noexport
+#+LINK_UP:
+#+LINK_HOME:
+#+XSLT:
+
+#+BEGIN_HTML
+<p>  <em>Full source code can be downloaded from project home at <a href="http://kjeldahlnilsson.net/portfolio.php">kjeldahlnilsson.net</a>.</em></p>
+
+<p>We'll start by creating some basic infrastructure - just enough to give us a good running start. We need the bare minimum only: personally, I like to evolve my projects to actual needs as I go along. I don't want to invest huge amounts of time in build scripts, test setups, frameworks and support code before I know what I actually need.</p>
+
+<p><strong>Note</strong>: The industrious reader may wish to follow along and reimplement the game laid out in this article. Be advised that the source code included in this article is incomplete, and that code snippets sometimes refers to code which is defined further ahead - refer to<a href="http://kjeldahlnilsson.net/projects/quicktetris/quicktetris-1.0-src.zip"> the full source code</a> if you want the whole picture. I will reference the files containing the code as we move forward.</p>
+
+<p><strong>Unit tests</strong></p>
+
+<p>We are going to write at least some unit tests as we go along, so we need support for writing and running them in our environment. Now, of course, there are <a title="JSUnit" href="http://jsunit.net/">several</a> <a title="YuiTest" href="http://developer.yahoo.com/yui/yuitest/">popular</a> <a title="JSSpec" href="http://jania.pe.kr/aw/moin.cgi/JSSpec">unit</a> <a title="QUnit" href="http://docs.jquery.com/QUnit">test</a> frameworks to choose from... but since the goal of our tiny project is to learn Javascript, we'll simply roll our own tiny framework.</p>
+
+<p>We don't need much - some way to assert that tests fail or succeed, some way of defining test cases, and a function to launch and run all the tests.</p>
+
+<p><em>util.js:</em></p>
+
+<code>
+<pre lang="javascript">// Assert methods needed by test framework
+function assertTrue(boolean, errorMsg) {
+    if (boolean === false) {
+        throw (errorMsg);
+    }
+    return;
+}
+
+function assertFalse(boolean, errorMsg) {
+    if (boolean === true) {
+        throw (errorMsg);
+    }
+    return;
+}</pre></code><br/>
+
+<em>test.js:</em>
+
+<code>
+<pre lang="javascript">var Test = {
+
+    runSuite: function() {
+        // Call all methods/testcases in suite
+        for (var testFunc in this.Suite) {
+            if (this.Suite.hasOwnProperty(testFunc)) { // Don't call any inherited methods
+                try {
+                    this.Suite[testFunc]();
+                }
+                catch(err) {
+                    alert(testFunc + "() failed: " + err);
+                    return;
+                }
+            }
+        }
+
+        Graphics.drawString("--All tests in suite passed--", 400, 400);
+    },
+
+    Suite: {
+
+        // Add test cases here
+        testAsserts: function() {
+            assertTrue(2 === 2, "This should never fail");
+            assertFalse(2 === 3, "This should always fail");
+        },
+
+};</pre></code><br/>
+
+<p>Finally we need some sort of testrunner application. I like having a "test bench" when I develop low level graphical functionality; a context for manually running and observing isolated visual regression tests. We'll create a testbench web page, with a separate button for running our test suite. </p>
+
+<p><em>test.html:</em></p>
+
+<code><pre lang="html4strict">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>QuickTetris test bench</title>
+<!-- Load external script -->
+<script src="lib/jQuery/jquery-1.2.6.js"></script> 
+<script src="lib/jQuery/jquery-ui-1.6rc4.js"></script> 
+<script src="lib/soundmanager/script/soundmanager2.js"></script>
+<script src="src/graphics.js"></script> 
+<script src="src/sound.js"></script> 
+<script src="src/piece.js"></script> 
+<script src="src/field.js"></script> 
+<script src="src/test.js"></script> 
+<script src="src/util.js"></script> 
+<script src="src/main.js"></script> 
+
+<script>
+  window.onload = function() {
+    document.getElementById("test0").onclick = function(){ Test.runSuite(); };
+    document.getElementById("test1").onclick = function(){ Test.testDrawSingleSquare(); };
+    document.getElementById("test2").onclick = function(){ Test.testDetectKeys(); };
+    document.getElementById("test3").onclick = function(){ Test.testMoveSquare(); };    
+    document.getElementById("test4").onclick = function(){ Test.testDrawPlayingField(); };
+    document.getElementById("test5").onclick = function(){ Test.testPieceCollision(); };
+    document.getElementById("test6").onclick = function(){ Test.testPlaySound(); };
+    document.getElementById("test7").onclick = function(){ Test.testPlaySoundLooped(); };
+    document.getElementById("test8").onclick = function(){ Test.testPlayMusic(); };
+    document.getElementById("test9").onclick = function(){ Test.testExplodeAnimation(); };
+  };
+</script>
+</head>
+<body>
+
+<h3>Programmatic tests</h3>
+
+<input id="test0" type="submit" value="Run test suite"><br/>
+
+<h3>Visual tests</h3>
+
+<input id="test1" type="submit" value="Draw single square"><br/>
+<input id="test2" type="submit" value="Detect keyboard input"><br/>
+<input id="test3" type="submit" value="Move square based on input"><br/>
+<input id="test4" type="submit" value="Draw playing field"><br/>
+<input id="test5" type="submit" value="Piece collision"><br/>
+<input id="test6" type="submit" value="Play sound"><br/>
+<input id="test7" type="submit" value="Play looped sound"><br/>
+<input id="test8" type="submit" value="Play music"><br/>
+<input id="test9" type="submit" value="Run explosion animation"><br/>
+
+<div id="gameContainer">
+
+</div>
+
+</body>
+</html>
+</pre></code></br>
+
+<p>You can run it yourself <a title="Quicktetris test page" href="http://kjeldahlnilsson.net/projects/quicktetris/test.html">here</a>. Clicking the top button calls <strong>Test.runTestSuite()</strong>:</p>
+
+<p><img class="alignnone size-full wp-image-102" title="quicktetristestbench" src="http://kjeldahlnilsson.net/images/uploads/2009/01/quicktetristestbench.jpg" alt="quicktetristestbench" width="450" height="338" /></p>
+
+<p>I debugged the project using Apache on my own machine. Apache comes preinstalled in recent versions of Mac OS X, you simply need to <a title="How to turn on Apache in Mac OS X" href="http://support.apple.com/kb/HT3323" target="_blank">enable it</a>. Windows users need to <a title="Apache download link" href="http://httpd.apache.org/download.cgi" target="_blank">download </a>and run the binary installer. After starting Apache, simply dump the project in Apache's <code>/htdocs</code> folder and point your browser to <code>http://localhost/RELATIVE_PROJECT_PATH</code>.</p>
+
+<p><strong>Abstract data types, syntactic sugar </strong></p>
+
+<p>Tetris is basically all about matrices - a grid of tiles where elements appear, move around, and disappear. We are going to store and manipulate a bunch of game state using two dimensional arrays. Javascript provides bare bones support by letting us define arrays of arrays, but we need a little more syntactic sugar for all the grid hopping we're going to do.</p>
+
+<p>I personally really like Ruby's <a title="Enumerable" href="http://www.ruby-doc.org/core/classes/Enumerable.html">Enumerable</a> idiom, so we want to wire <strong>each()</strong>, <strong>map()</strong> etc into the Javascript <strong>Array</strong> object. We are, of course, not the first people to think of this; the <a title="Prototype" href="http://www.prototypejs.org/">Prototype</a> framework could supply much of this functionality instantly. But again: the object here is to learn the language, so we'll write it ourselves.</p>
+
+<p>The following tests articulate what we want from the <strong>Array</strong> object:</p>
+
+<p><em>test.js:</em></p>
+
+<code>
+<pre lang="javascript">        testArrDimensions: function() {
+            var width = 3;
+            var height = 2;
+            var initValue = "x";
+            var arr = get2dArray(width, height, initValue);
+
+            assertTrue(arr.getWidth() === width, "Width of array not expected length");
+            assertTrue(arr.getHeight() === height, "Height of array not expected length");
+
+            for (var x in arr) {
+                if (arr.hasOwnProperty(x)) { // Don't call any inherited methods
+                    assertTrue(arr[x].length === height, "Height of array not expected length");
+                }
+            }
+        },
+
+        testArrEach: function() {
+            var arr = [2, 4, 5, 2];
+            var length = arr.length;
+
+            var elementsVisited = 0;
+            arr.each(function(element) {
+                assertTrue(element !== null, "Expected all elements to be non-null");
+                elementsVisited++;
+            });
+
+            assertTrue(elementsVisited === length, "Didn't visit " + length + " elements as expected");
+        },
+
+        testArrEach2d: function() {
+            var width = 3;
+            var height = 2;
+            var initValue = "x";
+            var arr = get2dArray(width, height, initValue);
+
+            var elementsVisited = 0;
+            arr.each(function(element) {
+                assertTrue(element === initValue, "Not all slots in array was set to " + initValue);
+                elementsVisited++;
+            });
+
+            assertTrue(elementsVisited === (width * height), "Didn't visit " + (width * height) + " elements as expected");
+        },
+
+        testArrEachRow: function() {
+            var width = 3;
+            var height = 4;
+            var initValue = "x";
+            var arr = get2dArray(width, height, initValue);
+
+            var rowsVisited = 0;
+            arr.eachRowWithIndex(function(row) {
+                assertTrue(row.length === width, "Expected row to be " + width + " elements long");
+                rowsVisited++;
+            });
+
+            assertTrue(rowsVisited === height, "Didn't get " + height + " rows as expected");
+        },
+
+        testArrMap: function() {
+            var width = 2;
+            var height = 2;
+            var initValue = "2";
+            var arr = get2dArray(width, height, initValue);
+
+            var mappedArr = arr.map(function(element) {
+                return element * 2
+            });
+
+            var elementsVisited = 0
+            mappedArr.each(function(element) {
+                assertTrue(element === initValue * 2, "Not all slots in mapped array were transformed to new value");
+                elementsVisited++;
+            });
+
+            assertTrue(elementsVisited === width * height, "Mapped array not same size as original array");
+        }
+
+    }</pre></code><br/>
+
+
+
+<p>We need to augment the Javascript <strong>Array</strong> object to support this functionality.</p>
+
+<p><em>util.js:</em></p>
+
+<code>
+<pre lang="javascript">// Returns two dimensional array, every element initiated to given value
+function get2dArray(width, height, initValue) {
+    var arr2d = [];
+
+    for (var x = 0; x < width; x++) { // For each row
+        arr2d[x] = [];
+    }
+
+    for (x = 0; x < width; x++) {
+        for (var y = 0; y < height; y++) {
+            arr2d[x][y] = initValue;
+        }
+    }
+
+    return arr2d;
+}
+
+// D. Crockford idiom for function mixin
+Function.prototype.method = function(name, func) {
+    this.prototype[name] = func;
+    return this;
+};
+
+// Array mixins for 2d grid functionality
+Array.method('getWidth',
+function() {
+    return this.length;
+});
+
+Array.method('getHeight',
+function() {
+    return this[0].length;
+});
+
+Array.method('isTwoDimensional',
+function() {
+    return (this[0].constructor == Array);
+});
+
+Array.method('each',
+function(appliedFunction) {
+    for (var x = 0; x < this.getWidth(); x++) {
+        if (this.isTwoDimensional()) {
+            for (var y = 0; y < this.getHeight(); y++) {
+                appliedFunction(this[x][y]);
+            }
+        }
+        else {
+            appliedFunction(this[x]);
+        }
+    }
+});
+
+Array.method('eachWithIndexes',
+function(appliedFunction) {
+    for (var x = 0; x < this.getWidth(); x++) {
+        if (this.isTwoDimensional()) {
+
+            for (var y = 0; y < this.getHeight(); y++) {
+                appliedFunction(this[x][y], x, y);
+            }
+        }
+        else {
+            appliedFunction(this[x], x);
+        }
+    }
+});
+
+Array.method('eachRowWithIndex',
+function(appliedFunction) {
+    for (rowCount = 0; rowCount < this.getHeight(); rowCount++) {
+        var row = [];
+        for (columnCount = 0; columnCount < this.getWidth(); columnCount++) {
+            row[columnCount] = this[columnCount][rowCount];
+        }
+        appliedFunction(row, rowCount);
+    }
+});
+
+Array.method('map',
+function(appliedFunction) {
+    var mappedArr = null;
+    if (this.isTwoDimensional()) {
+        mappedArr = get2dArray(this.getWidth(), this.getHeight(), null);
+    }
+    else {
+        mappedArr = [];
+    }
+
+    for (var x = 0; x < this.getWidth(); x++) {
+        if (this.isTwoDimensional()) {
+            for (var y = 0; y < this.getHeight(); y++) {
+                mappedArr[x][y] = appliedFunction(this[x][y], x, y);
+            }
+        }
+        else {
+            mappedArr[x] = appliedFunction(this[x]);
+        }
+    }
+
+    return mappedArr;
+});</pre></code><br/>
+
+<p>A little later I found that <strong>Array.map()</strong> actually already exists in Javascript. It was, however, still a useful exercise to implement a variant of it myself. It's probably usually not a great idea to <a title="Monkeypath definition" href="http://en.wikipedia.org/wiki/Monkey_patch">monkeypatch</a> over existing core functionality, though. :)</p>
+
+<p><strong>Build environment</strong></p>
+
+<p>We want to set up some sort of automated code verification - especially important since this is a newbie project. Enter <a title="JsLint" href="http://www.jslint.com/">JsLint</a>, the closest thing you get to compile-time error checking for Javascript. I chose to run it using the Rhino version (download <a title="js.jar download" href="http://www.jslint.com/rhino/index.html">here</a>). This is our <a title="RAKE -Ruby Make" href="http://rake.rubyforge.org/">Rake</a> task for running it:</p>
+
+<p><em>Rakefile:</em></p>
+
+<code>
+<pre lang="ruby">desc "Run JSLint audit on code and markup"
+task :jslint do
+
+  lintCommand = "java -classpath ./lib/jsLint/js.jar "+
+                  "org.mozilla.javascript.tools.shell.Main ./lib/jsLint/jslint.js";
+
+  # Check the .html files in root dir
+  lintTargets = Dir.entries(".").reject! do |direntry|
+	  if(direntry !~ /(\.html)\z/ ) then
+		 true
+	  end
+  end  
+
+  lintTargets.each do |filename|
+    echo "Running JSLint on: "+filename
+    puts %x{ #{lintCommand} #{filename} };
+  end
+
+  # Check the .js files in /src dir
+  lintTargets = Dir.entries("./src").reject! do |direntry|
+	  if(direntry !~ /(\.js)\z/ ) then
+		 true
+	  end
+  end
+
+  lintTargets.each do |filename|
+    echo "Running JSLint on: "+filename
+    puts %x{ #{lintCommand} ./src/#{filename} };
+  end
+
+  echo "Done running JSLint"
+
+end
+
+def echo(msg)
+  puts("  <Rake build>: "+msg);
+end
+</pre><code><br/>
+
+<p>Running it, we see that we have some issues in the code we wrote above:</p>
+
+<p><img class="alignnone size-full wp-image-114" title="jslinterror" src="http://kjeldahlnilsson.net/images/uploads/2009/01/jslinterror.jpg" alt="jslinterror" width="505" height="459" /></p>
+
+<p>Easily fixed. Now we have a basic infrastructure in place. In the next part we start looking at graphics and user input.</p>
+#+END_HTML

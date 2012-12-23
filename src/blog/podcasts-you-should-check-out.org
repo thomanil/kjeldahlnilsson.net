@@ -1,0 +1,54 @@
+#+TITLE:     Podcasts You Should Check Out
+#+EMAIL:     thomas@kjeldahlnilsson.net
+#+DATE:      19.07.2008
+#+DESCRIPTION:
+#+KEYWORDS:
+#+LANGUAGE:  en
+#+OPTIONS: H:3 num:nil toc:nil @:t ::t |:t ^:t -:t f:t *:t <:t 
+#+OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+INFOJS_OPT: view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
+#+EXPORT_SELECT_TAGS: export
+#+EXPORT_EXCLUDE_TAGS: noexport
+#+LINK_UP:
+#+LINK_HOME:
+#+XSLT:
+
+#+BEGIN_HTML
+<p>My girlfriend is really pleased about something: I've become amazingly dilligent at housework during the last few years. The reason is simple:</p>
+
+<p style="text-align: center"><img src="http://thomas.kjeldahlnilsson.net/images/uploads/2008/07/ipodtouch.jpg" alt="iPod Touch picture" /></p>
+
+<p>My mp3 player of choice is the <a href="http://www.apple.com/ipodtouch/" title="iPod Touch link">iPod Touch</a>, which I'm very happy with so far. I carry this thing around with me almost everywhere, every day - and the iPod "killer app" for me is <a href="http://en.wikipedia.org/wiki/Podcasts" title="Wikipedia podcast definition">podcasts</a>. I listen to approx 2hrs of audio every day (to and from work, during housework, before going to sleep).</p>
+
+<p>The two main benefits of podcasts for me are <strong>A)</strong> they let you take in knowledge while you're doing other stuff, and <strong>B)</strong> the format is a good delivery mechanism for smaller nuggets of information than provided by, say, the written book.</p>
+
+<p>Given my appreciation of the format, I often recommend podcasts to friends and collagues. I am however getting a little tired of compiling and emailing podcast recommendations, so in the future I'll just reference this blog post instead.  <strong>So without further ado, some of my favourite podcasts:</strong></p>
+
+<p style="text-align: center"><img src="http://thomas.kjeldahlnilsson.net/images/uploads/2008/07/tedtalks.jpg" alt="TedTalks podcast" /></p>
+<a href="http://www.ted.com/talks" title="Ted Talks podcast link">TedTalks</a> is a collection of speeches from the TED conference, which is held every year in California. The conference features a wide range of excellent speakers on varied topics; science, arts, design, politics, culture, business, global issues, technology, you name it. Each speech (or performance) is anywhere from 5 to 30 minutes long, and most of them are quite interesting. Kudos to <a href="http://www.brodwall.com/johannes/blog/2008/06/29/ben-zander-presentation-with-shining-eyes/" title="Johannes Brodwall blog post">Johannes</a> for helping me discover this one!
+<p style="text-align: center"><img src="http://thomas.kjeldahlnilsson.net/images/uploads/2008/07/bigideas.jpg" alt="Big Ideas podcast" /></p>
+<a href="http://www.tvo.org/TVOsites/WebObjects/TvoMicrosite.woa?bigideas" title="Big Ideas podcast link">Big Ideas</a> has a similar theme; interesting speeches on varied subjects. The format is somewhat different, however; the featured material consists of more typical lectures, ie. standard length of between 45 and 90 minutes.
+<p style="text-align: center"><img src="http://thomas.kjeldahlnilsson.net/images/uploads/2008/07/inourtime.jpg" alt="In Our Time podcast" /></p>
+<a href="http://www.bbc.co.uk/radio4/history/inourtime/" title="In Our Time podcast link">In Our Time</a> is a weekly BBC radio program which focuses on "the history of ideas", as their BBC web page puts it. Every episode highlights some distinct event, idea, period or person in history, which the studio participants then proceed to discuss for around 45 minutes. Melvyn Bragg, the host, creates an atmosphere in which the guests (usually british academics) really enjoy themselves while talking about their fields of expertise.
+<p style="text-align: center"><img src="http://thomas.kjeldahlnilsson.net/images/uploads/2008/07/entrthoughtleaders.jpg" alt="Entrepeneurial Thought Leaders podcast" /></p>
+<a href="http://edcorner.stanford.edu/podcasts.html" title="Entrepenurial Thought Leaders podcast">Entrepeneurial Thought Leaders</a> is a series of lectures from <a href="http://www.stanford.edu/" title="Stanford link">Stanford</a>, dedicated to business, innovation and entrepeneurship. The speakers are usually founders, leaders and venture capitalists from well known american companies/firms. The lectures provide thoughts on starting, growing and running high tech companies. Personally I've found this podcast very useful as a way to get my head into the "entrepeneurial headspace" after I started working at a relatively small and young <a href="http://www.favouritesystems.com" title="Favourite Systems website">company</a> last year.
+<p style="text-align: center"><img src="http://thomas.kjeldahlnilsson.net/images/uploads/2008/07/drunkandretired.jpg" alt="Drunkandretired podcast" /></p>
+Moving along to podcasts on software development, we have <a href="http://www.drunkandretired.com/podcast/" title="Drunkandretired podcast link">DrunkAndRetired</a>. Charles and Cote have discussed, joked, enthused and commiserated about software development for several years now. I like (and usually agree with) their opinions on our industry, and the tone is usually loose and entertaining; the main topic might be programming but expect lots of funny digressions. :)
+<p style="text-align: center"><img src="http://thomas.kjeldahlnilsson.net/images/uploads/2008/07/stackoverflow.jpg" alt="Stackoverflow podcast" /></p>
+Here's another one based on the "two friends chatting" format. Joel Spolsky (of <a href="http://www.joelonsoftware.com" title="Joel On Software link">Joel on Software</a> fame) and Jeff Atwood (of <a href="http://www.codinghorror.com/blog/" title="Coding Horror link">Coding Horror</a> fame) are currently building a developer community site called <a href="http://stackoverflow.com/" title="Stack Overflow link">Stack Overflow</a>. <a href="http://blog.stackoverflow.com/" title="Stack Overflow podcast link">Stack Overflow</a> is also the name of their podcast - they are located on opposite coasts of the United States, so they collaborate over the phone. Every week they record a conversation and publish it as a podcast, with plenty of insight on both business and technology.
+<p style="text-align: center"><img src="http://thomas.kjeldahlnilsson.net/images/uploads/2008/07/hanselminutes.jpg" alt="Hanselminutes podcast" /></p>
+<a href="http://www.hanselminutes.com/" title="Hanselminutes podcast link">Hanselminutes</a> is produced by Scott Hanselmann, a well known online personality in software development. He's employed by Microsoft, so the specific technologies discussed are usually .Net and Windows based. His discussions with the guest do, however, usually unearth useful tech-agnostic ideas as well.
+<p style="text-align: center"><img src="http://thomas.kjeldahlnilsson.net/images/uploads/2008/07/softwareengineeringradio.jpg" alt="Software Engineering Radio podcast" /></p>
+<a href="http://www.se-radio.net/" title="Software Engineering Radio podcast link">Software Engineering Radio</a> is somewhat similar to Hanselminutes - ie. a series of interviews, sometimes with well known members of the software development community. The subjects discussed are things like programming languages, development methods, architectural approaches. Be aware that the producers and hosts are german, which means that while everything is spoken in english, at least one side of the interview often sounds somewhat accented. This isn't a problem for me, but <a href="http://en.wiktionary.org/wiki/your_mileage_may_vary" title="YMMV wikipedia definition">YMMV</a>.
+<p align="center"><img src="http://thomas.kjeldahlnilsson.net/images/uploads/2008/07/1upyours.jpg" alt="1Up Yours podcast" /></p>
+Moving along to video games, <a href="http://www.1up.com/do/minisite?cId=3144909" title="1up Yours podcast link">1Up Yours</a> is one of the better podcasts out there. It's produced weekly by the staff of <a href="http://www.1up.com/" title="1up.com link">1up.com</a>, one of the bigger commercial gaming websites. The discussions cover things like impressions of new games, industry news, and interviews with game developers. I follow this podcast mainly to keep myself updated on cool new games, but I also find I really enjoy their gossip about what is happening in the games industry.
+<p style="text-align: center"><img src="http://thomas.kjeldahlnilsson.net/images/uploads/2008/07/gamerswithjobs.jpg" alt="Gamers With Jobs podcast" /></p>
+The <a href="http://www.gamerswithjobs.com/" title="Gamers With Jobs podcast link">Gamers With Jobs</a> conference call is another weekly roundtable discussion on games. The hosts are active writers in the video game press, and (much like 1up Yours) they discuss game releases and industry news.
+<p style="text-align: center"><img src="http://thomas.kjeldahlnilsson.net/images/uploads/2008/07/thetotallyradshow.jpg" alt="The Totally Rad Show podcast" /></p>
+One of the reasons I really dig <a href="http://www.totallyradshow.com/" title="Totally Rad Show link">The Totally Rad Show</a> is that I can identify with the hosts. They're around my age, and they've grown up enjoying the same nerdy bits of pop culture as me and many of my friends. Every week they sit down in front of a green-screen and talk about "everything rad" - cool new movies, video games, tv shows, comics... you name it. The tone is informal but the episodes are released as quite professionally produced video episodes.
+<p style="text-align: center"><img src="http://thomas.kjeldahlnilsson.net/images/uploads/2008/07/escapepod.jpg" alt="Escape Pod podcast" /></p>
+<a href="http://escapepod.org/" title="Escape Pod link">Escape Pod</a> is a weekly podcast featuring science fiction short stories. Most of the featured authors are widely published authors, and the narrators are usually very engaging. Highly recommended if you enjoy the science fiction genre.
+
+<p><strong>All of the podcasts above are searchable and available for free in the iTunes music store. Go on, run along and fill up your iPod. :)</strong></p>
+
+#+END_HTML
