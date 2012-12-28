@@ -399,7 +399,7 @@ Every 10.0s: offlineimap && echo "Uleste mail: $(find ~/Maildir/Gmail/INBOX/new 
 Unread emails: 1
 #+end_src
 
-** Terminal-snippet: Count unread emails
+** Terminal-snippet: Check inbox contents
 
 Here's a simple way to check on the contents of our inbox at a glance:
 
@@ -419,7 +419,7 @@ into the terminal, and look like this:
 Subject: Get Gmail on your mobile phone
 Subject: Import your contacts and old email
 Subject: Customize Gmail with colors and themes
-#+end_
+#+end_src
 
 Now we can check our inbox. Simple.
 
@@ -540,7 +540,7 @@ The script takes one param: the number of seconds between each update. It's star
 watch-unread-emails 10
 #+end_src
 
-** Shellscript: Count unread emails
+** Shellscript: Check inbox contents
 
 We'll create a script called =display-inbox= to peruse our emails:
 
@@ -696,7 +696,7 @@ This is a bit longer than our original shellscript. However it still
 feels a bit more extendable and readable than the original one-liner
 and shellscript.
 
-** Ruby-script: Count unread emails
+** Ruby-script: Check inbox contents
 
 We only port =display-inbox= to Ruby to stay consistent here: the Ruby
 version of the script simple shells out the same one-liner. I find a
