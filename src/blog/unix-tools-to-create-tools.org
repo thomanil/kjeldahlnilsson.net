@@ -1,0 +1,833 @@
+#+TITLE:     Unix: Tools for creating Tools
+#+EMAIL:     thomas@kjeldahlnilsson.net
+#+DATE:      28.12.2012
+#+DESCRIPTION:
+#+KEYWORDS:
+#+LANGUAGE:  no
+#+OPTIONS: H:3 num:nil toc:t @:t ::t |:t ^:t -:t f:t *:t <:t
+#+OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+INFOJS_OPT: view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
+#+EXPORT_SELECT_TAGS: export
+#+EXPORT_EXCLUDE_TAGS: noexport
+#+LINK_UP:
+#+LINK_HOME:
+#+XSLT:
+
+#+BEGIN_HTML
+<style>
+#content {
+max-width: 700px;
+}
+
+.src {
+font-size: 16px;
+}
+
+code {
+color: #BF47F8;
+}
+
+</style>
+#+END_HTML
+
+#+BEGIN_HTML
+<img src="http://farm3.staticflickr.com/2311/2239102681_bb9ca36abc_z.jpg"/>
+#+END_HTML
+
+/This article is translated from a [[http://blog.kjempekjekt.com/2012/12/24/thomas-lager-verkty-luke-24-2012/][guest post]] originally written for a Norwegian blog/
+
+Blacksmithing fascinates me.
+
+Blacksmiths work with simple, basic tools: furnace, anvil, hammer,
+tong. However: the smith can create more speialized tools on
+demand. As far as I know, no other crafstman can bootstrap their
+process this way...
+
+... *apart from programmers*. Given good fundamental tools we can
+build anything we need to work faster and more efficiently.
+
+This article will go over how Unix environments provide tools for
+building other tools. We'll work on three levels: the bare
+command-line, shellscripting, and Ruby programming.
+
+Note: this text is mainly aimed at programmers not
+comfortable/experienced with Unix and command-line work, but
+Unix/Linux people may pick up a thing or two as well. :)
+
+* The Unix ideals
+
+All developers should embrace --- or at least understand --- the ideals of the Unix tradition.
+Eric S Raymond [[http://www.catb.org/esr/writings/taoup/][summarized those principles like this:]]
+
+#+BEGIN_HTML
+
+<blockquote>
+<em><ol type="1"><li><p><a id="id2873540" class="indexterm">Rule of Modularity: Write simple parts connected by clean interfaces.</a></p></li><li><p><a id="id2873540" class="indexterm">Rule of Clarity: Clarity is better than cleverness.</a></p></li><li><p><a id="id2873540" class="indexterm">Rule of Composition: Design programs to be connected to other programs.</a></p></li><li><p><a id="id2873540" class="indexterm">Rule of Separation: Separate policy from mechanism;
+separate interfaces from engines.</a></p></li><li><p><a id="id2873540" class="indexterm">Rule of Simplicity: Design for simplicity; add
+complexity only where you must.</a></p></li><li><p><a id="id2873540" class="indexterm">Rule of Parsimony: Write a big program only when it is
+clear by demonstration that nothing else will do.</a></p></li><li><p><a id="id2873540" class="indexterm">Rule of Transparency: Design for visibility to make
+inspection and debugging&nbsp;easier.</a></p></li><li><p><a id="id2873540" class="indexterm">Rule of Robustness: Robustness is the child of transparency and simplicity.</a></p></li><li><p><a id="id2873540" class="indexterm">Rule of Representation: Fold knowledge into data so program
+logic can be stupid and robust.</a></p></li><li><p><a id="id2873540" class="indexterm">Rule of Least Surprise: In interface design, always do
+the least surprising thing.</a></p></li><li><p><a id="id2873540" class="indexterm">Rule of Silence: When a program has nothing surprising
+to say, it should say nothing.</a></p></li><li><p><a id="id2873540" class="indexterm">Rule of Repair: When you must fail, fail noisily and
+as soon as possible.</a></p></li><li><p><a id="id2873540" class="indexterm">Rule of Economy: Programmer time is expensive; conserve it in
+preference to machine time.</a></p></li><li><p><a id="id2873540" class="indexterm">Rule of Generation: Avoid hand-hacking; write programs
+to write programs when you can.</a></p></li><li><p><a id="id2873540" class="indexterm">Rule of Optimization: Prototype before polishing. Get it
+working before you optimize it.</a></p></li><li><p><a id="id2873540" class="indexterm">Rule of Diversity: Distrust all claims for
+“one true way”.</a></p></li><li><p><a id="id2873540" class="indexterm">Rule of Extensibility: Design for the future, because
+it will be here sooner than you think.</a></p></li></ol></em>
+</blockquote>
+
+#+END_HTML
+
+Adhering to the principles above will [[http://www.joelonsoftware.com/articles/Biculturalism.html][make you a better developer]] even
+if you don't normally use a Unix-like system.
+
+* Scenario: let's build CLI tools for email management
+
+The best way to assimilate these principles is to practice them
+yourself. Let's create some tools. We're going to get you started by
+using basic Unix tools to build a simple workflow for working with you
+Gmail mailbox from the command-line.
+
+* Infrastruture: installing =offlineimap= and =msmtp=
+
+The basic underlying tools we'll rely on are =offlineimap= (to fetch
+mail) og =msmtp= (to send mail).
+
+When these are installed and configured we'll end up with a =Maildir=
+dir synchronized with our Gmail account via IMAP, plus a simple
+command to send new emails from the command-line. Both tools are
+available for Linux as well as OS X and other flavors of Unix.
+
+*Note:* I've only tested the setup below in Ubuntu --- YMMV in other
+ Unix/Linux flavors.
+
+** offlineimap
+
+In Ubuntu, =offlineimap= installs like this:
+
+#+begin_src shell
+sudo apt-get install offlineimap
+#+end_src
+
+Then we'll create a local =Maildir= dir where we want =offlineimap= to
+store our local copy of our emails:
+
+#+begin_src shell
+mkdir ~/Maildir
+#+end_src
+
+We need to configure =offlineimap=. We'll create =~/.offlineimaprc=,
+and set correct permissions on it:
+
+#+begin_src shell
+touch ~/.offlineimaprc && chmod 600 ~/.offlineimaprc
+#+end_src
+
+Add some configuration:
+
+#+begin_src shell
+[general]
+accounts = gmail
+ui = quiet
+
+[Account gmail]
+localrepository = gmail-local
+remoterepository = gmail-remote
+status_backend = sqlite
+
+[Repository gmail-local]
+type = Maildir
+localfolders = ~/Maildir/Gmail
+
+[Repository gmail-remote]
+type = Gmail
+remoteuser = YOUR_GMAIL_ADDRESS
+remotepass = YOUR_GMAIL_PASSWORD
+
+# Only retrieve the INBOX, no other folders for now
+folderfilter = lambda folder: folder in ['INBOX']
+
+# For now, don't delete remotely when local emails are deleted
+realdelete = no
+#+end_src
+
+Now test your config: Run the =offlineimap= command in your
+terminal. If your config is correct, your Gmail inbox will be synched
+down to =~/Maildir=. *Be patient*: this can take a while if you have a
+lot of unarchived email in the root inbox.
+
+** msmtp
+
+In Ubuntu, install =msmtp= like this:
+
+#+begin_src shell
+sudo apt-get install msmtp
+#+end_src
+
+We'll need config for this as well: create the =~/.msmtprc= file with correct permissions:
+
+#+begin_src shell
+touch ~/.msmtprc && chmod 600 ~/.msmtprc
+#+end_src
+
+Add config (tweak to match your own credentials):
+
+#+begin_src shell
+defaults
+auth on
+tls on
+
+account		gmail
+host		smtp.gmail.com
+port		587
+from		YOUR_GMAIL_ADDRESS
+user		YOUR_GMAIL_ADDRESS
+password	YOUR_GMAIL_PASSWORD
+tls_trust_file	/etc/ssl/certs/ca-certificates.crt
+#+end_src
+
+Test =msmtp= by running the following command in the terminal (replace
+the email address with one of your own):
+
+#+begin_src shell
+ echo 'testing msmtp...' | msmtp -a gmail <RECIPIENT_EMAIL>
+#+end_src
+
+Did everything work? Great, let's continue.
+
+* All you need is dirs, files and strings
+
+After running =offlineimap= we'll end up with =~/MailDir/Gmail=
+containing subdirectories representing the state of your emails and
+labels/folders. Each email is stored as a standard textfile.
+
+The folder structure will resemble this:
+
+#+begin_src shell
+Maildir/
+└── Gmail
+    └── INBOX
+        ├── cur
+        │   └── 1352560840_1.25056.localhost,U=2,FMD5=7e33429f656f1e6e9d79b29c3f82c57e:2,S
+        ├── new
+        │   ├── 1352560840_0.25056.localhost,U=1,FMD5=7e33429f656f1e6e9d79b29c3f82c57e:2,
+        │   └── 1352560841_0.25056.localhost,U=3,FMD5=7e33429f656f1e6e9d79b29c3f82c57e:2,
+        └── tmp
+#+end_src
+
+The filenames are kinda cryptic --- =offlineimap= uses filenames to
+encode some metadata about each email: unique ids, checksums,
+etc. Files under =cur= folders are read emails, while unread emails
+are found under =new=.
+
+The state of your local mailbox is synchronized with Gmail on each
+=offlineimap= execution. For example: by moving an email from a =new=
+to =cur= dir and synchronizing, that email will be marked as read in
+the remote Gmail account.
+
+The contents of an email file can look something like this:
+
+#+begin_src shell
+MIME-Version: 1.0
+Received: by 10.112.4.227; Sat, 10 Nov 2012 07:18:48 -0800 (PST)
+Date: Sat, 10 Nov 2012 07:18:48 -0800
+Message-ID: <CABQd01N+VFn89guaFCcBu+x=rJudno+yarZPZF1=CqWDz=sQnw@mail.gmail.com>
+Subject: Import your contacts and old email
+From: Gmail Team <mail-noreply@google.com>
+To: Kensei Test Account <kensei.test@gmail.com>
+Content-Type: multipart/alternative; boundary=00151748de9ec3315804ce259570
+
+--00151748de9ec3315804ce259570
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: quoted-printable
+
+You can import your contacts and mail from Yahoo!, Hotmail, AOL, and many
+other web mail or POP accounts. If you want, we'll even keep importing your
+mail for the next 30 days.
+     Import contacts and mail
+=BB<https://mail.google.com/mail/#settings/accounts>
+
+We know it can be a pain to switch email accounts, and we hope this makes
+the transition to Gmail a bit easier.
+
+- The Gmail Team
+
+Please note that importing is not available if you're using Internet
+Explorer 6.0. To take advantage of the latest Gmail features, please upgrad=
+e
+to a fully supported
+browser<http://support.google.com/mail/bin/answer.py?answer=3D6557&hl=3Den&=
+utm_source=3Dwel-eml&utm_medium=3Deml&utm_campaign=3Den>
+.
+
+--00151748de9ec3315804ce259570
+Content-Type: text/html; charset=ISO-8859-1
+
+<html>
+<font face="Arial, Helvetica, sans-serif">
+<p>You can import your contacts and mail from Yahoo!, Hotmail, AOL, and many
+other web mail or POP accounts. If you want, we'll even keep importing your
+mail for the next 30 days.</p>
+
+<table cellpadding="0" cellspacing="0">
+<col style="width: 1px" /><col /><col style="width: 1px" />
+<tr>
+  <td></td>
+  <td height="1px" style="background-color: #ddd"></td>
+  <td></td>
+</tr>
+<tr>
+  <td style="background-color: #ddd"></td>
+  <td background="https://mail.google.com/mail/images/welcome-button-background.png"
+      style="background-color: #ddd; background-repeat: repeat-x"
+    ><a href="https://mail.google.com/mail/#settings/accounts"
+        style="font-weight: bold; color: #000; text-decoration: none; display: block; padding: 0.5em 1em"
+      >Import contacts and mail &#187;</a></td>
+  <td style="background-color: #ddd"></td>
+</tr>
+<tr>
+  <td></td>
+  <td height="1px" style="background-color: #ddd"></td>
+  <td></td>
+</tr>
+</table>
+
+<p>We know it can be a pain to switch email accounts, and we hope this makes
+the transition to Gmail a bit easier.</p>
+
+<p>- The Gmail Team</p>
+
+<p><font size="-2" color="#999">Please note that importing is not available if
+you're using Internet Explorer 6.0. To take advantage of the latest Gmail
+features, please
+<a href="http://support.google.com/mail/bin/answer.py?answer=6557&hl=en&utm_source=wel-eml&utm_medium=eml&utm_campaign=en"><font color="#999">
+upgrade to a fully supported browser</font></a>.</font></p>
+
+</font>
+</html>
+
+--00151748de9ec3315804ce259570--
+#+end_src
+
+** Why is this useful?
+
+Since our mailbox is represented by standard directories, files and
+strings, we'll be able to use simple Unix tools to read and manipulate
+emails from the command-line. We're ready to start playing with our
+toolbox!
+
+* "In The Beginning was the Command Line"
+
+Unix tools follow some common conventions to receive and pass along data.
+
+Programs run on the command-line take data in on the =STDIN= stream,
+and spit results out on the =STDOUT= stream (exceptions/errors are
+directed to a different stream: =STDERR=). The output can either end
+up directly in your terminal, or be redirected as input to other
+programs.
+
+Given these common conventions we can combine programs: by chaining
+multiple commands with the =|= (/pipe/) operator , we can let data
+flow through them sequentialle as in a water pipe --- we build new
+tools by creating /pipelines/ of other, simpler tools.
+
+For example: I wrote this line last week to find all likely synch
+conflicts in my Dropbox folder:
+
+#+begin_src shell
+find ~/Dropbox | grep conflicted
+#+end_src
+
+The =find= command lists all files, recursively, below the named
+dir. The files/paths are output as multiple lines, one for each path,
+and then piped to grep which will act as a filter and only pass along
+the ones with 'conflict' somewhere in them. The result ends up in my
+terminal, giving me a list of likely conflicted files to deal with.
+
+Now there are more optimal ways to perform this task, but the point is
+that it only took seconds to create this automation.
+
+Now, let's build some command-line tools for ourselves.
+
+** Terminal-snippet: Send an email
+
+Denne har du kanskje allerede kjørt for å teste at =msmtp= fungerer.
+
+#+begin_src shell
+echo 'Dette er body i en mail jeg sender fra terminalen' | msmtp -a gmail 'dinadresse@gmail.com'
+#+end_src
+
+=echo= skriver ut den påfølgende teksten til =STDOUT=. Hvis den står
+for seg selv så får vi teksten tilbake ut i terminalen. Her piper vi
+istedet teksten til =msmtp=, som bruker teksten den får inn på =STDIN=
+til som body i en ny mail.
+
+** Terminal-snippet: Count unread emails
+
+Følgende linje teller hvor mange uleste email vi har.
+
+#+begin_src shell
+find ~/Maildir/Gmail/INBOX/new -type f | wc -l
+#+end_src
+
+We find all files in the =new= folder (only files, not directories),
+and use =wc= to count how many hits we got. I think just dumping the
+number is a bit terse, so let's add a human readable label:
+
+#+begin_src shell
+echo "Unread emails: $(find ~/Maildir/Gmail/INBOX/new -type f | wc -l)"
+#+end_src
+
+At this point we've got all we need to create a simple CLI-based
+widget to display our unread email count. We can do it by opening a
+terminal, and entering this command:
+
+#+begin_src shell
+watch -n10 'offlineimap && echo "Unread emails: $(find ~/Maildir/Gmail/INBOX/new -type f | wc -l)"'
+#+end_src
+
+=watch= will execute the subsequent script every tenth second ---
+synch our email, then dump out the current unread count.
+
+We get constantly updated CLI "widget" that looks like this:
+
+#+begin_src shell
+Every 10.0s: offlineimap && echo "Uleste mail: $(find ~/Maildir/Gmail/INBOX/new -type f | wc -l)"          Fri Nov 30 21:14:11 2012
+
+Unread emails: 1
+#+end_src
+
+** Terminal-snippet: Count unread emails
+
+Here's a simple way to check on the contents of our inbox at a glance:
+
+#+begin_src shell
+grep -Rh ^Subject: ~/Maildir/Gmail/INBOX
+#+end_src
+
+We search recursively in our inbox for occurrences of /<Line starts>
+Subject:/. The h param makes grep only output the line, not the name
+of the email file.
+
+This should match once in every email. The matching lines are spit out
+into the terminal, and look like this:
+
+#+begin_src shell
+➜  ~  grep -Rh ^Subject:  ~/Maildir/Gmail/INBOX
+Subject: Get Gmail on your mobile phone
+Subject: Import your contacts and old email
+Subject: Customize Gmail with colors and themes
+#+end_
+
+Now we can check our inbox. Simple.
+
+** Terminal-snippet: Read an email
+
+We should also be able to read a specific email. The following
+oneliner lets you dump out the contents of mail no. /N/ from the top
+of the list above.
+
+This one is a bit more complicated:
+
+#+begin_src shell
+find ~/Maildir/Gmail/INBOX -type f | sed -n 2p | xargs cat
+#+end_src
+
+We find all files recursively in our inbox. We pluck out the /nth/
+line in that list (in this case number two), and pass that single
+filepath along to =cat=, which dumps out the contents of the file.
+
+These commands work just fine, but aren't super readable and easy to
+recollect on demand. It's time to reach for shell-scripting to
+simplify and reuse.
+
+** Aside: ta vare på småting du lærer og bygger
+
+I have trouble remembering useful snippets the first time I use
+them. The following tricks help, though:
+
+- You can search backwards in your terminal history by pushing
+  =Ctrl-r=. Subsequent typing will display the first matching entry in
+  your history. Push arrow up to cycle backwards through other
+  candidates in your history. Note that this works best if you set
+  your terminal to preserve a lot, or all, of your history between
+  sessions.
+
+- Personal "cheat-sheets". I've got an [[http://orgmode.org/][orgmode-file]] where I store
+  handy one-liners, tools, snippets etc that I encounter, either
+  during work, from articles and books as well as colleagues. I'm not
+  great at retaining stuff the first time, so I like to come back and
+  refresh or rediscover stuff later on.
+
+- Define aliases in your shell environment. If you use =Bash=, create
+  or update =~/.bashrc= with lines like this:
+
+#+begin_src shell
+alias helloworld="echo 'hello world'"
+#+end_src
+
+When you reload your environment you can use this alias like any other
+command. For instance, we could simplify one of our one-liners above:
+
+#+begin_src shell
+alias inbox="grep -Rh ^Subject: ~/Maildir/Gmail/INBOX"
+#+end_src
+
+This makes checking our inbox somewhat simpler:
+
+#+begin_src shell
+➜  ~  innboks
+Subject: Get Gmail on your mobile phone
+Subject: Import your contacts and old email
+Subject: Customize Gmail with colors and themes
+#+end_src
+
+* When one-liners don't suffice, shell-scripting takes over
+
+We'll get to a point where we need more actual *programming to get
+things done.  In other words: variables, conditionals, loops and last
+but not least: the ability to spread our logic over multiple lines of
+code.
+
+Let's turn our email tools into bash scripts. That way we can make
+them available as shorter commands that take parameters.
+
+By the way, the code that follows is [[https://github.com/thomanil/unixToolBlogCode][available for download]].
+
+** Shellscript: Send an email
+
+We'll create a script called =send-email=, which takes the recipient email
+and mail body as parameters.
+
+#+begin_src shell
+#!/bin/sh
+
+RECIPIENT=$1
+TEXT=$2
+echo $TEXT | msmtp -a gmail $RECIPIENT
+#+end_src
+
+The very first line is a /shebang/ which tells the system how to
+execute the script (in this, run it as a shellscript). $1, $2 etc are
+variables bound to the inbound parameters. To make extra clear we
+assign them to explict variable names before executing the same
+command as above to send the actual email.
+
+If you put this script file in your PATH you can run it from anywhere like this:
+
+#+begin_src shell
+send-email EMAIL_ADDRESS "Sent from a tiny shellscript"
+#+end_src
+
+A bit more user friendly than the original one-liner, don't you think?
+
+** Shellscript: Count unread emails
+
+We'll port our "unread count widget" to a script called =watch-unread-emails=, which looks like this:
+
+#+begin_src shell
+#!/bin/sh
+
+POLLING_INTERVAL=$1
+watch -n$POLLING_INTERVAL 'offlineimap && echo "Unread emails: $(find ~/Maildir/Gmail/INBOX/new -type f | wc -l)"'
+#+end_src
+
+The script takes one param: the number of seconds between each update. It's started like this:
+
+#+begin_src shell
+watch-unread-emails 10
+#+end_src
+
+** Shellscript: Count unread emails
+
+We'll create a script called =display-inbox= to peruse our emails:
+
+#+begin_src shell
+#!/bin/sh
+
+grep -Rh ^Subject: ~/Maildir/Gmail/INBOX
+#+end_src
+
+This is the exact same pipeline that we wrote above --- only a bit
+more accessible since we don't have to remember that grep
+expression. We can simply run it like this now:
+
+#+begin_src shell
+display-inbox
+#+end_src
+
+** Shellscript: Read an email
+
+Our original one-liner to read a certain email was fairly complex, so
+let's hide that complexity as well:
+
+#+begin_src shell
+#!/bin/sh
+
+MAIL_NUMBER=$1
+SED_COMMAND=$(printf "sed -n %sp" $MAIL_NUMBER)
+find ~/Maildir/Gmail/INBOX -type f | $SED_COMMAND | xargs cat
+#+end_src
+
+The script takes "mail no. N from the top of your inbox" as an
+argument. We construct the =sed= command separately to make it more
+readable.
+
+Now we can read an email like this:
+
+#+begin_src shell
+read-email 2
+#+end_src
+
+Better, methinks.
+
+** Aside: make scripting simple for yourself
+
+Make the threshold for writing new scripts as low as possible, and
+you'll end up writing more of them. That way you can't help but mold
+and improve your personal workflow/environment over time.
+
+Here's two steps that will help with that:
+
+- Create a dir in your HOMEDIR, something like =~/bin= eller
+  =~/scripts=.  Put this dir in your PATH, making your scripts
+  available throughout your environment. Bonus points: create a =git=
+  repo of the script directory to give you version control of your
+  scripts. Also, if you work across several machines, synch your
+  scripts between them using Dropbox or a scheduled =rsync= operation.
+
+- Create a program that makes it super simple to create new
+  scripts. Below you'll find my =~/script/generatescript= bash
+  script. It'll take the name of the new scripts as its argument,
+  create it in the script directory (with executable permission set),
+  and fire up my standard editor to let me start working on it right
+  away.
+
+#+begin_src shell
+#!/bin/sh
+
+SCRIPTPATH=~/scripts/$1
+echo '#!/bin/sh
+# Generated, add code here
+' >> $SCRIPTPATH
+
+touch $SCRIPTPATH
+chmod a+x $SCRIPTPATH
+$EDITOR $SCRIPTPATH
+#+end_src
+
+* When shell-scripting becomes too ugly, lovely Ruby says hello
+
+Perl was born because Larry Wall thought raw shell-scripting was too
+primitive and limiting. Later on we got additional languages like
+Ruby, Python and Groovy, directly inspired by Perl. Unix scripting got
+a whole lot more comfortable.
+
+We'll rewrite our commands to Ruby. This provides two benefits: more
+readable and extendable scripts and access to tons of external
+libraries (for example, we can use a Rubygem called =mail= to parse
+email).
+
+** Ruby-script: Send an email
+
+We'll rewrite our =send-email= bash-script to Ruby:
+
+#+begin_src ruby
+#!/usr/bin/env ruby
+
+if ARGV.length != 2
+  puts "Usage: send-email TO_ADDRESS EMAIL_BODY"
+  exit 1
+end
+
+recipient = ARGV[0]
+text = ARGV[1]
+puts `echo #{text} | msmtp -a gmail #{recipient}`
+#+end_src
+
+We now start with a different shebang to make the system run the file
+using the Ruby interpreter.
+
+We also add a validaton of the number of paramters. CLI arguments to a
+Ruby program are placed in a constant, global array called =ARGV=. If
+the script is called with the wrong number of arguments we dump out a
+usage text and immediately exit with an error signal.
+
+The actual exectuion of the =msmtp= we just shell out to the
+underlying system. This is the charm of using Ruby and other such
+languages for scripting: we can choose to call out to the underlying
+system at any time. This way, we can choose how much to lean on
+standard Unix tools versus the libraries and frameworks of the
+programming language.
+
+** Ruby-script: Count unread emails
+
+Next up: =watch-unread-emails=.
+
+#+begin_src ruby
+#!/usr/bin/env ruby
+
+if ARGV.length != 1
+  puts "Usage: watch-unread-emails POLLING_INTERVAL_SECONDS"
+  exit 1
+end
+
+polling_interval = ARGV[0].to_i
+
+while true
+  new_mail_dir = File.expand_path("~/Maildir/Gmail/INBOX/new/*")
+  unread_count = Dir[new_mail_dir].count { |file| File.file?(file) }
+  puts `clear && offlineimap`
+  puts "Unread emails: #{unread_count}"
+  sleep polling_interval
+end
+#+end_src
+
+Instead of leaning on =watch=, we implement the same logic directly in
+Ruby: output unread count each nth second.
+
+On each loop we clear our terminal of content and synch our email,
+then wait N seconds before we do it again. The actual unread count we
+find by using the Ruby File and Dir APIs.
+
+This is a bit longer than our original shellscript. However it still
+feels a bit more extendable and readable than the original one-liner
+and shellscript.
+
+** Ruby-script: Count unread emails
+
+We only port =display-inbox= to Ruby to stay consistent here: the Ruby
+version of the script simple shells out the same one-liner. I find a
+single line of =grep= perfectly readable, and it makes a point: Ruby
+can at times be a very thin wrapper around regular shellscripting.
+
+#+begin_src ruby
+#!/usr/bin/env ruby
+
+puts `grep -Rh ^Subject: ~/Maildir/Gmail/INBOX`
+#+end_src
+
+** Ruby-script: Read an email
+
+Finally we port =read-email= to Ruby.
+
+#+begin_src ruby
+#!/usr/bin/env ruby
+
+if ARGV.length != 1
+  puts "Usage: read-email EMAIL_NO"
+  exit 1
+end
+
+#depends on the 'mail' gem, install like this: gem install mail
+require 'mail'
+
+maildir = File.expand_path("~/Maildir/Gmail/INBOX")
+all_email_filepaths = Dir["#{maildir}/**/*"].select { |f| File.file?(f) }
+mail_number = (ARGV[0].to_i)-1
+mail_path = all_email_filepaths[mail_number]
+mail = Mail.read(mail_path)
+puts mail.text_part
+#+end_src
+
+We use Ruby file apis to find the path with the /nth/ mail. Then we
+lean on an external Ruby library (a so-called /gem/) called [[https://github.com/mikel/mail][Mail]] to
+parse the email. Finally we dump the email to html to =STDOUT=, which
+leaves us with this:
+
+#+begin_src shell
+<html>
+<font face="Arial, Helvetica, sans-serif">
+<p>You can import your contacts and mail from Yahoo!, Hotmail, AOL, and many
+other web mail or POP accounts. If you want, we'll even keep importing your
+mail for the next 30 days.</p>
+
+<table cellpadding="0" cellspacing="0">
+<col style="width: 1px" /><col /><col style="width: 1px" />
+<tr>
+  <td></td>
+  <td height="1px" style="background-color: #ddd"></td>
+  <td></td>
+</tr>
+<tr>
+  <td style="background-color: #ddd"></td>
+  <td background="https://mail.google.com/mail/images/welcome-button-background.png"
+      style="background-color: #ddd; background-repeat: repeat-x"
+    ><a href="https://mail.google.com/mail/#settings/accounts"
+        style="font-weight: bold; color: #000; text-decoration: none; display: block; padding: 0.5em 1em"
+      >Import contacts and mail &#187;</a></td>
+  <td style="background-color: #ddd"></td>
+</tr>
+<tr>
+  <td></td>
+  <td height="1px" style="background-color: #ddd"></td>
+  <td></td>
+</tr>
+</table>
+
+<p>We know it can be a pain to switch email accounts, and we hope this makes
+the transition to Gmail a bit easier.</p>
+
+<p>- The Gmail Team</p>
+
+<p><font size="-2" color="#999">Please note that importing is not available if
+you're using Internet Explorer 6.0. To take advantage of the latest Gmail
+features, please
+<a href="http://support.google.com/mail/bin/answer.py?answer=6557&hl=en&utm_source=wel-eml&utm_medium=eml&utm_campaign=en"><font color="#999">
+upgrade to a fully supported browser</font></a>.</font></p>
+
+</font>
+</html>
+
+#+end_src
+
+Raw html code isn't super readable, but perhaps we can read it in Firefox?
+
+#+begin_src shell
+read-email 2 > email.html && firefox email.html
+#+end_src
+
+** Aside: shellscripting or higher level languages?
+
+Should you stick to the simplest tools possible, or should you always
+jump straight to the highest abstraction level in your toolbox?
+
+While you *can* build anything given a Turing-complete language ---
+see this [[http://www.youtube.com/watch?v=JCqVT2htppA&noredirect=1][this implementation of Tetris in =sed=]] --- it's nice to step
+up to more expressive languages as needed.
+
+The advantage of modern scripting-languages like Ruby and Python is
+less arcane syntax, and tons of useful libraries and DSLs. Modern
+scripting languages are also more portable than raw shell-scripting --- enabling you to support Windows as well. For example: by using the
+Ruby File API you'll abstract away the difference between path
+separators, filesystem commands etc between Linux and Windows.
+
+An downside of modern scripting languages is that they introduce
+additonal dependencies: if you stick to standard shell-scripting and
+basic Unix tools, your script can function in very minimal systems
+without installing external packages.
+
+I often start out writing small tools by starting with a few simple
+commands in the terminal. As soon as the script becomes a bit unvieldy
+I switch to Ruby instead.
+
+* Build or not?
+
+When you accumulate new building blocks like this, you see ever more
+solutions to problems. It's tempting to just build anything you need
+yourself. But: just because you *can* do so, it might not be a great
+idea. We have to pick our battles. Sometimes the more pragmatic path
+is to just pick an off-shelf, suboptimal, proprietary tool... /that
+actually gets the job done right now/.
+
+It depends - think before you jump!
+
+* References
+
+- [[http://www.cryptonomicon.com/beginning.html][In The Beginning was the Command Line]]
+- [[http://www.joelonsoftware.com/articles/Biculturalism.html][Joel on Software: Biculturalism]]
+- [[http://www.catb.org/esr/writings/taoup/][The Art of Unix Programming]]
+- [[http://pragprog.com/book/dccar/build-awesome-command-line-applications-in-ruby][Build Awesome Command-Line Applications in Ruby]]
+- [[http://www.amazon.com/Unix-Power-Tools-100-ebook/dp/B0043EWUT8/ref=tmm_kin_title_0?ie=UTF8&qid=1354366446&sr=8-1][Unix Power Tools]]
