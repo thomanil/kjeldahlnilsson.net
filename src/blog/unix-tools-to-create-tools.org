@@ -34,13 +34,18 @@ color: #BF47F8;
 <img src="http://farm3.staticflickr.com/2311/2239102681_bb9ca36abc_z.jpg"/>
 #+END_HTML
 
-/This article is translated from a [[http://blog.kjempekjekt.com/2012/12/24/thomas-lager-verkty-luke-24-2012/][guest post]] originally written for a Norwegian blog/
+
+#+BEGIN_HTML
+<p>
+<em>This article is translated from a <a href="http://blog.kjempekjekt.com/2012/12/24/thomas-lager-verkty-luke-24-2012/">guest post</a> originally written for a Norwegian programming blog.</em>
+</p>
+#+END_HTML
 
 Blacksmithing fascinates me.
 
 Blacksmiths work with simple, basic tools: furnace, anvil, hammer,
-tong. However: the smith can create more speialized tools on
-demand. As far as I know, no other crafstman can bootstrap their
+tong. However: the smith can create more specialized tools as
+needed. To my knowledge, no other craftsman can bootstrap their
 process this way...
 
 ... *apart from programmers*. Given good fundamental tools we can
@@ -52,7 +57,8 @@ command-line, shellscripting, and Ruby programming.
 
 Note: this text is mainly aimed at programmers not
 comfortable/experienced with Unix and command-line work, but
-Unix/Linux people may pick up a thing or two as well. :)
+programmers more experienced with Unix/Linux may pick up a thing or
+two as well.
 
 * The Unix ideals
 
@@ -86,14 +92,13 @@ if you don't normally use a Unix-like system.
 * Scenario: let's build CLI tools for email management
 
 The best way to assimilate these principles is to practice them
-yourself. Let's create some tools. We're going to get you started by
-using basic Unix tools to build a simple workflow for working with you
-Gmail mailbox from the command-line.
+yourself. Let's create some tools. We're going to use basic Unix tools
+to build the beginnings of a CLI workflow for your Gmail mailbox.
 
-* Infrastruture: installing =offlineimap= and =msmtp=
+* Infrastructure: installing =offlineimap= and =msmtp=
 
 The basic underlying tools we'll rely on are =offlineimap= (to fetch
-mail) og =msmtp= (to send mail).
+mail) and =msmtp= (to send mail).
 
 When these are installed and configured we'll end up with a =Maildir=
 dir synchronized with our Gmail account via IMAP, plus a simple
@@ -329,8 +334,8 @@ up directly in your terminal, or be redirected as input to other
 programs.
 
 Given these common conventions we can combine programs: by chaining
-multiple commands with the =|= (/pipe/) operator , we can let data
-flow through them sequentialle as in a water pipe --- we build new
+multiple commands with the =|= (/pipe/) operator, we can let data
+flow through them sequentially as in a water pipe --- we build new
 tools by creating /pipelines/ of other, simpler tools.
 
 For example: I wrote this line last week to find all likely synch
@@ -346,27 +351,26 @@ and then piped to grep which will act as a filter and only pass along
 the ones with 'conflict' somewhere in them. The result ends up in my
 terminal, giving me a list of likely conflicted files to deal with.
 
-Now there are more optimal ways to perform this task, but the point is
-that it only took seconds to create this automation.
+There are more optimal ways to perform this task but this works, and
+it only took a few seconds to bang out this automation.
 
-Now, let's build some command-line tools for ourselves.
+Now, let's build some command-line tools.
 
 ** Terminal-snippet: Send an email
 
-Denne har du kanskje allerede kjørt for å teste at =msmtp= fungerer.
+This is the line we ran to verify that email sending worked after installing =msmtp= above:
 
 #+begin_src shell
-echo 'Dette er body i en mail jeg sender fra terminalen' | msmtp -a gmail 'dinadresse@gmail.com'
+echo 'Sent from the terminal' | msmtp -a gmail TO_ADDRESS
 #+end_src
 
-=echo= skriver ut den påfølgende teksten til =STDOUT=. Hvis den står
-for seg selv så får vi teksten tilbake ut i terminalen. Her piper vi
-istedet teksten til =msmtp=, som bruker teksten den får inn på =STDIN=
-til som body i en ny mail.
+=echo= dumps the following text to =STDERR=. On its own, this will
+print the text to the terminal. We instead pipe it to =msmtp=, which
+receives the mail body on =STDIN=.
 
 ** Terminal-snippet: Count unread emails
 
-Følgende linje teller hvor mange uleste email vi har.
+This one-liner counts unread emails:
 
 #+begin_src shell
 find ~/Maildir/Gmail/INBOX/new -type f | wc -l
@@ -388,13 +392,12 @@ terminal, and entering this command:
 watch -n10 'offlineimap && echo "Unread emails: $(find ~/Maildir/Gmail/INBOX/new -type f | wc -l)"'
 #+end_src
 
-=watch= will execute the subsequent script every tenth second ---
-synch our email, then dump out the current unread count.
+=watch= will execute the subsequent script every tenth second --- synch our email, then dump out the current unread count.
 
 We get constantly updated CLI "widget" that looks like this:
 
 #+begin_src shell
-Every 10.0s: offlineimap && echo "Uleste mail: $(find ~/Maildir/Gmail/INBOX/new -type f | wc -l)"          Fri Nov 30 21:14:11 2012
+Every 10.0s: offlineimap && echo "Unread mail: $(find ~/Maildir/Gmail/INBOX/new -type f | wc -l)"          Fri Nov 30 21:14:11 2012
 
 Unread emails: 1
 #+end_src
@@ -426,7 +429,7 @@ Now we can check our inbox. Simple.
 ** Terminal-snippet: Read an email
 
 We should also be able to read a specific email. The following
-oneliner lets you dump out the contents of mail no. /N/ from the top
+one-liner lets you dump out the contents of mail no. /N/ from the top
 of the list above.
 
 This one is a bit more complicated:
@@ -439,21 +442,21 @@ We find all files recursively in our inbox. We pluck out the /nth/
 line in that list (in this case number two), and pass that single
 filepath along to =cat=, which dumps out the contents of the file.
 
-These commands work just fine, but aren't super readable and easy to
-recollect on demand. It's time to reach for shell-scripting to
-simplify and reuse.
+These commands work just fine, but aren't super-readable or easy to
+recollect. It's time to reach for shell-scripting to
+simplify and reuse things.
 
-** Aside: ta vare på småting du lærer og bygger
+** Aside: preserve small things learned and built
 
 I have trouble remembering useful snippets the first time I use
 them. The following tricks help, though:
 
-- You can search backwards in your terminal history by pushing
-  =Ctrl-r=. Subsequent typing will display the first matching entry in
-  your history. Push arrow up to cycle backwards through other
-  candidates in your history. Note that this works best if you set
-  your terminal to preserve a lot, or all, of your history between
-  sessions.
+- You can search backwards in your terminal history by entering
+  =Ctrl-r= in your terminal. Subsequent typing will display the first
+  matching entry in your history. Push arrow up to cycle backwards
+  through other candidates in your history. Note that this works best
+  if you set your terminal to preserve a lot, or all, of your history
+  between sessions.
 
 - Personal "cheat-sheets". I've got an [[http://orgmode.org/][orgmode-file]] where I store
   handy one-liners, tools, snippets etc that I encounter, either
@@ -478,7 +481,7 @@ alias inbox="grep -Rh ^Subject: ~/Maildir/Gmail/INBOX"
 This makes checking our inbox somewhat simpler:
 
 #+begin_src shell
-➜  ~  innboks
+➜  ~  inbox
 Subject: Get Gmail on your mobile phone
 Subject: Import your contacts and old email
 Subject: Customize Gmail with colors and themes
@@ -486,7 +489,7 @@ Subject: Customize Gmail with colors and themes
 
 * When one-liners don't suffice, shell-scripting takes over
 
-We'll get to a point where we need more actual *programming to get
+We'll get to a point where we need more actual *programming* to get
 things done.  In other words: variables, conditionals, loops and last
 but not least: the ability to spread our logic over multiple lines of
 code.
@@ -511,9 +514,9 @@ echo $TEXT | msmtp -a gmail $RECIPIENT
 
 The very first line is a /shebang/ which tells the system how to
 execute the script (in this, run it as a shellscript). $1, $2 etc are
-variables bound to the inbound parameters. To make extra clear we
-assign them to explict variable names before executing the same
-command as above to send the actual email.
+variables bound to the inbound parameters. To be extra clear, we
+assign them to explicit variable names before executing the same
+command as above to send the email.
 
 If you put this script file in your PATH you can run it from anywhere like this:
 
@@ -581,9 +584,9 @@ Now we can read an email like this:
 read-email 2
 #+end_src
 
-Better, methinks.
+Better, yes?
 
-** Aside: make scripting simple for yourself
+** Aside: how to script early and often
 
 Make the threshold for writing new scripts as low as possible, and
 you'll end up writing more of them. That way you can't help but mold
@@ -591,12 +594,12 @@ and improve your personal workflow/environment over time.
 
 Here's two steps that will help with that:
 
-- Create a dir in your HOMEDIR, something like =~/bin= eller
-  =~/scripts=.  Put this dir in your PATH, making your scripts
-  available throughout your environment. Bonus points: create a =git=
-  repo of the script directory to give you version control of your
-  scripts. Also, if you work across several machines, synch your
-  scripts between them using Dropbox or a scheduled =rsync= operation.
+- Create a dir in your HOMEDIR, something like =~/bin= or =~/scripts=.
+  Put this dir in your PATH, making your scripts available throughout
+  your environment. Bonus points: create a =git= repo of the script
+  directory to give you version control of your scripts. Also, if you
+  work across several machines, synch your scripts between them using
+  Dropbox or a scheduled =rsync= operation.
 
 - Create a program that makes it super simple to create new
   scripts. Below you'll find my =~/script/generatescript= bash
@@ -650,12 +653,12 @@ puts `echo #{text} | msmtp -a gmail #{recipient}`
 We now start with a different shebang to make the system run the file
 using the Ruby interpreter.
 
-We also add a validaton of the number of paramters. CLI arguments to a
+We also add a validation of the number of parameters. CLI arguments to a
 Ruby program are placed in a constant, global array called =ARGV=. If
 the script is called with the wrong number of arguments we dump out a
 usage text and immediately exit with an error signal.
 
-The actual exectuion of the =msmtp= we just shell out to the
+The actual execution of the =msmtp= we just shell out to the
 underlying system. This is the charm of using Ruby and other such
 languages for scripting: we can choose to call out to the underlying
 system at any time. This way, we can choose how much to lean on
@@ -690,7 +693,7 @@ Ruby: output unread count each nth second.
 
 On each loop we clear our terminal of content and synch our email,
 then wait N seconds before we do it again. The actual unread count we
-find by using the Ruby File and Dir APIs.
+find by using the Ruby File and Dir apis.
 
 This is a bit longer than our original shellscript. However it still
 feels a bit more extendable and readable than the original one-liner
@@ -701,7 +704,7 @@ and shellscript.
 We only port =display-inbox= to Ruby to stay consistent here: the Ruby
 version of the script simple shells out the same one-liner. I find a
 single line of =grep= perfectly readable, and it makes a point: Ruby
-can at times be a very thin wrapper around regular shellscripting.
+can at times be a very thin wrapper around regular shell-scripting.
 
 #+begin_src ruby
 #!/usr/bin/env ruby
@@ -792,10 +795,9 @@ read-email 2 > email.html && firefox email.html
 ** Aside: shellscripting or higher level languages?
 
 Should you stick to the simplest tools possible, or should you always
-jump straight to the highest abstraction level in your toolbox?
+jump straight to the highest available abstraction level?
 
-While you *can* build anything given a Turing-complete language ---
-see this [[http://www.youtube.com/watch?v=JCqVT2htppA&noredirect=1][this implementation of Tetris in =sed=]] --- it's nice to step
+While you *can* build anything given a Turing-complete language --- see this [[http://www.youtube.com/watch?v=JCqVT2htppA&noredirect=1][this implementation of Tetris in =sed=]] --- it's nice to step
 up to more expressive languages as needed.
 
 The advantage of modern scripting-languages like Ruby and Python is
@@ -805,22 +807,22 @@ Ruby File API you'll abstract away the difference between path
 separators, filesystem commands etc between Linux and Windows.
 
 An downside of modern scripting languages is that they introduce
-additonal dependencies: if you stick to standard shell-scripting and
+additional dependencies: if you stick to standard shell-scripting and
 basic Unix tools, your script can function in very minimal systems
 without installing external packages.
 
-I often start out writing small tools by starting with a few simple
-commands in the terminal. As soon as the script becomes a bit unvieldy
-I switch to Ruby instead.
+I often start on small tools with a simple shellscript automation in the
+terminal. As soon as the script becomes a unwieldy I switch to Ruby
+instead.
 
 * Build or not?
 
 When you accumulate new building blocks like this, you see ever more
 solutions to problems. It's tempting to just build anything you need
-yourself. But: just because you *can* do so, it might not be a great
-idea. We have to pick our battles. Sometimes the more pragmatic path
-is to just pick an off-shelf, suboptimal, proprietary tool... /that
-actually gets the job done right now/.
+yourself. But: just because you *can* do so doesn't make it a good
+idea. We have to pick our battles. Sometimes the pragmatic choice is
+to pick an off-shelf, suboptimal, proprietary tool... /that actually
+gets the job done right today/.
 
 It depends - think before you jump!
 
