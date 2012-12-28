@@ -55,19 +55,19 @@ end
 def transform_orgfiles
   # export orgfiles to html
   `emacs --batch -l html-export.el`
-    
+
   blog_posts = []
   Dir.glob("tmp/*.html").each do |exported_html_path|
     html_file =  File.read(exported_html_path)
     doc = Nokogiri::HTML(html_file)
     title = doc.css("title").text
     published = doc.xpath("//meta[@name='generated']").attribute("content").text
-    published_rfc_3339 = Time.parse(published).xmlschema
     body = doc.css("#content").to_html # Just grabbing the content div, drop the rest
     body = "<span id='date'>#{published}</span><hr/>"+body
     filename = File.basename(exported_html_path)
 
     if published != "unpublished"
+      published_rfc_3339 = Time.parse(published).xmlschema
       blog_posts << {:title => title,
         :published => published,
         :published_rfc_3339 => published_rfc_3339,
@@ -81,10 +81,10 @@ end
 
 def generate_blog
   blog_posts = transform_orgfiles
-  
+
   archive_links = ""
   atom_entries = ""
-  
+
   blog_posts.each_with_index do |post, i|
     name = post[:filename]
     title = post[:title]
@@ -102,7 +102,7 @@ def generate_blog
     File.open("site/#{name}", "w+") do |f|
       f.write(layouted(body))
     end
-    
+
     if i == 0 # The first/most recent post is also index.html of site
       File.open("site/index.html", "w+") do |f|
         f.write(layouted(body))
@@ -115,7 +115,7 @@ def generate_blog
     # Add Atom feed entry
     atom_entries += atom_entry(title, body, name, published_rfc_3339)
   end
-  
+
   # Write out the archive page
   archive = "<div id='anav'>#{archive_links}</div>"
   File.open("site/archive.html", "w+") do |f|

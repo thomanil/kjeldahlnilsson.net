@@ -20,6 +20,15 @@ max-width: 700px;
 }
 
 .src {
+color: white;
+background-color: black;
+}
+
+img {
+max-width: 600px;
+}
+
+.src {
 font-size: 16px;
 }
 
