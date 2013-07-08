@@ -1,0 +1,121 @@
+
+# HOWTO: set up a fresh centos server to host my static sites
+
+#Install nginx
+yum install -y nginx
+
+
+#Add /etc/yum.repos.d/nginx.repo
+[nginx]
+name=nginx repo
+baseurl=http://nginx.org/packages/centos/$releasever/$basearch/
+gpgcheck=0
+enabled=1
+
+#Setup dir
+mkdir -p /var/www/kjeldahlnilsson.net
+mkdir -p /var/www/findinglines.net
+
+#Add in the http section in /etc/nginx/nginx.conf:
+server_names_hash_bucket_size   64;
+
+#Setup first file to serve
+echo "WAT" >> /var/www/kjeldahlnilsson.net/index.html
+
+
+#Update /etc/nginx/conf.d/default.conf with the following body:
+
+server {
+    listen       80;
+    server_name  www.kjeldahlnilsson.net kjeldahlnilsson.net;
+
+    charset utf-8;
+    #access_log  /var/log/nginx/log/host.access.log  main;
+
+    location / {
+        root   /var/www/kjeldahlnilsson.net;
+        index  index.html index.htm;
+    }
+
+    error_page  404              /404.html;
+
+    # redirect server error pages to the static page /50x.html
+    #
+    error_page   500 502 503 504  /50x.html;
+    location = /50x.html {
+        root   /usr/share/nginx/html;
+    }
+
+    # proxy the PHP scripts to Apache listening on 127.0.0.1:80
+    #
+    #location ~ \.php$ {
+    #    proxy_pass   http://127.0.0.1;
+    #}
+
+    # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
+    #
+    #location ~ \.php$ {
+    #    root           html;
+    #    fastcgi_pass   127.0.0.1:9000;
+    #    fastcgi_index  index.php;
+    #    fastcgi_param  SCRIPT_FILENAME  /scripts$fastcgi_script_name;
+    #    include        fastcgi_params;
+    #}
+
+    # deny access to .htaccess files, if Apache's document root
+    # concurs with nginx's one
+    #
+    #location ~ /\.ht {
+    #    deny  all;
+    #}
+}
+
+
+server {
+    listen       80;
+    server_name  www.findinglines.net findinglines.net;
+
+    charset utf-8;
+    #access_log  /var/log/nginx/log/host.access.log  main;
+
+    location / {
+        root   /var/www/findinglines.net;
+        index  index.html index.htm;
+    }
+
+    error_page  404              /404.html;
+
+    # redirect server error pages to the static page /50x.html
+    #
+    error_page   500 502 503 504  /50x.html;
+    location = /50x.html {
+	root   /usr/share/nginx/html;
+    }
+    # proxy the PHP scripts to Apache listening on 127.0.0.1:80
+    #
+    #location ~ \.php$ {
+    #    proxy_pass   http://127.0.0.1;
+    #}
+
+    # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
+    #
+    #location ~ \.php$ {
+    #    root           html;
+    #    fastcgi_pass   127.0.0.1:9000;
+    #    fastcgi_index  index.php;
+    #    fastcgi_param  SCRIPT_FILENAME  /scripts$fastcgi_script_name;
+    #    include        fastcgi_params;
+    #}
+
+    # deny access to .htaccess files, if Apache's document root
+    # concurs with nginx's one
+    #
+    #location ~ /\.ht {
+    #    deny  all;
+    #}
+}
+
+
+# Finally restart nginx:
+service nginx stop
+service nginx start
