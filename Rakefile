@@ -21,7 +21,7 @@ end
 
 desc "Deploy to my site"
 task :deploy do
-  puts `rsync -arl site/ ninjasti@ninjastic.net:~/public_html/thomas`
+  puts `rsync -arl site/ root@88.198.105.197:/var/www/kjeldahlnilsson.net/`
 end
 
 def prepare_folders_and_assets
