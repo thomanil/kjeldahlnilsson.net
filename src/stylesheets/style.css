@@ -33,7 +33,7 @@ a:visited {
     color: plum;
 }
 
-a:hover { 
+a:hover {
     text-decoration: none;
 }
 
@@ -79,7 +79,7 @@ a:hover {
     margin-top: 50px;
     margin-left: 220px;
     margin-right: 150px;
-    margin-bottom: 50px;
+    margin-bottom: 80px;
     width: 600px;
     font-weight: strong;
     font-size: 1.4em;
@@ -96,7 +96,7 @@ a:hover {
     padding-bottom: 60px;
 }
 
-#foot {	
+#foot {
     background-color: white;
     clear: left;
     color: grey;
@@ -109,6 +109,10 @@ a:hover {
 
 #date, hr {
     color: gray;
+}
+
+#content {
+    margin-top: 50px;
 }
 
 #content ul li {

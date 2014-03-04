@@ -1,9 +1,20 @@
 
-# HOWTO: set up a fresh centos server to host my static sites
+# HOWTO: set up a fresh centos server to host my static sites (+irc and other serverside tools)
+
+
+# Install Epel
+wget http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
+wget http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
+sudo rpm -Uvh remi-release-6*.rpm epel-release-6*.rpm
+
+# Update yum
+yum update
+
+# Install Byobu
+yum install -y byobu
 
 #Install nginx
 yum install -y nginx
-
 
 #Add /etc/yum.repos.d/nginx.repo
 [nginx]
@@ -12,8 +23,9 @@ baseurl=http://nginx.org/packages/centos/$releasever/$basearch/
 gpgcheck=0
 enabled=1
 
-#Setup dir
+#Setup served dirs
 mkdir -p /var/www/kjeldahlnilsson.net
+mkdir -p /var/www/kjeldahlnilsson.net/shared
 mkdir -p /var/www/findinglines.net
 
 #Add in the http section in /etc/nginx/nginx.conf:
