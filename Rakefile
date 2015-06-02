@@ -2,6 +2,7 @@
 require 'rake'
 require 'time'
 require 'nokogiri'
+require 'org-ruby'
 
 task :default => [:generate, :deploy]
 
@@ -25,12 +26,12 @@ task :deploy do
 end
 
 def prepare_folders_and_assets
-  `mkdir -p site`
-  `mkdir -p tmp`
-  `rsync -r src/images site`
-  `rsync -r src/stylesheets site`
-  `rsync -r src/javascript site`
-  `echo "ErrorDocument 404 /404.html" > site/.htaccess`
+  puts `mkdir -p site`
+  puts `mkdir -p tmp`
+  puts `rsync -r src/images site`
+  puts `rsync -r src/stylesheets site`
+  puts `rsync -r src/javascript site`
+  puts `echo "ErrorDocument 404 /404.html" > site/.htaccess`
 end
 
 def layouted(content)
@@ -52,27 +53,30 @@ def generate_main_pages
   end
 end
 
-def transform_orgfiles
-  # export orgfiles to html
-  `emacs --batch -l html-export.el`
 
+def transform_orgfiles
   blog_posts = []
-  Dir.glob("tmp/*.html").each do |exported_html_path|
-    html_file =  File.read(exported_html_path)
-    doc = Nokogiri::HTML(html_file)
-    title = doc.css("title").text
-    published = doc.xpath("//meta[@name='generated']").attribute("content").text
-    body = doc.css("#content").to_html # Just grabbing the content div, drop the rest
-    body = "<span id='date'>#{published}</span><hr/>"+body
-    filename = File.basename(exported_html_path)
+
+  Dir.glob("./src/blog/*.org").each do |exported_orgfile_path|
+
+    org_body = File.read(exported_orgfile_path)
+    filebody = Orgmode::Parser.new(org_body).to_html
+
+    html_filename = File.basename(exported_orgfile_path)
+    lines = File.readlines(exported_orgfile_path)
+
+    title = lines.select { |name| name[/#[+]TITLE/i] }[0].gsub("#+TITLE:","").strip
+    published = lines.select { |name| name[/#[+]DATE/i] }[0].gsub("#+DATE:","").strip
+    filebody = "<span id='date'>#{published}</span><hr/>"+filebody
 
     if published != "unpublished"
       published_rfc_3339 = Time.parse(published).xmlschema
       blog_posts << {:title => title,
-        :published => published,
-        :published_rfc_3339 => published_rfc_3339,
-        :body => body,
-        :filename => filename}
+                     :body => filebody,
+                     :filename => html_filename,
+                     :published => published,
+                     :published_rfc_3339 => published_rfc_3339
+      }
     end
   end
 
@@ -129,7 +133,7 @@ def generate_blog
   end
 
   # Tidy away the workdir
-  `rm -rf tmp`
+  puts `rm -rf tmp`
 end
 
 def atom_feed(entries)
