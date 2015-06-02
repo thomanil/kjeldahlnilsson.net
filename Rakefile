@@ -64,7 +64,7 @@ def transform_orgfiles
     org_body = File.read(exported_orgfile_path)
     filebody = Orgmode::Parser.new(org_body).to_html
 
-    html_filename = File.basename(exported_orgfile_path)
+    html_filename = File.basename(exported_orgfile_path).gsub(".org",".html")
     lines = File.readlines(exported_orgfile_path)
 
     title = lines.select { |name| name[/#[+]TITLE/i] }[0].gsub("#+TITLE:","").strip
