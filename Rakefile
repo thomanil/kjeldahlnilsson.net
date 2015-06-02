@@ -22,10 +22,12 @@ end
 
 desc "Deploy to my site"
 task :deploy do
-  puts `rsync -arl site/ root@88.198.105.197:/var/www/kjeldahlnilsson.net/`
+  puts "Deploying..."
+  puts `rsync -arl site/ root@kjeldahlnilsson.net:/var/www/kjeldahlnilsson.net/`
 end
 
 def prepare_folders_and_assets
+  puts "Preparing folders and assets..."
   puts `mkdir -p site`
   puts `mkdir -p tmp`
   puts `rsync -r src/images site`
@@ -84,11 +86,13 @@ def transform_orgfiles
 end
 
 def generate_blog
+  puts "Transforming orgfiles into html content..."
   blog_posts = transform_orgfiles
 
   archive_links = ""
   atom_entries = ""
 
+  puts "Generating html pages..."
   blog_posts.each_with_index do |post, i|
     name = post[:filename]
     title = post[:title]
@@ -120,19 +124,19 @@ def generate_blog
     atom_entries += atom_entry(title, body, name, published_rfc_3339)
   end
 
-  # Write out the archive page
+  puts "Generating the archive page..."
   archive = "<div id='anav'>#{archive_links}</div>"
   File.open("site/archive.html", "w+") do |f|
     f.write(layouted(archive))
   end
 
-  # Generate atom feed
+  puts "Generating atom feed..."
   feed = atom_feed(atom_entries)
   File.open("site/atom.xml", "w+") do |f|
     f.write(feed)
   end
 
-  # Tidy away the workdir
+  puts "Cleaning up tmp workdir..."
   puts `rm -rf tmp`
 end
 
