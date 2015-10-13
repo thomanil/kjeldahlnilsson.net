@@ -111,11 +111,15 @@ def generate_blog
       f.write(layouted(body))
     end
 
-    if i == 0 # The first/most recent post is also index.html of site
-      File.open("site/index.html", "w+") do |f|
-        f.write(layouted(body))
-      end
-    end
+    #if i == 0 # The first/most recent post is also index.html of site
+    #  File.open("site/index.html", "w+") do |f|
+    #    f.write(layouted(body))
+    #  end
+    #end
+
+    # Use services page as index page
+    FileUtils.cp 'site/services.html', 'site/index.html'
+
 
     # Link to it from archive page as well
     archive_links += "<a href='#{name}'>#{published} #{title}</a><br/>"
