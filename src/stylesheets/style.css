@@ -138,6 +138,10 @@ blockquote {
     font-size: 150%;
 }
 
+.time {
+    color: purple;
+}
+
 
 /* Mobile version overrides*/
 @media only screen and (max-width: 800px){
