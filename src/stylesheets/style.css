@@ -119,8 +119,40 @@ a:hover {
 
 /* Mobile version overrides*/
 @media only screen and (max-width: 759px){
-    body {
-	background-color: green;
+
+    #head, h1 {
+	padding: 0 0 0 0;
+	width: 100%;
+	font-weight: strong;
+	font-size: 120%;
+	text-align: right;
+    }
+
+    #head {
+	height: auto;
+	margin: 20px 0 0 auto;
+    }
+
+
+    #navbar, #navbar > ul {
+	list-style-type: none;
+	position: relative;
+	float: none;
+	text-align: left;
+	margin: 20px 0 0 auto;
+	padding: 0 0 0 0;
+	display: block;
+	text-align: right;
+    }
+
+    #main {
+	width: 100%;
+	margin: 20px 1em 0 auto;
+	padding: 0 0 0 0;
+    }
+
+    #foot {
+	display:none;
     }
 
 }
