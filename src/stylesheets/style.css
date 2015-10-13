@@ -122,15 +122,14 @@ blockquote {
 .contact-button a{
     background: purple;
     color: white;
-    padding: 20 20 20 20;
     text-decoration: none;
 }
 
-.contact-button{
+.contact-button {
     background: purple;
     padding: 10px 10px 10px 10px;
-    display:table;
-    margin:0 auto;
+    display: table;
+    margin: 0 auto;
 }
 
 .contact-button a{
