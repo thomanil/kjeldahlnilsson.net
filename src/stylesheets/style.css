@@ -33,6 +33,10 @@ a:hover {
     opacity: 0.4;
 }
 
+blockquote {
+    color: gray;
+}
+
 #navbar {
     height: auto;
     color: black;
@@ -115,6 +119,25 @@ a:hover {
     margin-bottom: 15px;
 }
 
+.contact-button a{
+    background: purple;
+    color: white;
+    padding: 20 20 20 20;
+    text-decoration: none;
+}
+
+.contact-button{
+    background: purple;
+    padding: 10px 10px 10px 10px;
+    display:table;
+    margin:0 auto;
+}
+
+.contact-button a{
+    color: white;
+    text-decoration: none;
+    font-size: 150%;
+}
 
 
 /* Mobile version overrides*/
