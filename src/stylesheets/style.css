@@ -138,6 +138,11 @@ blockquote {
     font-size: 150%;
 }
 
+#cv-download-link {
+    display:block;
+    text-align:center
+}
+
 .time {
     color: purple;
 }
