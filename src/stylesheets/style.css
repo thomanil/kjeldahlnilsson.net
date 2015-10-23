@@ -147,6 +147,11 @@ blockquote {
     color: purple;
 }
 
+blockquote {
+    font-size: 130%;
+    font-weight: bold;
+}
+
 
 /* Mobile version overrides*/
 @media only screen and (max-width: 800px){
