@@ -3,8 +3,13 @@ body {
     font-family: sans-serif;
 }
 
-h1 {
+h1, h2 {
     font-family: georgia;
+    font-size: 170%;
+}
+
+h2 {
+    font-size: 130%;
 }
 
 .left {
@@ -15,7 +20,7 @@ h1 {
     float: right;
 }
 
-p {
+p, li {
     line-height: 1.5;
 }
 
