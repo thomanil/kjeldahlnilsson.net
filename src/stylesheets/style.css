@@ -3,13 +3,20 @@ body {
     font-family: sans-serif;
 }
 
-h1, h2 {
+h1, h2, h3 {
     font-family: georgia;
-    font-size: 170%;
+}
+
+h1 {
+    font-size: 180%;
 }
 
 h2 {
-    font-size: 130%;
+    font-size: 150%;
+}
+
+h3 {
+    font-size: 120%;
 }
 
 .left {
