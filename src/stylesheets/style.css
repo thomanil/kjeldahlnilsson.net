@@ -175,13 +175,10 @@ blockquote {
 	text-align: right;
     }
 
-    h1 {
-	font-size: 120%;
-    }
-
     #head {
 	height: auto;
 	margin: 20px 0 0 auto;
+	font-size: 80%;
     }
 
     #navbar, #navbar > ul {
@@ -208,6 +205,10 @@ blockquote {
     img {
 	width: 100%;
 	max-width: none !important;
+    }
+
+    #navbar a:link {
+	font-size: 130%;
     }
 
 
