@@ -96,6 +96,11 @@ blockquote {
     font-size: 1.4em;
 }
 
+#head, #head > h1 {
+    font-family: sans-serif;
+    font-weight: bold;
+}
+
 #main {
     background-color: white;
     background-position: right bottom;
@@ -171,14 +176,15 @@ blockquote {
     #head, #head > h1 {
 	padding: 0 0 0 0;
 	width: 100%;
-	font-weight: strong;
+	font-weight: bold;
+	font-size: 130%;
 	text-align: right;
+	font-family: sans-serif;
     }
 
     #head {
 	height: auto;
 	margin: 20px 0 0 auto;
-	font-size: 80%;
     }
 
     #navbar, #navbar > ul {
@@ -190,6 +196,10 @@ blockquote {
 	padding: 0 0 0 0;
 	display: block;
 	text-align: right;
+    }
+
+    #navbar a:link {
+	font-size: 130%;
     }
 
     #main {
@@ -207,9 +217,6 @@ blockquote {
 	max-width: none !important;
     }
 
-    #navbar a:link {
-	font-size: 130%;
-    }
 
 
 
