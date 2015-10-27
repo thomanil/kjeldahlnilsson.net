@@ -9,6 +9,7 @@ GEM
       rubypants (~> 0.2)
     rake (10.4.2)
     rubypants (0.2.0)
+    sass (3.2.19)
 
 PLATFORMS
   java
@@ -18,3 +19,4 @@ DEPENDENCIES
   nokogiri
   org-ruby
   rake
+  sass

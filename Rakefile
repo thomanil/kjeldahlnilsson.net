@@ -9,8 +9,6 @@ task :default => [:generate, :deploy]
 desc "Wipe the previously generated site"
 task :clean do
   `rm -rf site`
-  `rm -rf tmp`
-  `rm -rf ~/.org-timestamps` # Or org-publish will deem things unmodified and do nothing
 end
 
 desc "Generate from source"
@@ -29,10 +27,13 @@ end
 def prepare_folders_and_assets
   puts "Preparing folders and assets..."
   puts `mkdir -p site`
-  puts `mkdir -p tmp`
   puts `rsync -r src/images site`
-  puts `rsync -r src/stylesheets site`
   puts `rsync -r src/javascript site`
+
+
+  puts `bundle exec sass src/stylesheets/style.scss src/stylesheets/style.css`
+  puts `rsync -r src/stylesheets site`
+
   puts `echo "ErrorDocument 404 /404.html" > site/.htaccess`
 end
 
@@ -140,8 +141,6 @@ def generate_blog
     f.write(feed)
   end
 
-  puts "Cleaning up tmp workdir..."
-  puts `rm -rf tmp`
 end
 
 def atom_feed(entries)
