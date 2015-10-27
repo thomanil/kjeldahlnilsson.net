@@ -3,11 +3,11 @@ $serif-font: georgia, serif;
 
 body {
   background-color: white;
-  font: $sans-serif-font;
+  font-family: $sans-serif-font;
 }
 
 h1, h2, h3 {
-  font: $serif-font;
+  font-family: $serif-font;
 }
 
 h1 {
@@ -72,6 +72,7 @@ blockquote {
     color: gray;
     text-decoration: none;
     font-weight: bold;
+    font-family: $sans-serif-font;
 }
 
 #anav {
@@ -96,7 +97,8 @@ blockquote {
     font-size: 1.4em;
 }
 
-#head, #head > h1 {
+#nameHeader {
+  font-family: $sans-serif-font;
   font-weight: bold;
 }
 
@@ -171,18 +173,18 @@ blockquote {
 /* Mobile version overrides*/
 @media only screen and (max-width: 800px){
 
-    #head, #head > h1 {
-        padding: 0 0 0 0;
-        width: 100%;
-        font-weight: bold;
-        font-size: 130%;
-        text-align: right;
-        font: $sans-serif-font;
-    }
+   #nameHeader {
+             font-weight: bold;
+             font-size: 130%;
+             text-align: right;
+             font-family: $sans-serif-font;
+     }
 
     #head {
-        height: auto;
-        margin: 20px 0 0 auto;
+      padding: 0 0 0 0;
+      width: 100%;
+      height: auto;
+      margin: 20px 0 0 auto;
     }
 
     #navbar, #navbar > ul {

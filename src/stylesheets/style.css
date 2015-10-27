@@ -1,9 +1,9 @@
 body {
   background-color: white;
-  font-family: sans-serif; }
+  font-family: Helvetica, sans-serif; }
 
 h1, h2, h3 {
-  font-family: georgia; }
+  font-family: georgia, serif; }
 
 h1 {
   font-size: 180%; }
@@ -54,7 +54,8 @@ blockquote {
 #navbar a:link, #navbar a:visited {
   color: gray;
   text-decoration: none;
-  font-weight: bold; }
+  font-weight: bold;
+  font-family: Helvetica, sans-serif; }
 
 #anav {
   margin-top: 50px; }
@@ -75,8 +76,8 @@ blockquote {
   font-weight: strong;
   font-size: 1.4em; }
 
-#head, #head > h1 {
-  font-family: sans-serif;
+#nameHeader {
+  font-family: Helvetica, sans-serif;
   font-weight: bold; }
 
 #main {
@@ -137,15 +138,15 @@ blockquote {
 
 /* Mobile version overrides*/
 @media only screen and (max-width: 800px) {
-  #head, #head > h1 {
-    padding: 0 0 0 0;
-    width: 100%;
+  #nameHeader {
     font-weight: bold;
     font-size: 130%;
     text-align: right;
-    font-family: sans-serif; }
+    font-family: Helvetica, sans-serif; }
 
   #head {
+    padding: 0 0 0 0;
+    width: 100%;
     height: auto;
     margin: 20px 0 0 auto; }
 
