@@ -33,6 +33,8 @@ def prepare_folders_and_assets
 
   puts `bundle exec sass src/stylesheets/style.scss src/stylesheets/style.css`
   puts `rsync -r src/stylesheets site`
+  puts `rm -r src/stylesheets/style.css`
+
 
   puts `echo "ErrorDocument 404 /404.html" > site/.htaccess`
 end
