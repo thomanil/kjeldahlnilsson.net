@@ -33,7 +33,6 @@ p, li {
 
 a:link {
     color: darkorchid;
-
 }
 
 a:visited {
@@ -52,7 +51,6 @@ blockquote {
 #navbar {
     height: auto;
     color: black;
-    background-color: white;
     background-repeat: no-repeat;
     float: left;
     position: relative;
@@ -83,7 +81,6 @@ blockquote {
 }
 
 #head {
-    background-color: white;
     color: purple;
     clear: left;
     height: 64px;
@@ -102,7 +99,6 @@ blockquote {
 }
 
 #main {
-    background-color: white;
     background-position: right bottom;
     background-repeat: no-repeat;
     height: auto;
@@ -136,17 +132,17 @@ blockquote {
     margin-bottom: 15px;
 }
 
-.contact-button a{
-    background: purple;
-    color: white;
-    text-decoration: none;
-}
-
 .contact-button {
     background: purple;
     padding: 10px 10px 10px 10px;
     display: table;
     margin: 0 auto;
+}
+
+.contact-button a{
+    background: purple;
+    color: white;
+    text-decoration: none;
 }
 
 .contact-button a{

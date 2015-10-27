@@ -39,7 +39,6 @@ blockquote {
 #navbar {
   height: auto;
   color: black;
-  background-color: white;
   background-repeat: no-repeat;
   float: left;
   position: relative;
@@ -65,7 +64,6 @@ blockquote {
   text-decoration: none; }
 
 #head {
-  background-color: white;
   color: purple;
   clear: left;
   height: 64px;
@@ -82,7 +80,6 @@ blockquote {
   font-weight: bold; }
 
 #main {
-  background-color: white;
   background-position: right bottom;
   background-repeat: no-repeat;
   height: auto;
@@ -111,16 +108,16 @@ blockquote {
   margin-top: 15px;
   margin-bottom: 15px; }
 
-.contact-button a {
-  background: purple;
-  color: white;
-  text-decoration: none; }
-
 .contact-button {
   background: purple;
   padding: 10px 10px 10px 10px;
   display: table;
   margin: 0 auto; }
+
+.contact-button a {
+  background: purple;
+  color: white;
+  text-decoration: none; }
 
 .contact-button a {
   color: white;
