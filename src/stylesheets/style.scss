@@ -47,9 +47,6 @@ a:hover {
     opacity: 0.4;
 }
 
-blockquote {
-    color: gray;
-}
 
 #navbar {
     height: auto;
@@ -61,11 +58,11 @@ blockquote {
     padding-right: 40px;
     text-align: right;
     font-size: 130%;
-}
 
-#navbar ul {
-    list-style-type: none;
-    margin-top: 0px;
+    ul {
+      list-style-type: none;
+      margin-top: 0px;
+      }
 }
 
 #navbar a:link, #navbar a:visited {
@@ -77,11 +74,11 @@ blockquote {
 
 #anav {
     margin-top: 50px;
-}
 
-#anav a:link, #anav a:visited{
+    a:link, a:visited{
     color: gray;
     text-decoration: none;
+    }
 }
 
 #head {
@@ -129,11 +126,11 @@ blockquote {
 
 #content {
     margin-top: 50px;
-}
 
-#content ul li {
-    margin-top: 15px;
-    margin-bottom: 15px;
+    ul li {
+      margin-top: 15px;
+      margin-bottom: 15px;
+      }
 }
 
 .contact-button {
@@ -145,11 +142,6 @@ blockquote {
 
 .contact-button a{
     background: purple;
-    color: white;
-    text-decoration: none;
-}
-
-.contact-button a{
     color: white;
     text-decoration: none;
     font-size: 150%;
@@ -167,6 +159,7 @@ blockquote {
 blockquote {
     font-size: 130%;
     font-weight: bold;
+    color: gray;
 }
 
 
@@ -178,7 +171,7 @@ blockquote {
              font-size: 130%;
              text-align: right;
              font-family: $sans-serif-font;
-     }
+   }
 
     #head {
       padding: 0 0 0 0;
@@ -216,8 +209,5 @@ blockquote {
         width: 100%;
         max-width: none !important;
     }
-
-
-
 
 }
